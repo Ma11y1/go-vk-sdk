@@ -27,6 +27,8 @@ type Request interface {
 // BaseRequest VK api methods (except for methods from the secure and ads sections) with a user access key can be accessed no more than 3 times per second.
 // The Community Access key is limited to 20 requests per second. If your application logic involves calling several methods in a row, it makes sense to pay attention to the execute method.
 // It allows you to make up to 25 calls to different methods within one request.
+//
+//	Is thread safe so that it can be reused rather than creating a new request object for each request
 type BaseRequest struct {
 	mtx        sync.RWMutex
 	url        string
