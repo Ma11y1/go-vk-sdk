@@ -18,7 +18,7 @@ func (e *AuthDirectError) Error() string {
 }
 
 type AuthCodeFlowError struct {
-	Type        string `json:"errors"`
+	Type        string `json:"error"`
 	Reason      string `json:"error_reason,omitempty"`
 	Description string `json:"error_description,omitempty"`
 }

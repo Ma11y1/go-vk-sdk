@@ -6,7 +6,6 @@ const (
 	HostRu                      string = "api.vk.ru"
 	MethodEndpoint              string = "https://api.vk.com/method/"
 	AuthEndpoint                string = "https://oauth.vk.com/"
-	AuthRedirectURI             string = "https://oauth.vk.com/blank.html"
 	AuthVKIDEndpoint            string = "https://id.vk.com/"
 	AuthDirectMethod            string = "token"
 	AuthAuthorizeMethod         string = "authorize"

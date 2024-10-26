@@ -48,10 +48,10 @@ func (a *AuthUserCodeFlowResponse) UnmarshalJSON(data []byte) error {
 		return nil
 	}
 
-	var directError errors.AuthCodeFlowError
-	err = json.Unmarshal(data, &directError)
-	if err == nil && directError.Type != "" {
-		a.Error = &directError
+	var codeFlowError errors.AuthCodeFlowError
+	err = json.Unmarshal(data, &codeFlowError)
+	if err == nil && codeFlowError.Type != "" {
+		a.Error = &codeFlowError
 		return nil
 	}
 

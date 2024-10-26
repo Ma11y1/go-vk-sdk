@@ -27,8 +27,12 @@ type BaseParameters struct {
 	urlValuesEncode string      // cache
 }
 
-func NewBaseRequestParameters(m map[string]string) *BaseParameters {
-	p := &BaseParameters{data: make(map[string]string), urlValues: nil}
+func NewBaseRequestParameters() *BaseParameters {
+	return &BaseParameters{mtx: sync.RWMutex{}, data: make(map[string]string), urlValues: nil}
+}
+
+func NewBaseRequestParametersMap(m map[string]string) *BaseParameters {
+	p := &BaseParameters{mtx: sync.RWMutex{}, data: make(map[string]string), urlValues: nil}
 	err := p.SetMap(m)
 	if err != nil {
 		panic(err)
@@ -37,7 +41,7 @@ func NewBaseRequestParameters(m map[string]string) *BaseParameters {
 }
 
 func NewBaseRequestParametersArr(arr []string) *BaseParameters {
-	p := &BaseParameters{data: make(map[string]string), urlValues: nil}
+	p := &BaseParameters{mtx: sync.RWMutex{}, data: make(map[string]string), urlValues: nil}
 	err := p.SetArr(arr)
 	if err != nil {
 		panic(err)
@@ -138,7 +142,7 @@ func (p *BaseParameters) Clear() {
 
 func (p *BaseParameters) Clone() Parameters {
 	p.mtx.RLock()
-	clone := NewBaseRequestParameters(p.data)
+	clone := NewBaseRequestParametersMap(p.data)
 	p.mtx.RUnlock()
 	return clone
 }

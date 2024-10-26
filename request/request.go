@@ -43,7 +43,7 @@ func NewAuthBaseRequest(api *api.API, method string) *BaseRequest {
 			"Content-EventType": []string{constants.ContentTypeFormURLEncoded},
 			"Accept-Encoding":   []string{constants.AcceptEncodingGzip},
 		},
-		parameters: &BaseParameters{},
+		parameters: NewBaseRequestParameters(),
 	}
 
 	r.Version(api.Version)
@@ -60,7 +60,7 @@ func NewMethodBaseRequest(api *api.API, actor actor.Actor, method string) *BaseR
 			"Content-EventType": []string{constants.ContentTypeFormURLEncoded},
 			"Accept-Encoding":   []string{constants.AcceptEncodingGzip},
 		},
-		parameters: &BaseParameters{},
+		parameters: NewBaseRequestParameters(),
 	}
 
 	r.AccessToken(actor.GetAccessToken())
@@ -75,7 +75,7 @@ func NewUploadBaseRequest(api *api.API, actor actor.Actor) *BaseRequest {
 		url:        "",
 		transport:  api.Client,
 		header:     &http.Header{},
-		parameters: &BaseParameters{},
+		parameters: NewBaseRequestParameters(),
 	}
 
 	r.AccessToken(actor.GetAccessToken())

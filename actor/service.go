@@ -4,13 +4,11 @@ type Service struct {
 	AccessToken string `json:"access_token"`
 }
 
-func NewService(accessToken string) *Service {
-	return &Service{
-		AccessToken: accessToken,
-	}
+func (*Service) GetType() Type {
+	return ServiceType
 }
 
-func (s *Service) GetID() int {
+func (*Service) GetID() int {
 	return -1
 }
 

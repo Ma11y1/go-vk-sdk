@@ -1,6 +1,6 @@
 package actor
 
-type JWTVkIDTokenData struct {
+type JWTVKIDTokenData struct {
 	Host     string // 'iis': 'VK'
 	UserID   int    // 'sub': 000000000
 	ClientID int    // 'app': 51812311
