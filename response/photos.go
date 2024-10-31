@@ -91,7 +91,7 @@ type PhotosGetAllResponse struct {
 	Response struct {
 		Count int                                `json:"count"` // Total number
 		Items []objects.PhotosPhotoXtrRealOffset `json:"items"`
-		More  objects.NumberFlagBool             `json:"more"` // Information whether next page is presented
+		More  objects.BoolInt                    `json:"more"` // Information whether next page is presented
 	} `json:"response"`
 }
 
@@ -100,7 +100,7 @@ type PhotosGetAllExtendedResponse struct {
 	Response struct {
 		Count int                                    `json:"count"` // Total number
 		Items []objects.PhotosPhotoFullXtrRealOffset `json:"items"`
-		More  objects.NumberFlagBool                 `json:"more"` // Information whether next page is presented
+		More  objects.BoolInt                        `json:"more"` // Information whether next page is presented
 	} `json:"response"`
 }
 

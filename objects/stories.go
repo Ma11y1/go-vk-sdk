@@ -27,10 +27,10 @@ type StoriesNarrativeInfo struct {
 }
 
 type StoriesPromoBlock struct {
-	Name        string         `json:"name"`
-	Photo50     string         `json:"photo_50"`
-	Photo100    string         `json:"photo_100"`
-	NotAnimated NumberFlagBool `json:"not_animated"`
+	Name        string  `json:"name"`
+	Photo50     string  `json:"photo_50"`
+	Photo100    string  `json:"photo_100"`
+	NotAnimated BoolInt `json:"not_animated"`
 }
 
 type StoriesStoryLink struct {
@@ -65,50 +65,50 @@ type StoriesStoryStatsStat struct {
 }
 
 type StoriesStory struct {
-	AccessKey string         `json:"access_key"` // Access key for private objects.
-	ExpiresAt int            `json:"expires_at"` // Story expiration time. Unixtime.
-	CanHide   NumberFlagBool `json:"can_hide"`
+	AccessKey string  `json:"access_key"` // Access key for private objects.
+	ExpiresAt int     `json:"expires_at"` // Story expiration time. Unixtime.
+	CanHide   BoolInt `json:"can_hide"`
 	// Information whether story has question sticker and current user can send question to the author
-	CanAsk NumberFlagBool `json:"can_ask"`
+	CanAsk BoolInt `json:"can_ask"`
 	// Information whether story has question sticker and current user can send anonymous question to the author
-	CanAskAnonymous NumberFlagBool `json:"can_ask_anonymous"`
+	CanAskAnonymous BoolInt `json:"can_ask_anonymous"`
 
 	// Information whether current user can comment the story (0 - no, 1 - yes).
-	CanComment NumberFlagBool `json:"can_comment"`
+	CanComment BoolInt `json:"can_comment"`
 
 	// Information whether current user can reply to the story
 	// (0 - no, 1 - yes).
-	CanReply NumberFlagBool `json:"can_reply"`
+	CanReply BoolInt `json:"can_reply"`
 
 	// Information whether current user can see the story (0 - no, 1 - yes).
-	CanSee NumberFlagBool `json:"can_see"`
+	CanSee BoolInt `json:"can_see"`
 
 	// Information whether current user can share the story (0 - no, 1 - yes).
-	CanShare NumberFlagBool `json:"can_share"`
+	CanShare BoolInt `json:"can_share"`
 
 	// Information whether the story is deleted (false - no, true - yes).
-	IsDeleted NumberFlagBool `json:"is_deleted"`
+	IsDeleted BoolInt `json:"is_deleted"`
 
 	// Information whether the story is expired (false - no, true - yes).
-	IsExpired NumberFlagBool `json:"is_expired"`
+	IsExpired BoolInt `json:"is_expired"`
 
 	// Is video without sound
-	NoSound NumberFlagBool `json:"no_sound"`
+	NoSound BoolInt `json:"no_sound"`
 
 	// Does author have stories privacy restrictions
-	IsRestricted NumberFlagBool `json:"is_restricted"`
+	IsRestricted BoolInt `json:"is_restricted"`
 
-	CanUseInNarrative NumberFlagBool `json:"can_use_in_narrative"`
+	CanUseInNarrative BoolInt `json:"can_use_in_narrative"`
 
 	// Information whether current user has seen the story or not
 	// (0 - no, 1 - yes).
-	Seen                 NumberFlagBool           `json:"seen"`
-	IsOwnerPinned        NumberFlagBool           `json:"is_owner_pinned"`
-	IsOneTime            NumberFlagBool           `json:"is_one_time"`
-	IsAdvice             NumberFlagBool           `json:"is_advice,omitempty"`
-	NeedMute             NumberFlagBool           `json:"need_mute"`
-	MuteReply            NumberFlagBool           `json:"mute_reply"`
-	CanLike              NumberFlagBool           `json:"can_like"`
+	Seen                 BoolInt                  `json:"seen"`
+	IsOwnerPinned        BoolInt                  `json:"is_owner_pinned"`
+	IsOneTime            BoolInt                  `json:"is_one_time"`
+	IsAdvice             BoolInt                  `json:"is_advice,omitempty"`
+	NeedMute             BoolInt                  `json:"need_mute"`
+	MuteReply            BoolInt                  `json:"mute_reply"`
+	CanLike              BoolInt                  `json:"can_like"`
 	Date                 int                      `json:"date"` // Date when story has been added in Unixtime.
 	ID                   int                      `json:"id"`   // Story ID.
 	Link                 StoriesStoryLink         `json:"link"`
@@ -142,7 +142,7 @@ type StoriesFeedItem struct {
 	App            AppsApp                       `json:"app"`
 	BirthdayUserID int                           `json:"birthday_user_id"`
 	TrackCode      string                        `json:"track_code"`
-	HasUnseen      NumberFlagBool                `json:"has_unseen"`
+	HasUnseen      BoolInt                       `json:"has_unseen"`
 	Name           string                        `json:"name"`
 	PromoData      StoriesPromoBlock             `json:"promo_data"`
 }
@@ -222,10 +222,10 @@ type StoriesClickableSticker struct { //nolint: maligned
 	CategoryID int `json:"category_id,omitempty"`
 
 	// type=question
-	Question               string         `json:"question,omitempty"`
-	QuestionButton         string         `json:"question_button,omitempty"`
-	QuestionDefaultPrivate NumberFlagBool `json:"question_default_private,omitempty"`
-	Color                  string         `json:"color,omitempty"`
+	Question               string  `json:"question,omitempty"`
+	QuestionButton         string  `json:"question_button,omitempty"`
+	QuestionDefaultPrivate BoolInt `json:"question_default_private,omitempty"`
+	Color                  string  `json:"color,omitempty"`
 
 	// type=mention
 	Mention string `json:"mention,omitempty"`
@@ -263,10 +263,10 @@ type StoriesClickableSticker struct { //nolint: maligned
 	AudioStartTime int   `json:"audio_start_time,omitempty"`
 
 	// type=app
-	App                      AppsApp        `json:"app,omitempty"`
-	AppContext               string         `json:"app_context,omitempty"`
-	HasNewInteractions       NumberFlagBool `json:"has_new_interactions,omitempty"`
-	IsBroadcastNotifyAllowed NumberFlagBool `json:"is_broadcast_notify_allowed,omitempty"`
+	App                      AppsApp `json:"app,omitempty"`
+	AppContext               string  `json:"app_context,omitempty"`
+	HasNewInteractions       BoolInt `json:"has_new_interactions,omitempty"`
+	IsBroadcastNotifyAllowed BoolInt `json:"is_broadcast_notify_allowed,omitempty"`
 
 	// type=emoji
 	Emoji string `json:"emoji,omitempty"`
@@ -282,4 +282,15 @@ type StoriesClickableSticker struct { //nolint: maligned
 type StoriesClickablePoint struct {
 	X int `json:"x"`
 	Y int `json:"y"`
+}
+
+type StatCategory struct {
+	Header string     `json:"header"`
+	Lines  []StatLine `json:"lines"`
+}
+
+type StatLine struct {
+	Name          string `json:"name"`
+	Counter       int    `json:"counter"`
+	IsUnavailable bool   `json:"is_unavailable"`
 }

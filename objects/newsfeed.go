@@ -93,10 +93,10 @@ type NewsfeedItemWallpost struct {
 	Reposts        RepostsInfo              `json:"reposts"`
 	MarkedAsAds    int                      `json:"marked_as_ads,omitempty"`
 	Views          interface{}              `json:"views,omitempty"` // Views int or wallViews
-	IsFavorite     NumberFlagBool           `json:"is_favorite,omitempty"`
-	CanDelete      NumberFlagBool           `json:"can_delete"`
-	CanArchive     NumberFlagBool           `json:"can_archive"`
-	IsArchived     NumberFlagBool           `json:"is_archived"`
+	IsFavorite     BoolInt                  `json:"is_favorite,omitempty"`
+	CanDelete      BoolInt                  `json:"can_delete"`
+	CanArchive     BoolInt                  `json:"can_archive"`
+	IsArchived     BoolInt                  `json:"is_archived"`
 	SignerID       int                      `json:"signer_id,omitempty"`
 	Text           string                   `json:"text"` // Post text
 	Copyright      WallPostCopyright        `json:"copyright"`
@@ -143,11 +143,11 @@ type NewsfeedNewsfeedItem struct {
 	NewsfeedItemStoriesBlock
 	NewsfeedItemMarket
 
-	CreatedBy        int            `json:"created_by,omitempty"`
-	CanEdit          NumberFlagBool `json:"can_edit,omitempty"`
-	CanDelete        NumberFlagBool `json:"can_delete,omitempty"`
-	CanDoubtCategory NumberFlagBool `json:"can_doubt_category"`
-	CanSetCategory   NumberFlagBool `json:"can_set_category"`
+	CreatedBy        int     `json:"created_by,omitempty"`
+	CanEdit          BoolInt `json:"can_edit,omitempty"`
+	CanDelete        BoolInt `json:"can_delete,omitempty"`
+	CanDoubtCategory BoolInt `json:"can_doubt_category"`
+	CanSetCategory   BoolInt `json:"can_set_category"`
 }
 
 type NewsfeedNewsfeedNote struct {

@@ -1,11 +1,11 @@
 package objects
 
 type DatabaseCity struct {
-	ID        int            `json:"id"`
-	Title     string         `json:"title"`
-	Area      string         `json:"area,omitempty"`
-	Region    string         `json:"region,omitempty"`
-	Important NumberFlagBool `json:"important,omitempty"`
+	ID        int     `json:"id"`
+	Title     string  `json:"title"`
+	Area      string  `json:"area,omitempty"`
+	Region    string  `json:"region,omitempty"`
+	Important BoolInt `json:"important,omitempty"`
 }
 
 type DatabaseMetroStation struct {

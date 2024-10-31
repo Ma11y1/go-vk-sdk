@@ -78,7 +78,7 @@ type AccountRegisterDeviceResponse struct {
 type AccountSaveProfileInfoResponse struct {
 	BaseResponse
 	Response struct {
-		Changed     objects.NumberFlagBool     `json:"changed"`
+		Changed     objects.BoolInt            `json:"changed"`
 		NameRequest objects.AccountNameRequest `json:"name_request"`
 	} `json:"response"`
 }

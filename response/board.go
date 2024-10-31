@@ -61,19 +61,19 @@ type BoardGetCommentsExtendedResponse struct {
 }
 
 type BoardGetTopicsResponse struct {
-	Count        int                    `json:"count"`
-	Items        []objects.BoardTopic   `json:"items"`
-	DefaultOrder int                    `json:"default_order"`
-	CanAddTopics objects.NumberFlagBool `json:"can_add_topics"`
+	Count        int                  `json:"count"`
+	Items        []objects.BoardTopic `json:"items"`
+	DefaultOrder int                  `json:"default_order"`
+	CanAddTopics objects.BoolInt      `json:"can_add_topics"`
 }
 
 type BoardGetTopicsExtendedResponse struct {
-	Count        int                    `json:"count"`
-	Items        []objects.BoardTopic   `json:"items"`
-	DefaultOrder int                    `json:"default_order"`
-	CanAddTopics objects.NumberFlagBool `json:"can_add_topics"`
-	Profiles     []objects.UserFull     `json:"profiles"`
-	Groups       []objects.GroupFull    `json:"groups"`
+	Count        int                  `json:"count"`
+	Items        []objects.BoardTopic `json:"items"`
+	DefaultOrder int                  `json:"default_order"`
+	CanAddTopics objects.BoolInt      `json:"can_add_topics"`
+	Profiles     []objects.UserFull   `json:"profiles"`
+	Groups       []objects.GroupFull  `json:"groups"`
 }
 
 type BoardOpenTopicResponse struct {

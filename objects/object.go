@@ -43,12 +43,12 @@ type (
 		Users []int `json:"users"`
 	}
 
-	// NumberFlagBool type. Used to convert JSON string values to boolean type when decoding JSON
-	NumberFlagBool bool
+	// BoolInt type. Used to convert JSON string values to boolean type when decoding JSON
+	BoolInt bool
 )
 
 // UnmarshalJSON func called when JSON is decoded.
-func (b *NumberFlagBool) UnmarshalJSON(data []byte) (err error) {
+func (b *BoolInt) UnmarshalJSON(data []byte) (err error) {
 	switch {
 	case bytes.Equal(data, []byte("1")), bytes.Equal(data, []byte("true")):
 		*b = true
@@ -58,14 +58,14 @@ func (b *NumberFlagBool) UnmarshalJSON(data []byte) (err error) {
 		// return json errors
 		err = &json.UnmarshalTypeError{
 			Value: string(data),
-			Type:  reflect.TypeOf((*NumberFlagBool)(nil)),
+			Type:  reflect.TypeOf((*BoolInt)(nil)),
 		}
 	}
 
 	return
 }
 
-func (b *NumberFlagBool) MarshalJSON() (data []byte, err error) {
+func (b *BoolInt) MarshalJSON() (data []byte, err error) {
 	if *b {
 		return []byte("1"), nil
 	} else {
@@ -82,11 +82,11 @@ type City IDTitle
 type Country IDTitle
 
 type CommentsInfo struct {
-	Count         int            `json:"count"`
-	CanPost       NumberFlagBool `json:"can_post"`
-	GroupsCanPost NumberFlagBool `json:"groups_can_post"`
-	CanClose      NumberFlagBool `json:"can_close"`
-	CanOpen       NumberFlagBool `json:"can_open"`
+	Count         int     `json:"count"`
+	CanPost       BoolInt `json:"can_post"`
+	GroupsCanPost BoolInt `json:"groups_can_post"`
+	CanClose      BoolInt `json:"can_close"`
+	CanOpen       BoolInt `json:"can_open"`
 }
 
 // Geo related structs
@@ -116,6 +116,8 @@ type Image struct {
 	Width  float64 `json:"width"`
 	Height float64 `json:"height"`
 	URL    string  `json:"url"`
+	ID     int     `json:"id"`
+	Theme  string  `json:"theme"` // light, dark
 }
 
 // renamedBaseImage Used during decoding to convert two properties url and src to url
@@ -174,15 +176,15 @@ func minSizeImage(images *[]Image) (minImage *Image) {
 // LikesInfo structs
 type (
 	Likes struct {
-		UserLikes NumberFlagBool `json:"user_likes"` // Information whether current user likes
-		Count     int            `json:"count"`      // Likes number
+		UserLikes BoolInt `json:"user_likes"` // Information whether current user likes
+		Count     int     `json:"count"`      // Likes number
 	}
 
 	LikesInfo struct {
-		CanLike    NumberFlagBool `json:"can_like"`    // Information whether current user can like the post
-		CanPublish NumberFlagBool `json:"can_publish"` // Information whether current user can repost
-		UserLikes  NumberFlagBool `json:"user_likes"`  // Information whether current uer has liked the post
-		Count      int            `json:"count"`       // Likes number
+		CanLike    BoolInt `json:"can_like"`    // Information whether current user can like the post
+		CanPublish BoolInt `json:"can_publish"` // Information whether current user can repost
+		UserLikes  BoolInt `json:"user_likes"`  // Information whether current uer has liked the post
+		Count      int     `json:"count"`       // Likes number
 	}
 )
 
@@ -204,7 +206,7 @@ type (
 		Title        string          `json:"title"`
 		Target       string          `json:"target"`
 		URL          string          `json:"url"`
-		IsFavorite   NumberFlagBool  `json:"is_favorite"`
+		IsFavorite   BoolInt         `json:"is_favorite"`
 	}
 
 	LinkApplication struct {
@@ -251,7 +253,7 @@ type Place struct {
 	Longitude      float64        `json:"longitude"`
 	Title          string         `json:"title"`
 	Type           string         `json:"type"`
-	IsDeleted      NumberFlagBool `json:"is_deleted"`
+	IsDeleted      BoolInt        `json:"is_deleted"`
 	TotalCheckins  int            `json:"total_checkins"`
 	Updated        int            `json:"updated"`
 	CategoryObject CategoryObject `json:"category_object"`
@@ -271,12 +273,19 @@ type RepostsInfo struct {
 }
 
 type Sticker struct {
-	Images               []Image `json:"images"`
-	ImagesWithBackground []Image `json:"images_with_background"`
-	ProductID            int     `json:"product_id"`
-	StickerID            int     `json:"sticker_id"`
-	IsAllowed            bool    `json:"is_allowed"`
-	AnimationURL         string  `json:"animation_url"`
+	Images               []Image            `json:"images"`
+	ImagesWithBackground []Image            `json:"images_with_background"`
+	ProductID            int                `json:"product_id"`
+	StickerID            int                `json:"sticker_id"`
+	IsAllowed            bool               `json:"is_allowed"`
+	AnimationURL         string             `json:"animation_url"`
+	Animations           []StickerAnimation `json:"animations"`
+	InnerType            string             `json:"inner_type"`
+}
+
+type StickerAnimation struct {
+	Type string `json:"type"` // light, dark
+	URL  string `json:"url"`
 }
 
 // MaxSize return the largest Sticker.
@@ -313,35 +322,35 @@ type Privacy struct {
 }
 
 type EventsEventAttach struct {
-	Address      string         `json:"address,omitempty"`
-	ButtonText   string         `json:"button_text"`
-	Friends      []int          `json:"friends"`
-	ID           int            `json:"id"`
-	IsFavorite   NumberFlagBool `json:"is_favorite"`
-	MemberStatus int            `json:"member_status,omitempty"`
-	Text         string         `json:"text"`
-	Time         int            `json:"time,omitempty"`
+	Address      string  `json:"address,omitempty"`
+	ButtonText   string  `json:"button_text"`
+	Friends      []int   `json:"friends"`
+	ID           int     `json:"id"`
+	IsFavorite   BoolInt `json:"is_favorite"`
+	MemberStatus int     `json:"member_status,omitempty"`
+	Text         string  `json:"text"`
+	Time         int     `json:"time,omitempty"`
 }
 
 // Article Represents an article published on VKontakte and is used to work with the article api on the platform
 type Article struct {
-	ID            int            `json:"id"`
-	OwnerID       int            `json:"owner_id"`
-	OwnerName     string         `json:"owner_name"`
-	OwnerPhoto    string         `json:"owner_photo"`
-	State         string         `json:"state"`
-	CanReport     NumberFlagBool `json:"can_report"`
-	IsFavorite    NumberFlagBool `json:"is_favorite"`
-	NoFooter      NumberFlagBool `json:"no_footer"`
-	Title         string         `json:"title"`
-	Subtitle      string         `json:"subtitle"`
-	Views         int            `json:"views"`
-	Shares        int            `json:"shares"`
-	URL           string         `json:"url"`
-	ViewURL       string         `json:"view_url"`
-	AccessKey     string         `json:"access_key"`
-	PublishedDate int            `json:"published_date"`
-	Photo         Photo          `json:"photo"`
+	ID            int     `json:"id"`
+	OwnerID       int     `json:"owner_id"`
+	OwnerName     string  `json:"owner_name"`
+	OwnerPhoto    string  `json:"owner_photo"`
+	State         string  `json:"state"`
+	CanReport     BoolInt `json:"can_report"`
+	IsFavorite    BoolInt `json:"is_favorite"`
+	NoFooter      BoolInt `json:"no_footer"`
+	Title         string  `json:"title"`
+	Subtitle      string  `json:"subtitle"`
+	Views         int     `json:"views"`
+	Shares        int     `json:"shares"`
+	URL           string  `json:"url"`
+	ViewURL       string  `json:"view_url"`
+	AccessKey     string  `json:"access_key"`
+	PublishedDate int     `json:"published_date"`
+	Photo         Photo   `json:"photo"`
 }
 
 type UsersAndGroups struct {
@@ -350,9 +359,9 @@ type UsersAndGroups struct {
 }
 
 type ClientInfo struct {
-	ButtonActions  []string       `json:"button_actions"`
-	Keyboard       NumberFlagBool `json:"keyboard"`
-	InlineKeyboard NumberFlagBool `json:"inline_keyboard"`
-	Carousel       NumberFlagBool `json:"carousel"`
-	LangID         int            `json:"lang_id"`
+	ButtonActions  []string `json:"button_actions"`
+	Keyboard       BoolInt  `json:"keyboard"`
+	InlineKeyboard BoolInt  `json:"inline_keyboard"`
+	Carousel       BoolInt  `json:"carousel"`
+	LangID         int      `json:"lang_id"`
 }

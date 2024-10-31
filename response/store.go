@@ -17,6 +17,20 @@ type StoreGetFavoriteStickersResponse struct {
 	} `json:"response"`
 }
 
+type StoreGetProductsResponse struct {
+	BaseResponse
+	Response []objects.Product `json:"response"`
+	//Response struct {
+	//	Count int               `json:"count"`
+	//	Items []objects.Product `json:"items"`
+	//} `json:"response"`
+}
+
+type StoreGetStickersKeywordsResponse struct {
+	BaseResponse
+	Response objects.StickersKeywords `json:"response"`
+}
+
 type StoreRemoveStickersFromFavoriteResponse struct {
 	BaseResponse
 	Response int `json:"response"`

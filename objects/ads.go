@@ -14,31 +14,31 @@ type AdsAccesses struct {
 }
 
 type AdsAccount struct {
-	AccountID                   int            `json:"account_id"`
-	AccountName                 string         `json:"account_name"`
-	AccountType                 string         `json:"account_type"`
-	AccountStatus               NumberFlagBool `json:"account_status"`
-	AccessRole                  string         `json:"access_role"`
-	CanViewBudget               NumberFlagBool `json:"can_view_budget"`
-	AdNetworkAllowedPotentially NumberFlagBool `json:"ad_network_allowed_potentially"`
+	AccountID                   int     `json:"account_id"`
+	AccountName                 string  `json:"account_name"`
+	AccountType                 string  `json:"account_type"`
+	AccountStatus               BoolInt `json:"account_status"`
+	AccessRole                  string  `json:"access_role"`
+	CanViewBudget               BoolInt `json:"can_view_budget"`
+	AdNetworkAllowedPotentially BoolInt `json:"ad_network_allowed_potentially"`
 }
 
 type AdsAdLayout struct {
-	ID             string         `json:"id"`
-	Title          string         `json:"title"`
-	Description    string         `json:"description"`
-	Video          NumberFlagBool `json:"video"`
-	LinkType       string         `json:"link_type"`
-	LinkURL        string         `json:"link_url"`
-	LinkDomain     string         `json:"link_domain"`
-	AdFormat       interface{}    `json:"ad_format"`
-	ImageSrc       string         `json:"image_src"`
-	ImageSrc2x     string         `json:"image_src_2x"`
-	PreviewLink    string         `json:"preview_link"`
-	CampaignID     int            `json:"campaign_id"`
-	GoalType       int            `json:"goal_type"`
-	CostType       int            `json:"cost_type"`
-	AgeRestriction string         `json:"age_restriction"`
+	ID             string      `json:"id"`
+	Title          string      `json:"title"`
+	Description    string      `json:"description"`
+	Video          BoolInt     `json:"video"`
+	LinkType       string      `json:"link_type"`
+	LinkURL        string      `json:"link_url"`
+	LinkDomain     string      `json:"link_domain"`
+	AdFormat       interface{} `json:"ad_format"`
+	ImageSrc       string      `json:"image_src"`
+	ImageSrc2x     string      `json:"image_src_2x"`
+	PreviewLink    string      `json:"preview_link"`
+	CampaignID     int         `json:"campaign_id"`
+	GoalType       int         `json:"goal_type"`
+	CostType       int         `json:"cost_type"`
+	AgeRestriction string      `json:"age_restriction"`
 }
 
 type AdsCampaign struct {
@@ -87,36 +87,36 @@ type AdsClientOrdSubagent struct {
 }
 
 type AdsTargeting struct {
-	AgeFrom              int            `json:"age_from"`
-	AgeTo                int            `json:"age_to"`
-	Apps                 string         `json:"apps"`
-	AppsNot              string         `json:"apps_not"`
-	Birthday             int            `json:"birthday"`
-	Cities               string         `json:"cities"`
-	CitiesNot            string         `json:"cities_not"`
-	Country              int            `json:"country"`
-	Districts            string         `json:"districts"`
-	Groups               string         `json:"groups"`
-	InterestCategories   string         `json:"interest_categories"`
-	Interests            string         `json:"interests"`
-	Paying               NumberFlagBool `json:"paying"`
-	Positions            string         `json:"positions"`
-	Religions            string         `json:"religions"`
-	RetargetingGroups    string         `json:"retargeting_groups"`
-	RetargetingGroupsNot string         `json:"retargeting_groups_not"`
-	SchoolFrom           int            `json:"school_from"`
-	SchoolTo             int            `json:"school_to"`
-	Schools              string         `json:"schools"`
-	Sex                  int            `json:"sex"`
-	Stations             string         `json:"stations"`
-	Statuses             string         `json:"statuses"`
-	Streets              string         `json:"streets"`
-	Travellers           int            `json:"travellers"`
-	UniFrom              int            `json:"uni_from"`
-	UniTo                int            `json:"uni_to"`
-	UserBrowsers         string         `json:"user_browsers"`
-	UserDevices          string         `json:"user_devices"`
-	UserOs               string         `json:"user_os"`
+	AgeFrom              int     `json:"age_from"`
+	AgeTo                int     `json:"age_to"`
+	Apps                 string  `json:"apps"`
+	AppsNot              string  `json:"apps_not"`
+	Birthday             int     `json:"birthday"`
+	Cities               string  `json:"cities"`
+	CitiesNot            string  `json:"cities_not"`
+	Country              int     `json:"country"`
+	Districts            string  `json:"districts"`
+	Groups               string  `json:"groups"`
+	InterestCategories   string  `json:"interest_categories"`
+	Interests            string  `json:"interests"`
+	Paying               BoolInt `json:"paying"`
+	Positions            string  `json:"positions"`
+	Religions            string  `json:"religions"`
+	RetargetingGroups    string  `json:"retargeting_groups"`
+	RetargetingGroupsNot string  `json:"retargeting_groups_not"`
+	SchoolFrom           int     `json:"school_from"`
+	SchoolTo             int     `json:"school_to"`
+	Schools              string  `json:"schools"`
+	Sex                  int     `json:"sex"`
+	Stations             string  `json:"stations"`
+	Statuses             string  `json:"statuses"`
+	Streets              string  `json:"streets"`
+	Travellers           int     `json:"travellers"`
+	UniFrom              int     `json:"uni_from"`
+	UniTo                int     `json:"uni_to"`
+	UserBrowsers         string  `json:"user_browsers"`
+	UserDevices          string  `json:"user_devices"`
+	UserOs               string  `json:"user_os"`
 }
 
 type AdsDemoStats struct {
@@ -165,7 +165,7 @@ type AdsStatisticsFormat struct {
 	DayFrom                     string          `json:"day_from"`
 	DayTo                       string          `json:"day_to"`
 	Month                       string          `json:"month"`
-	Overall                     NumberFlagBool  `json:"overall"`
+	Overall                     BoolInt         `json:"overall"`
 	Spent                       int             `json:"spent"`
 	Impressions                 int             `json:"impressions"`
 	Clicks                      int             `json:"clicks"`
@@ -252,18 +252,18 @@ type AdsTargetSuggestionsSchools struct {
 }
 
 type AdsTargetGroup struct {
-	ID              int            `json:"id"`
-	Name            string         `json:"name"`
-	AudienceCount   int            `json:"audience_count"`
-	Lifetime        int            `json:"lifetime"`
-	LastUpdated     int            `json:"last_updated"`
-	IsAudience      NumberFlagBool `json:"is_audience"`
-	IsShared        NumberFlagBool `json:"is_shared"`
-	FileSource      NumberFlagBool `json:"file_source"`
-	APISource       NumberFlagBool `json:"api_source"`
-	LookalikeSource NumberFlagBool `json:"lookalike_source"`
-	Domain          string         `json:"domain,omitempty"`
-	Pixel           string         `json:"pixel,omitempty"`
+	ID              int     `json:"id"`
+	Name            string  `json:"name"`
+	AudienceCount   int     `json:"audience_count"`
+	Lifetime        int     `json:"lifetime"`
+	LastUpdated     int     `json:"last_updated"`
+	IsAudience      BoolInt `json:"is_audience"`
+	IsShared        BoolInt `json:"is_shared"`
+	FileSource      BoolInt `json:"file_source"`
+	APISource       BoolInt `json:"api_source"`
+	LookalikeSource BoolInt `json:"lookalike_source"`
+	Domain          string  `json:"domain,omitempty"`
+	Pixel           string  `json:"pixel,omitempty"`
 }
 
 type AdsTargetPixelInfo struct {
@@ -339,35 +339,35 @@ func (a *AdsTargetStatsCriteria) ToJSON() string {
 }
 
 type AdsAd struct {
-	ID                      string         `json:"id"`
-	Name                    string         `json:"name"`
-	Status                  int            `json:"status"`
-	Approved                string         `json:"approved"`
-	AllLimit                string         `json:"all_limit"`
-	Category1ID             string         `json:"category1_id"`
-	Category2ID             string         `json:"category2_id"`
-	Cpm                     string         `json:"cpm"`
-	AdFormat                int            `json:"ad_format"`
-	AdPlatform              interface{}    `json:"ad_platform"`
-	CampaignID              int            `json:"campaign_id"`
-	CostType                int            `json:"cost_type"`
-	Cpc                     int            `json:"cpc"`
-	DisclaimerMedical       NumberFlagBool `json:"disclaimer_medical"`
-	DisclaimerSpecialist    NumberFlagBool `json:"disclaimer_specialist"`
-	DisclaimerSupplements   NumberFlagBool `json:"disclaimer_supplements"`
-	Video                   NumberFlagBool `json:"video"`
-	ImpressionsLimited      NumberFlagBool `json:"impressions_limited"`
-	Autobidding             NumberFlagBool `json:"autobidding"`
-	ImpressionsLimit        int            `json:"impressions_limit"`
-	CreateTime              string         `json:"create_time"`
-	UpdateTime              string         `json:"update_time"`
-	GoalType                int            `json:"goal_type"`
-	DayLimit                string         `json:"day_limit"`
-	StartTime               string         `json:"start_time"`
-	StopTime                string         `json:"stop_time"`
-	AgeRestriction          string         `json:"age_restriction"`
-	EventsRetargetingGroups interface{}    `json:"events_retargeting_groups"`
-	ImpressionsLimitPeriod  string         `json:"impressions_limit_period"`
+	ID                      string      `json:"id"`
+	Name                    string      `json:"name"`
+	Status                  int         `json:"status"`
+	Approved                string      `json:"approved"`
+	AllLimit                string      `json:"all_limit"`
+	Category1ID             string      `json:"category1_id"`
+	Category2ID             string      `json:"category2_id"`
+	Cpm                     string      `json:"cpm"`
+	AdFormat                int         `json:"ad_format"`
+	AdPlatform              interface{} `json:"ad_platform"`
+	CampaignID              int         `json:"campaign_id"`
+	CostType                int         `json:"cost_type"`
+	Cpc                     int         `json:"cpc"`
+	DisclaimerMedical       BoolInt     `json:"disclaimer_medical"`
+	DisclaimerSpecialist    BoolInt     `json:"disclaimer_specialist"`
+	DisclaimerSupplements   BoolInt     `json:"disclaimer_supplements"`
+	Video                   BoolInt     `json:"video"`
+	ImpressionsLimited      BoolInt     `json:"impressions_limited"`
+	Autobidding             BoolInt     `json:"autobidding"`
+	ImpressionsLimit        int         `json:"impressions_limit"`
+	CreateTime              string      `json:"create_time"`
+	UpdateTime              string      `json:"update_time"`
+	GoalType                int         `json:"goal_type"`
+	DayLimit                string      `json:"day_limit"`
+	StartTime               string      `json:"start_time"`
+	StopTime                string      `json:"stop_time"`
+	AgeRestriction          string      `json:"age_restriction"`
+	EventsRetargetingGroups interface{} `json:"events_retargeting_groups"`
+	ImpressionsLimitPeriod  string      `json:"impressions_limit_period"`
 }
 
 type AdsLookalikeRequest struct {
@@ -423,7 +423,7 @@ type AdsUpdateAdsStatus struct {
 }
 
 type AdsAddOfficeUsersItem struct {
-	OK    NumberFlagBool
+	OK    BoolInt
 	Error errors.AdsAPIError
 }
 
@@ -443,7 +443,7 @@ type AdsUserSpecification struct {
 	UserID                  int                                `json:"user_id"`                     // required The ID of the user being added as an administrator or observer.
 	Role                    constants.AdsUserSpecificationRole `json:"role"`                        // required  parameter, string Flag describing the type of authority: reports - observer; manager - administrator.
 	ClientID                int                                `json:"client_id"`                   // required An array of client identifiers. Maximum allowed number of clients added to a user is 100.
-	ViewBudget              NumberFlagBool                     `json:"view_budget"`                 // optional Whether to show the budget to the user.
+	ViewBudget              BoolInt                            `json:"view_budget"`                 // optional Whether to show the budget to the user.
 	GrantAccessToAllClients bool                               `json:"grant_access_to_all_clients"` // optional Access to all current and new clients of this account.
 }
 
@@ -467,46 +467,46 @@ func (u *AdsUserSpecifications) ToJSON() string {
 
 // AdsAdSpecification Doc: https://dev.vk.com/ru/method/ads.createAds
 type AdsAdSpecification struct {
-	CampaignID                int            `json:"campaign_id"`                            // Required. Integer. The ID of the campaign where the ad will be created.
-	AdFormat                  int            `json:"ad_format"`                              // Required. Integer. The format of the ad (1: Image and text, 2: Large image, etc.).
-	Autobidding               NumberFlagBool `json:"autobidding,omitempty"`                  // Optional. Flag (0 or 1). Automatic bid management (0: disabled, 1: enabled).
-	AutobiddingMaxCost        string         `json:"autobidding_max_cost,omitempty"`         // Optional. Max automatic bid cost. Can be integer or string with decimal places.
-	CostType                  int            `json:"cost_type"`                              // Required. Payment method (0: per click, 1: per impression, 3: optimized per action).
-	CPC                       float64        `json:"cpc,omitempty"`                          // Required if cost_type is 0. Price per click in rubles.
-	CPM                       float64        `json:"cpm,omitempty"`                          // Required if cost_type is 1. Price per 1000 impressions in rubles.
-	OCPM                      float64        `json:"ocpm,omitempty"`                         // Required if cost_type is 3. Price per action for oCPM.
-	GoalType                  int            `json:"goal_type,omitempty"`                    // Required if cost_type is 3. EventType of goal.
-	ImpressionsLimit          int            `json:"impressions_limit,omitempty"`            // Optional. Impression limit per user if ad_format = 9 or 11 and cost_type = 1.
-	ImpressionsLimited        NumberFlagBool `json:"impressions_limited,omitempty"`          // Optional. Flag (0 or 1). Impression limit per user (0: no limit, 1: max 100 per user).
-	ImpressionsLimitPeriod    int            `json:"impressions_limit_period,omitempty"`     // Optional. Impression limit period in seconds, must be a multiple of 86400.
-	AdPlatform                string         `json:"ad_platform,omitempty"`                  // Optional. Platforms to display the ad (0: VK and partners, 1: VK only).
-	AdPlatformNoWall          NumberFlagBool `json:"ad_platform_no_wall,omitempty"`          // Optional. Only for ad_format = 9 or 11. 1: Do not display on community walls.
-	AdPlatformNoAdNetwork     NumberFlagBool `json:"ad_platform_no_ad_network,omitempty"`    // Optional. 1: Do not display in ad network.
-	PublisherPlatforms        string         `json:"publisher_platforms,omitempty"`          // Optional. Platforms to display the ad (all, social, vk).
-	DayLimit                  float64        `json:"day_limit,omitempty"`                    // Optional. Daily limit in rubles.
-	AllLimit                  float64        `json:"all_limit,omitempty"`                    // Optional. Total limit in rubles.
-	Category1ID               int            `json:"category1_id,omitempty"`                 // Optional. ID of the ad category.
-	Category2ID               int            `json:"category2_id,omitempty"`                 // Optional. ID of the secondary ad category.
-	AgeRestriction            int            `json:"age_restriction,omitempty"`              // Optional. Age restriction flag (0: No mark, 1: 0+, 2: 6+, etc.).
-	Status                    NumberFlagBool `json:"status,omitempty"`                       // Optional. Ad status (0: paused, 1: running).
-	Name                      string         `json:"name,omitempty"`                         // Optional. Name of the ad (3-60 characters).
-	Title                     string         `json:"title,omitempty"`                        // Optional. Title of the ad (3-33 characters, 25 for ad_format = 11).
-	Description               string         `json:"description,omitempty"`                  // Optional. Ad description (3-70 characters, 90 for ad_format = 11).
-	LinkURL                   string         `json:"link_url"`                               // Required. url of the advertised objects.
-	LinkDomain                string         `json:"link_domain,omitempty"`                  // Optional. Domain of the advertised objects.
-	LinkTitle                 string         `json:"link_title,omitempty"`                   // Optional. Title next to the link button (3-25 characters).
-	LinkButton                string         `json:"link_button,omitempty"`                  // Optional. Button ID for the ad.
-	Photo                     string         `json:"photo,omitempty"`                        // Optional. Main imag for certain ad formats.
-	PhotoIcon                 string         `json:"photo_icon,omitempty"`                   // Optional. Logo for certain ad formats.
-	Video                     string         `json:"video,omitempty"`                        // Optional. Main video for adaptive format.
-	RepeatVideo               NumberFlagBool `json:"repeat_video,omitempty"`                 // Optional. Flag (0 or 1) to loop the video.
-	DisclaimerMedical         NumberFlagBool `json:"disclaimer_medical,omitempty"`           // Optional. Flag (0 or 1) to display a medical disclaimer.
-	DisclaimerSpecialist      NumberFlagBool `json:"disclaimer_specialist,omitempty"`        // Optional. Flag (0 or 1) to display a specialist consultation disclaimer.
-	DisclaimerSupplements     NumberFlagBool `json:"disclaimer_supplements,omitempty"`       // Optional. Flag (0 or 1) to display a supplement disclaimer.
-	WeeklyScheduleHours       []string       `json:"weekly_schedule_hours,omitempty"`        // Optional. Array for weekly display schedule, 7 strings of 0/1 (each string represents a day).
-	WeeklyScheduleUseHolidays NumberFlagBool `json:"weekly_schedule_use_holidays,omitempty"` // Optional. Flag (0 or 1) to apply Sunday schedule to holidays.
-	StatsURL                  string         `json:"stats_url,omitempty"`                    // Optional. External statistics pixel.
-	StatsURL2                 string         `json:"stats_url2,omitempty"`                   // Optional. Additional external statistics pixel.
+	CampaignID                int      `json:"campaign_id"`                            // Required. Integer. The ID of the campaign where the ad will be created.
+	AdFormat                  int      `json:"ad_format"`                              // Required. Integer. The format of the ad (1: Image and text, 2: Large image, etc.).
+	Autobidding               BoolInt  `json:"autobidding,omitempty"`                  // Optional. Flag (0 or 1). Automatic bid management (0: disabled, 1: enabled).
+	AutobiddingMaxCost        string   `json:"autobidding_max_cost,omitempty"`         // Optional. Max automatic bid cost. Can be integer or string with decimal places.
+	CostType                  int      `json:"cost_type"`                              // Required. Payment method (0: per click, 1: per impression, 3: optimized per action).
+	CPC                       float64  `json:"cpc,omitempty"`                          // Required if cost_type is 0. Price per click in rubles.
+	CPM                       float64  `json:"cpm,omitempty"`                          // Required if cost_type is 1. Price per 1000 impressions in rubles.
+	OCPM                      float64  `json:"ocpm,omitempty"`                         // Required if cost_type is 3. Price per action for oCPM.
+	GoalType                  int      `json:"goal_type,omitempty"`                    // Required if cost_type is 3. EventType of goal.
+	ImpressionsLimit          int      `json:"impressions_limit,omitempty"`            // Optional. Impression limit per user if ad_format = 9 or 11 and cost_type = 1.
+	ImpressionsLimited        BoolInt  `json:"impressions_limited,omitempty"`          // Optional. Flag (0 or 1). Impression limit per user (0: no limit, 1: max 100 per user).
+	ImpressionsLimitPeriod    int      `json:"impressions_limit_period,omitempty"`     // Optional. Impression limit period in seconds, must be a multiple of 86400.
+	AdPlatform                string   `json:"ad_platform,omitempty"`                  // Optional. Platforms to display the ad (0: VK and partners, 1: VK only).
+	AdPlatformNoWall          BoolInt  `json:"ad_platform_no_wall,omitempty"`          // Optional. Only for ad_format = 9 or 11. 1: Do not display on community walls.
+	AdPlatformNoAdNetwork     BoolInt  `json:"ad_platform_no_ad_network,omitempty"`    // Optional. 1: Do not display in ad network.
+	PublisherPlatforms        string   `json:"publisher_platforms,omitempty"`          // Optional. Platforms to display the ad (all, social, vk).
+	DayLimit                  float64  `json:"day_limit,omitempty"`                    // Optional. Daily limit in rubles.
+	AllLimit                  float64  `json:"all_limit,omitempty"`                    // Optional. Total limit in rubles.
+	Category1ID               int      `json:"category1_id,omitempty"`                 // Optional. ID of the ad category.
+	Category2ID               int      `json:"category2_id,omitempty"`                 // Optional. ID of the secondary ad category.
+	AgeRestriction            int      `json:"age_restriction,omitempty"`              // Optional. Age restriction flag (0: No mark, 1: 0+, 2: 6+, etc.).
+	Status                    BoolInt  `json:"status,omitempty"`                       // Optional. Ad status (0: paused, 1: running).
+	Name                      string   `json:"name,omitempty"`                         // Optional. Name of the ad (3-60 characters).
+	Title                     string   `json:"title,omitempty"`                        // Optional. Title of the ad (3-33 characters, 25 for ad_format = 11).
+	Description               string   `json:"description,omitempty"`                  // Optional. Ad description (3-70 characters, 90 for ad_format = 11).
+	LinkURL                   string   `json:"link_url"`                               // Required. url of the advertised objects.
+	LinkDomain                string   `json:"link_domain,omitempty"`                  // Optional. Domain of the advertised objects.
+	LinkTitle                 string   `json:"link_title,omitempty"`                   // Optional. Title next to the link button (3-25 characters).
+	LinkButton                string   `json:"link_button,omitempty"`                  // Optional. Button ID for the ad.
+	Photo                     string   `json:"photo,omitempty"`                        // Optional. Main imag for certain ad formats.
+	PhotoIcon                 string   `json:"photo_icon,omitempty"`                   // Optional. Logo for certain ad formats.
+	Video                     string   `json:"video,omitempty"`                        // Optional. Main video for adaptive format.
+	RepeatVideo               BoolInt  `json:"repeat_video,omitempty"`                 // Optional. Flag (0 or 1) to loop the video.
+	DisclaimerMedical         BoolInt  `json:"disclaimer_medical,omitempty"`           // Optional. Flag (0 or 1) to display a medical disclaimer.
+	DisclaimerSpecialist      BoolInt  `json:"disclaimer_specialist,omitempty"`        // Optional. Flag (0 or 1) to display a specialist consultation disclaimer.
+	DisclaimerSupplements     BoolInt  `json:"disclaimer_supplements,omitempty"`       // Optional. Flag (0 or 1) to display a supplement disclaimer.
+	WeeklyScheduleHours       []string `json:"weekly_schedule_hours,omitempty"`        // Optional. Array for weekly display schedule, 7 strings of 0/1 (each string represents a day).
+	WeeklyScheduleUseHolidays BoolInt  `json:"weekly_schedule_use_holidays,omitempty"` // Optional. Flag (0 or 1) to apply Sunday schedule to holidays.
+	StatsURL                  string   `json:"stats_url,omitempty"`                    // Optional. External statistics pixel.
+	StatsURL2                 string   `json:"stats_url2,omitempty"`                   // Optional. Additional external statistics pixel.
 }
 
 func (u *AdsAdSpecification) ToJSON() string {
@@ -528,14 +528,14 @@ func (u *AdsAdSpecifications) ToJSON() string {
 }
 
 type AdsCampaignSpecification struct {
-	ClientID  int            `json:"client_id"`            // Required. Integer. Only for advertising agencies. The client ID for whom the campaign will be created.
-	Type      string         `json:"type"`                 // Required. Type of campaign (normal, promoted_posts, adaptive_ads).
-	Name      string         `json:"name"`                 // Required. The name of the advertising campaign (3-60 characters).
-	DayLimit  float64        `json:"day_limit,omitempty"`  // Optional. Daily budget limit in rubles. Must be a positive number.
-	AllLimit  float64        `json:"all_limit,omitempty"`  // Optional. Total budget limit in rubles. Must be a positive number.
-	StartTime int            `json:"start_time,omitempty"` // Optional. Start time of the campaign in Unix time (positive integer).
-	StopTime  int            `json:"stop_time,omitempty"`  // Optional. End time of the campaign in Unix time (positive integer).
-	Status    NumberFlagBool `json:"status,omitempty"`     // Optional. Campaign status (0: stopped, 1: running).
+	ClientID  int     `json:"client_id"`            // Required. Integer. Only for advertising agencies. The client ID for whom the campaign will be created.
+	Type      string  `json:"type"`                 // Required. Type of campaign (normal, promoted_posts, adaptive_ads).
+	Name      string  `json:"name"`                 // Required. The name of the advertising campaign (3-60 characters).
+	DayLimit  float64 `json:"day_limit,omitempty"`  // Optional. Daily budget limit in rubles. Must be a positive number.
+	AllLimit  float64 `json:"all_limit,omitempty"`  // Optional. Total budget limit in rubles. Must be a positive number.
+	StartTime int     `json:"start_time,omitempty"` // Optional. Start time of the campaign in Unix time (positive integer).
+	StopTime  int     `json:"stop_time,omitempty"`  // Optional. End time of the campaign in Unix time (positive integer).
+	Status    BoolInt `json:"status,omitempty"`     // Optional. Campaign status (0: stopped, 1: running).
 }
 
 func (u *AdsCampaignSpecification) ToJSON() string {
@@ -611,7 +611,7 @@ type AdsAdEditSpecification struct {
 	CPM                       float64                `json:"cpm,omitempty"`                          // Optional. Price per thousand impressions, specified in rubles with decimals (if cost_type = 1).
 	OCPM                      float64                `json:"ocpm,omitempty"`                         // Optional. Price per action for oCPM, specified in rubles with decimals (if cost_type = 3).
 	ImpressionsLimit          int                    `json:"impressions_limit,omitempty"`            // Optional. Limit on impressions per user if ad_format = 9 or 11 and cost_type = 1 (valid values: 1, 2, 3, 5, 10, 15, 20).
-	ImpressionsLimited        NumberFlagBool         `json:"impressions_limited,omitempty"`          // Optional. Flag indicating whether the ad has a limit of impressions per user (0 = no limit, 1 = up to 100 impressions per user).
+	ImpressionsLimited        BoolInt                `json:"impressions_limited,omitempty"`          // Optional. Flag indicating whether the ad has a limit of impressions per user (0 = no limit, 1 = up to 100 impressions per user).
 	ImpressionsLimitPeriod    int                    `json:"impressions_limit_period,omitempty"`     // Optional. Period for resetting impression count per user, in seconds (if ad_format = 9 or 11 and cost_type = 1).
 	AdPlatform                string                 `json:"ad_platform,omitempty"`                  // Optional. Platforms for displaying the ad, depending on the ad_format and cost_type.
 	AdPlatformNoWall          int                    `json:"ad_platform_no_wall,omitempty"`          // Optional. For ad_format = 9 or 11. Flag indicating whether the ad is displayed on community walls (1 = do not display).
@@ -622,7 +622,7 @@ type AdsAdEditSpecification struct {
 	Category1ID               int                    `json:"category1_id,omitempty"`                 // Optional. ID of the primary ad category or subcategory.
 	Category2ID               int                    `json:"category2_id,omitempty"`                 // Optional. ID of the secondary ad category or subcategory.
 	AgeRestriction            int                    `json:"age_restriction,omitempty"`              // Optional. Age restriction tag for the ad (0 = no tag, 1 = 0+, 2 = 6+, etc.).
-	Status                    NumberFlagBool         `json:"status,omitempty"`                       // Optional. Status of the ad (0 = stopped, 1 = active).
+	Status                    BoolInt                `json:"status,omitempty"`                       // Optional. Status of the ad (0 = stopped, 1 = active).
 	Name                      string                 `json:"name,omitempty"`                         // Optional. Name of the ad for internal use (3 to 60 characters).
 	Title                     string                 `json:"title,omitempty"`                        // Optional. Title of the ad (3 to 33 characters, up to 25 for ad_format = 11).
 	Description               string                 `json:"description,omitempty"`                  // Optional. Description of the ad (3 to 70 characters, up to 90 for ad_format = 11).
@@ -633,17 +633,17 @@ type AdsAdEditSpecification struct {
 	Photo                     string                 `json:"photo,omitempty"`                        // Optional. Main image for certain ad formats.
 	PhotoIcon                 string                 `json:"photo_icon,omitempty"`                   // Optional. Logo for certain ad formats.
 	Video                     string                 `json:"video,omitempty"`                        // Optional. Main video for adaptive format ads.
-	RepeatVideo               NumberFlagBool         `json:"repeat_video,omitempty"`                 // Optional. Flag to loop the video (0 = no, 1 = yes).
-	DisclaimerMedical         NumberFlagBool         `json:"disclaimer_medical,omitempty"`           // Optional. Display a medical disclaimer ("Consult a specialist") (1 = enabled).
-	DisclaimerSpecialist      NumberFlagBool         `json:"disclaimer_specialist,omitempty"`        // Optional. Display a specialist disclaimer ("Consult a specialist") (1 = enabled).
-	DisclaimerSupplements     NumberFlagBool         `json:"disclaimer_supplements,omitempty"`       // Optional. Display a disclaimer for supplements ("Not a medicinal product") (1 = enabled).
+	RepeatVideo               BoolInt                `json:"repeat_video,omitempty"`                 // Optional. Flag to loop the video (0 = no, 1 = yes).
+	DisclaimerMedical         BoolInt                `json:"disclaimer_medical,omitempty"`           // Optional. Display a medical disclaimer ("Consult a specialist") (1 = enabled).
+	DisclaimerSpecialist      BoolInt                `json:"disclaimer_specialist,omitempty"`        // Optional. Display a specialist disclaimer ("Consult a specialist") (1 = enabled).
+	DisclaimerSupplements     BoolInt                `json:"disclaimer_supplements,omitempty"`       // Optional. Display a disclaimer for supplements ("Not a medicinal product") (1 = enabled).
 	StartTime                 int64                  `json:"start_time,omitempty"`                   // Optional. Start time for the ad in Unix time (0 to reset).
 	StopTime                  int64                  `json:"stop_time,omitempty"`                    // Optional. Stop time for the ad in Unix time (0 to reset).
 	WeeklyScheduleHours       [7]string              `json:"weekly_schedule_hours,omitempty"`        // Optional. Schedule for showing the ad by hours, one string per day (0 = don't show, 1 = show).
-	WeeklyScheduleUseHolidays NumberFlagBool         `json:"weekly_schedule_use_holidays,omitempty"` // Optional. Flag to use Sunday schedule on holidays (0 = no, 1 = yes).
+	WeeklyScheduleUseHolidays BoolInt                `json:"weekly_schedule_use_holidays,omitempty"` // Optional. Flag to use Sunday schedule on holidays (0 = no, 1 = yes).
 	StatsURL                  string                 `json:"stats_url,omitempty"`                    // Optional. External stats pixel url.
 	StatsURL2                 string                 `json:"stats_url2,omitempty"`                   // Optional. Additional external stats pixel url.
-	AutoBidding               NumberFlagBool         `json:"autobidding,omitempty"`                  // Optional. Flag for automatic bid management (0 = off, 1 = on).
+	AutoBidding               BoolInt                `json:"autobidding,omitempty"`                  // Optional. Flag for automatic bid management (0 = off, 1 = on).
 	AutoBiddingMaxCost        interface{}            `json:"autobidding_max_cost,omitempty"`         // Optional. Maximum automatic bid limit (rubles with decimals), 0 to remove limit.
 	TargetingSettings         map[string]interface{} `json:"targeting_settings,omitempty"`           // Optional. Fields for targeting settings.
 }
@@ -667,13 +667,13 @@ func (u *AdsAdEditSpecifications) ToJSON() string {
 }
 
 type AdsCampaignModSpecification struct {
-	CampaignID int            `json:"campaign_id"`
-	Name       string         `json:"name"`
-	DayLimit   int            `json:"day_limit"`
-	AllLimit   int            `json:"all_limit"`
-	StartTime  int64          `json:"start_time"`
-	StopTime   int64          `json:"stop_time"`
-	Status     NumberFlagBool `json:"status"`
+	CampaignID int     `json:"campaign_id"`
+	Name       string  `json:"name"`
+	DayLimit   int     `json:"day_limit"`
+	AllLimit   int     `json:"all_limit"`
+	StartTime  int64   `json:"start_time"`
+	StopTime   int64   `json:"stop_time"`
+	Status     BoolInt `json:"status"`
 }
 
 func (u *AdsCampaignModSpecification) ToJSON() string {

@@ -65,15 +65,15 @@ type WallViews struct {
 type WallWallCommentThread struct {
 	Count           int               `json:"count"`
 	Items           []WallWallComment `json:"items"`
-	CanPost         NumberFlagBool    `json:"can_post"`
-	GroupsCanPost   NumberFlagBool    `json:"groups_can_post"`
-	ShowReplyButton NumberFlagBool    `json:"show_reply_button"`
+	CanPost         BoolInt           `json:"can_post"`
+	GroupsCanPost   BoolInt           `json:"groups_can_post"`
+	ShowReplyButton BoolInt           `json:"show_reply_button"`
 }
 
 type WallWallComment struct {
 	Attachments    []WallCommentAttachment `json:"attachments"`
 	Date           int                     `json:"date"`
-	Deleted        NumberFlagBool          `json:"deleted"`
+	Deleted        BoolInt                 `json:"deleted"`
 	FromID         int                     `json:"from_id"`
 	ID             int                     `json:"id"`
 	Likes          LikesInfo               `json:"likes"`
@@ -96,8 +96,8 @@ type WallWallComment struct {
 }
 
 type WallWallCommentDonut struct {
-	IsDonut     NumberFlagBool `json:"is_donut"`
-	Placeholder string         `json:"placeholder"`
+	IsDonut     BoolInt `json:"is_donut"`
+	Placeholder string  `json:"placeholder"`
 }
 
 type WallWallpost struct {
@@ -121,14 +121,14 @@ type WallWallpost struct {
 	Geo            Geo                      `json:"geo"`
 	SignerID       int                      `json:"signer_id"`
 	CopyHistory    []WallWallpost           `json:"copy_history"`
-	CanPin         NumberFlagBool           `json:"can_pin"`
-	CanDelete      NumberFlagBool           `json:"can_delete"`
-	CanEdit        NumberFlagBool           `json:"can_edit"`
-	IsPinned       NumberFlagBool           `json:"is_pinned"`
-	IsFavorite     NumberFlagBool           `json:"is_favorite"`
-	IsArchived     NumberFlagBool           `json:"is_archived"`
-	IsDeleted      NumberFlagBool           `json:"is_deleted"`
-	MarkedAsAds    NumberFlagBool           `json:"marked_as_ads"`
+	CanPin         BoolInt                  `json:"can_pin"`
+	CanDelete      BoolInt                  `json:"can_delete"`
+	CanEdit        BoolInt                  `json:"can_edit"`
+	IsPinned       BoolInt                  `json:"is_pinned"`
+	IsFavorite     BoolInt                  `json:"is_favorite"`
+	IsArchived     BoolInt                  `json:"is_archived"`
+	IsDeleted      BoolInt                  `json:"is_deleted"`
+	MarkedAsAds    BoolInt                  `json:"marked_as_ads"`
 	Edited         int                      `json:"edited"`
 	Copyright      WallPostCopyright        `json:"copyright"`
 	PostID         int                      `json:"post_id"`
@@ -142,25 +142,28 @@ type WallWallpost struct {
 }
 
 type WallWallpostAttachment struct {
-	AccessKey         string            `json:"access_key"`
-	Album             PhotosPhotoAlbum  `json:"album"`
-	App               WallAppPost       `json:"app"`
-	Audio             Audio             `json:"audio"`
-	Doc               Document          `json:"doc"`
-	Event             EventsEventAttach `json:"event"`
-	Graffiti          WallGraffiti      `json:"graffiti"`
-	Link              Link              `json:"link"`
-	Market            MarketItem        `json:"market"`
-	MarketMarketAlbum MarketAlbum       `json:"market_market_album"`
-	Note              WallAttachedNote  `json:"note"`
-	Page              PagesWikipageFull `json:"page"`
-	Photo             Photo             `json:"photo"`
-	PhotosList        []string          `json:"photos_list"`
-	Poll              PollsPoll         `json:"poll"`
-	PostedPhoto       WallPostedPhoto   `json:"posted_photo"`
-	Type              string            `json:"type"`
-	Video             Video             `json:"video"`
-	Podcast           PodcastsEpisode   `json:"podcast"`
+	AccessKey     string            `json:"access_key"`
+	Album         PhotosPhotoAlbum  `json:"album"`
+	App           WallAppPost       `json:"app"`
+	Audio         Audio             `json:"audio"`
+	Clip          VideoFull         `json:"clip"`
+	Doc           Document          `json:"doc"`
+	Event         EventsEventAttach `json:"event"`
+	Graffiti      WallGraffiti      `json:"graffiti"`
+	Group         GroupAttach       `json:"group"`
+	Link          Link              `json:"link"`
+	Market        MarketItem        `json:"market"`
+	MarketAlbum   MarketAlbum       `json:"market_album"`
+	Note          WallAttachedNote  `json:"note"`
+	Page          PagesWikipageFull `json:"page"`
+	Photo         Photo             `json:"photo"`
+	PhotosList    []string          `json:"photos_list"`
+	Poll          PollsPoll         `json:"poll"`
+	PostedPhoto   WallPostedPhoto   `json:"posted_photo"`
+	Type          string            `json:"type"`
+	Video         VideoFull         `json:"video"`
+	VideoPlaylist VideoAlbumFull    `json:"video_playlist"`
+	Podcast       PodcastsEpisode   `json:"podcast"`
 }
 
 type WallWallpostToID struct {
@@ -180,8 +183,8 @@ type WallWallpostToID struct {
 	SignerID      int                      `json:"signer_id"`
 	Text          string                   `json:"text"`
 	ToID          int                      `json:"to_id"`
-	IsFavorite    NumberFlagBool           `json:"is_favorite"`
-	MarkedAsAds   NumberFlagBool           `json:"marked_as_ads"`
+	IsFavorite    BoolInt                  `json:"is_favorite"`
+	MarkedAsAds   BoolInt                  `json:"marked_as_ads"`
 	ParentsStack  []int                    `json:"parents_stack"`
 	Donut         WallWallpostDonut        `json:"donut"`
 	ShortTextRate float64                  `json:"short_text_rate"`
@@ -190,11 +193,11 @@ type WallWallpostToID struct {
 }
 
 type WallWallpostDonut struct {
-	IsDonut            NumberFlagBool `json:"is_donut"`
-	CanPublishFreeCopy NumberFlagBool `json:"can_publish_free_copy"`
-	PaidDuration       int            `json:"paid_duration"`
-	EditMode           string         `json:"edit_mode"`
-	Durations          []IDName       `json:"durations"`
+	IsDonut            BoolInt  `json:"is_donut"`
+	CanPublishFreeCopy BoolInt  `json:"can_publish_free_copy"`
+	PaidDuration       int      `json:"paid_duration"`
+	EditMode           string   `json:"edit_mode"`
+	Durations          []IDName `json:"durations"`
 }
 
 type WallPostCopyright struct {
@@ -212,4 +215,10 @@ type WallWallpostHeader struct {
 type WallWallpostHeaderCustomDescription struct {
 	SourceID int `json:"source_id"`
 	Date     int `json:"date"`
+}
+
+type WallParseAttachedLink struct {
+	Data     []WallWallpostAttachment `json:"data"`
+	Groups   []GroupFull              `json:"groups"`
+	Profiles []User                   `json:"profiles"`
 }

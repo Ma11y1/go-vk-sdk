@@ -263,8 +263,8 @@ func (e *EventMarketOrderEdit) EventType() EventType {
 }
 
 type EventGroupLeave struct {
-	UserID int                    `json:"user_id"`
-	Self   objects.NumberFlagBool `json:"self"`
+	UserID int             `json:"user_id"`
+	Self   objects.BoolInt `json:"self"`
 }
 
 func (e *EventGroupLeave) EventType() EventType {

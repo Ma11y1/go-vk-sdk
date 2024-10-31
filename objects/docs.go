@@ -9,7 +9,7 @@ type Document struct {
 	Date       int             `json:"date"`
 	Ext        string          `json:"ext"`
 	ID         int             `json:"id"`
-	IsLicensed NumberFlagBool  `json:"is_licensed"`
+	IsLicensed BoolInt         `json:"is_licensed"`
 	OwnerID    int             `json:"owner_id"`
 	Preview    DocumentPreview `json:"preview"`
 	Size       int             `json:"size"`

@@ -157,7 +157,7 @@ type GroupsGetCatalogResponse struct {
 type GroupsGetCatalogInfoResponse struct {
 	BaseResponse
 	Response struct {
-		Enabled    objects.NumberFlagBool  `json:"enabled"`
+		Enabled    objects.BoolInt         `json:"enabled"`
 		Categories []objects.GroupCategory `json:"categories"`
 	} `json:"response"`
 }
@@ -165,7 +165,7 @@ type GroupsGetCatalogInfoResponse struct {
 type GroupsGetCatalogInfoExtendedResponse struct {
 	BaseResponse
 	Response struct {
-		Enabled    objects.NumberFlagBool      `json:"enabled"`
+		Enabled    objects.BoolInt             `json:"enabled"`
 		Categories []objects.GroupCategoryFull `json:"categories"`
 	} `json:"response"`
 }
@@ -275,11 +275,11 @@ type GroupsIsMemberResponse struct {
 type GroupsIsMemberExtendedResponse struct {
 	BaseResponse
 	Response struct {
-		Invitation objects.NumberFlagBool `json:"invitation"` // Information whether user has been invited to the group
-		Member     objects.NumberFlagBool `json:"member"`     // Information whether user is a member of the group
-		Request    objects.NumberFlagBool `json:"request"`    // Information whether user has send request to the group
-		CanInvite  objects.NumberFlagBool `json:"can_invite"` // Information whether user can be invite
-		CanRecall  objects.NumberFlagBool `json:"can_recall"` // Information whether user's invite to the group can be recalled
+		Invitation objects.BoolInt `json:"invitation"` // Information whether user has been invited to the group
+		Member     objects.BoolInt `json:"member"`     // Information whether user is a member of the group
+		Request    objects.BoolInt `json:"request"`    // Information whether user has send request to the group
+		CanInvite  objects.BoolInt `json:"can_invite"` // Information whether user can be invite
+		CanRecall  objects.BoolInt `json:"can_recall"` // Information whether user's invite to the group can be recalled
 	} `json:"response"`
 }
 type GroupsIsMemberUserIDsExtendedResponse struct {

@@ -50,7 +50,7 @@ type MessagesDeleteConversationResponse struct {
 
 type MessagesDeleteReactionResponse struct {
 	BaseResponse
-	Response objects.NumberFlagBool `json:"response"`
+	Response objects.BoolInt `json:"response"`
 }
 
 type MessagesDenyMessagesFromGroupResponse struct {
@@ -123,10 +123,10 @@ type MessagesGetConversationMembersResponse struct {
 		Items            []objects.MessagesConversationMember `json:"items"`
 		Count            int                                  `json:"count"`
 		ChatRestrictions struct {
-			OnlyAdminsInvite   objects.NumberFlagBool `json:"only_admins_invite"`
-			OnlyAdminsEditPin  objects.NumberFlagBool `json:"only_admins_edit_pin"`
-			OnlyAdminsEditInfo objects.NumberFlagBool `json:"only_admins_edit_info"`
-			AdminsPromoteUsers objects.NumberFlagBool `json:"admins_promote_users"`
+			OnlyAdminsInvite   objects.BoolInt `json:"only_admins_invite"`
+			OnlyAdminsEditPin  objects.BoolInt `json:"only_admins_edit_pin"`
+			OnlyAdminsEditInfo objects.BoolInt `json:"only_admins_edit_info"`
+			AdminsPromoteUsers objects.BoolInt `json:"admins_promote_users"`
 		} `json:"chat_restrictions"`
 		objects.UsersAndGroups
 	} `json:"response"`
@@ -224,7 +224,7 @@ type MessagesGetLongPollHistoryResponse struct {
 		// Chats struct {} `json:"chats"`
 		NewPTS        int                            `json:"new_pts"`
 		FromPTS       int                            `json:"from_pts"`
-		More          objects.NumberFlagBool         `json:"chats"`
+		More          objects.BoolInt                `json:"chats"`
 		Conversations []objects.MessagesConversation `json:"conversations"`
 	} `json:"response"`
 }
@@ -265,18 +265,18 @@ type MessagesGetReactionsAssetsResponse struct {
 
 type MessagesMarkReactionsAsReadResponse struct {
 	BaseResponse
-	Response objects.NumberFlagBool `json:"response"`
+	Response objects.BoolInt `json:"response"`
 }
 
 type MessagesSendReactionResponse struct {
 	BaseResponse
-	Response objects.NumberFlagBool `json:"response"`
+	Response objects.BoolInt `json:"response"`
 }
 
 type MessagesIsMessagesFromGroupAllowedResponse struct {
 	BaseResponse
 	Response struct {
-		IsAllowed objects.NumberFlagBool `json:"is_allowed"`
+		IsAllowed objects.BoolInt `json:"is_allowed"`
 	} `json:"response"`
 }
 

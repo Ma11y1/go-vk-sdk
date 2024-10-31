@@ -15,10 +15,10 @@ type Gift struct {
 }
 
 type GiftsLayout struct {
-	ID                int            `json:"id"`
-	Thumb256          string         `json:"thumb_256"`
-	Thumb48           string         `json:"thumb_48"`
-	Thumb96           string         `json:"thumb_96"`
-	StickersProductID int            `json:"stickers_product_id"`
-	IsStickersStyle   NumberFlagBool `json:"is_stickers_style"`
+	ID                int     `json:"id"`
+	Thumb256          string  `json:"thumb_256"`
+	Thumb48           string  `json:"thumb_48"`
+	Thumb96           string  `json:"thumb_96"`
+	StickersProductID int     `json:"stickers_product_id"`
+	IsStickersStyle   BoolInt `json:"is_stickers_style"`
 }

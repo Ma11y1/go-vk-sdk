@@ -18,11 +18,11 @@ type Photo struct {
 	Text               string             `json:"text"`     // Photo caption
 	UserID             int                `json:"user_id"`  // ID of the user who have uploaded the photo
 	Width              int                `json:"width"`    // Original photo width
-	CanUpload          NumberFlagBool     `json:"can_upload"`
-	CommentsDisabled   NumberFlagBool     `json:"comments_disabled"`
-	ThumbIsLast        NumberFlagBool     `json:"thumb_is_last"`
-	UploadByAdminsOnly NumberFlagBool     `json:"upload_by_admins_only"`
-	HasTags            NumberFlagBool     `json:"has_tags"`
+	CanUpload          BoolInt            `json:"can_upload"`
+	CommentsDisabled   BoolInt            `json:"comments_disabled"`
+	ThumbIsLast        BoolInt            `json:"thumb_is_last"`
+	UploadByAdminsOnly BoolInt            `json:"upload_by_admins_only"`
+	HasTags            BoolInt            `json:"has_tags"`
 	Created            int                `json:"created"`
 	Description        string             `json:"description"`
 	PrivacyComment     []string           `json:"privacy_comment"`
@@ -104,8 +104,8 @@ func (album *PhotosPhotoAlbum) ToAttachment() string {
 
 type PhotosPhotoAlbumFull struct {
 	// Information whether current user can upload photo to the album.
-	CanUpload        NumberFlagBool     `json:"can_upload"`
-	CommentsDisabled NumberFlagBool     `json:"comments_disabled"` // Information whether album comments are disabled
+	CanUpload        BoolInt            `json:"can_upload"`
+	CommentsDisabled BoolInt            `json:"comments_disabled"` // Information whether album comments are disabled
 	Created          int                `json:"created"`           // Date when the album has been created in Unixtime
 	Description      string             `json:"description"`       // Photo album description
 	ID               int                `json:"id"`                // Photo album ID
@@ -163,9 +163,9 @@ func (album *PhotosPhotoAlbumFull) MinSize() (minPhotoSize PhotosPhotoSizes) {
 type PhotosPhotoFull struct {
 	AccessKey  string             `json:"access_key"`  // Access key for the photo
 	AlbumID    int                `json:"album_id"`    // Album ID
-	CanComment NumberFlagBool     `json:"can_comment"` // Information whether current user can comment the photo
-	CanRepost  NumberFlagBool     `json:"can_repost"`  // Information whether current user can repost the photo
-	HasTags    NumberFlagBool     `json:"has_tags"`
+	CanComment BoolInt            `json:"can_comment"` // Information whether current user can comment the photo
+	CanRepost  BoolInt            `json:"can_repost"`  // Information whether current user can repost the photo
+	HasTags    BoolInt            `json:"has_tags"`
 	Comments   Count              `json:"comments"`
 	Date       int                `json:"date"`   // Date when uploaded
 	Height     int                `json:"height"` // Original photo height
@@ -236,17 +236,17 @@ type PhotosPhotoSizes struct {
 }
 
 type PhotosPhotoTag struct {
-	Date        int            `json:"date"`        // Date when tag has been added in Unixtime
-	ID          int            `json:"id"`          // Tag ID
-	PlacerID    int            `json:"placer_id"`   // ID of the tag creator
-	TaggedName  string         `json:"tagged_name"` // Tag description
-	Description string         `json:"description"` // Tagged description.
-	UserID      int            `json:"user_id"`     // Tagged user ID
-	Viewed      NumberFlagBool `json:"viewed"`      // Information whether the tag is reviewed
-	X           float64        `json:"x"`           // Coordinate X of the left upper corner
-	X2          float64        `json:"x2"`          // Coordinate X of the right lower corner
-	Y           float64        `json:"y"`           // Coordinate Y of the left upper corner
-	Y2          float64        `json:"y2"`          // Coordinate Y of the right lower corner
+	Date        int     `json:"date"`        // Date when tag has been added in Unixtime
+	ID          int     `json:"id"`          // Tag ID
+	PlacerID    int     `json:"placer_id"`   // ID of the tag creator
+	TaggedName  string  `json:"tagged_name"` // Tag description
+	Description string  `json:"description"` // Tagged description.
+	UserID      int     `json:"user_id"`     // Tagged user ID
+	Viewed      BoolInt `json:"viewed"`      // Information whether the tag is reviewed
+	X           float64 `json:"x"`           // Coordinate X of the left upper corner
+	X2          float64 `json:"x2"`          // Coordinate X of the right lower corner
+	Y           float64 `json:"y"`           // Coordinate Y of the left upper corner
+	Y2          float64 `json:"y2"`          // Coordinate Y of the right lower corner
 }
 
 type PhotosPhotoUpload struct {

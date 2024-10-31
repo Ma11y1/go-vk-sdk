@@ -20,11 +20,11 @@ type AccountNameRequest struct {
 }
 
 type AccountPushItem struct {
-	PeerID               int            `json:"peer_id"`
-	Sound                int            `json:"sound"`
-	DisabledUntil        int            `json:"disabled_until"`
-	DisabledMentions     NumberFlagBool `json:"disabled_mentions"`
-	DisabledMassMentions NumberFlagBool `json:"disabled_mass_mentions"`
+	PeerID               int     `json:"peer_id"`
+	Sound                int     `json:"sound"`
+	DisabledUntil        int     `json:"disabled_until"`
+	DisabledMentions     BoolInt `json:"disabled_mentions"`
+	DisabledMassMentions BoolInt `json:"disabled_mass_mentions"`
 }
 
 type AccountPushConversations struct {
@@ -76,16 +76,16 @@ type AccountCounters struct {
 
 type AccountInfo struct {
 	Country                   string            `json:"country"`
-	HTTPSRequired             NumberFlagBool    `json:"https_required"`
-	TwoFactorRequired         NumberFlagBool    `json:"2fa_required"`
-	OwnPostsDefault           NumberFlagBool    `json:"own_posts_default"`
-	NoWallReplies             NumberFlagBool    `json:"no_wall_replies"`
-	Intro                     NumberFlagBool    `json:"intro"`
+	HTTPSRequired             BoolInt           `json:"https_required"`
+	TwoFactorRequired         BoolInt           `json:"2fa_required"`
+	OwnPostsDefault           BoolInt           `json:"own_posts_default"`
+	NoWallReplies             BoolInt           `json:"no_wall_replies"`
+	Intro                     BoolInt           `json:"intro"`
 	Lang                      int               `json:"lang"`
-	EuUser                    NumberFlagBool    `json:"eu_user"`
-	CommunityComments         NumberFlagBool    `json:"community_comments"`
-	IsLiveStreamingEnabled    NumberFlagBool    `json:"is_live_streaming_enabled"`
-	IsNewLiveStreamingEnabled NumberFlagBool    `json:"is_new_live_streaming_enabled"`
+	EuUser                    BoolInt           `json:"eu_user"`
+	CommunityComments         BoolInt           `json:"community_comments"`
+	IsLiveStreamingEnabled    BoolInt           `json:"is_live_streaming_enabled"`
+	IsNewLiveStreamingEnabled BoolInt           `json:"is_new_live_streaming_enabled"`
 	LinkRedirects             map[string]string `json:"link_redirects"`
 	VkPayEndpointV2           string            `json:"vk_pay_endpoint_v2"`
 }
@@ -93,7 +93,7 @@ type AccountInfo struct {
 type AccountPushSettings struct {
 	Conversations AccountPushConversations `json:"conversations"`
 	Settings      AccountPushParams        `json:"settings"`
-	Disabled      NumberFlagBool           `json:"disabled"`
+	Disabled      BoolInt                  `json:"disabled"`
 	DisabledUntil int                      `json:"disabled_until"`
 }
 
@@ -106,7 +106,7 @@ type AccountProfileInfo struct {
 	Sex              int                `json:"sex"`
 	Relation         int                `json:"relation"`
 	RelationPartner  UsersUserMin       `json:"relation_partner"`
-	RelationPending  NumberFlagBool     `json:"relation_pending"`
+	RelationPending  BoolInt            `json:"relation_pending"`
 	RelationRequests []UsersUserMin     `json:"relation_requests"`
 	Bdate            string             `json:"bdate"`
 	BdateVisibility  int                `json:"bdate_visibility"`

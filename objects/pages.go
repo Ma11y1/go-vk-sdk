@@ -21,10 +21,10 @@ type PagesWikipageFull struct {
 	CreatorID int `json:"creator_id"`
 
 	// Information whether current user can edit the page.
-	CurrentUserCanEdit NumberFlagBool `json:"current_user_can_edit"`
+	CurrentUserCanEdit BoolInt `json:"current_user_can_edit"`
 
 	// Information whether current user can edit the page access settings.
-	CurrentUserCanEditAccess NumberFlagBool `json:"current_user_can_edit_access"`
+	CurrentUserCanEditAccess BoolInt `json:"current_user_can_edit_access"`
 
 	// Date when the page has been edited in Unixtime.
 	Edited int `json:"edited"`

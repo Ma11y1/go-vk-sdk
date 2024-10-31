@@ -28,8 +28,8 @@ type NotificationsMarkAsViewedResponse struct {
 type NotificationsSendMessageResponse struct {
 	BaseResponse
 	Response []struct {
-		UserID int                    `json:"user_id"`
-		Status objects.NumberFlagBool `json:"status"`
+		UserID int             `json:"user_id"`
+		Status objects.BoolInt `json:"status"`
 		Error  struct {
 			Code        int    `json:"code"`
 			Description string `json:"description"`

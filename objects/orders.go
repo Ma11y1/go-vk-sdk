@@ -25,17 +25,17 @@ type OrdersOrder struct {
 }
 
 type OrdersSubscription struct {
-	CancelReason    string         `json:"cancel_reason"`
-	CreateTime      int            `json:"create_time"`
-	ID              int            `json:"id"`
-	ItemID          string         `json:"item_id"`
-	NextBillTime    int            `json:"next_bill_time"`
-	Period          int            `json:"period"`
-	PeriodStartTime int            `json:"period_start_time"`
-	Price           int            `json:"price"`
-	Status          string         `json:"status"`
-	PendingCancel   NumberFlagBool `json:"pending_cancel"`
-	TestMode        NumberFlagBool `json:"test_mode"`
-	TrialExpireTime int            `json:"trial_expire_time"`
-	UpdateTime      int            `json:"update_time"`
+	CancelReason    string  `json:"cancel_reason"`
+	CreateTime      int     `json:"create_time"`
+	ID              int     `json:"id"`
+	ItemID          string  `json:"item_id"`
+	NextBillTime    int     `json:"next_bill_time"`
+	Period          int     `json:"period"`
+	PeriodStartTime int     `json:"period_start_time"`
+	Price           int     `json:"price"`
+	Status          string  `json:"status"`
+	PendingCancel   BoolInt `json:"pending_cancel"`
+	TestMode        BoolInt `json:"test_mode"`
+	TrialExpireTime int     `json:"trial_expire_time"`
+	UpdateTime      int     `json:"update_time"`
 }

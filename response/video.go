@@ -47,8 +47,8 @@ type VideoDeleteCommentResponse struct {
 type VideoEditResponse struct {
 	BaseResponse
 	Response struct {
-		Success   objects.NumberFlagBool `json:"success"`
-		AccessKey string                 `json:"access_key"`
+		Success   objects.BoolInt `json:"success"`
+		AccessKey string          `json:"access_key"`
 	} `json:"response"`
 }
 
@@ -130,6 +130,19 @@ type VideoGetCommentsExtendedResponse struct {
 	} `json:"response"`
 }
 
+type VideoGetLongPollServerResponse struct {
+	BaseResponse
+	Response struct {
+		URL string `json:"url"`
+	} `json:"response"`
+}
+
+// VideoGetThumbUploadURLResponse TODO New method not yet documented
+type VideoGetThumbUploadURLResponse struct {
+	BaseResponse
+	Response struct{} `json:"response"`
+}
+
 type VideoLiveGetCategoriesResponse struct {
 	BaseResponse
 	Response []objects.VideoLiveCategory `json:"response"`
@@ -173,6 +186,12 @@ type VideoRestoreCommentResponse struct {
 type VideoSaveResponse struct {
 	BaseResponse
 	Response objects.VideoSaveResult `json:"response"`
+}
+
+// VideoSaveUploadedThumbResponse TODO New method not yet documented
+type VideoSaveUploadedThumbResponse struct {
+	BaseResponse
+	Response struct{} `json:"response"`
 }
 
 type VideoSearchResponse struct {

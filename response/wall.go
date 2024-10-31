@@ -85,9 +85,9 @@ type WallGetCommentResponse struct {
 	BaseResponse
 	Response struct {
 		Items             []objects.WallWallComment `json:"items"`
-		CanPost           objects.NumberFlagBool    `json:"can_post"`
-		ShowReplyButton   objects.NumberFlagBool    `json:"show_reply_button"`
-		GroupsCanPost     objects.NumberFlagBool    `json:"groups_can_post"`
+		CanPost           objects.BoolInt           `json:"can_post"`
+		ShowReplyButton   objects.BoolInt           `json:"show_reply_button"`
+		GroupsCanPost     objects.BoolInt           `json:"groups_can_post"`
 		CurrentLevelCount int                       `json:"current_level_count"`
 	} `json:"response"`
 }
@@ -97,9 +97,9 @@ type WallGetCommentExtendedResponse struct {
 	Response struct {
 		Count             int                       `json:"count"`
 		Items             []objects.WallWallComment `json:"items"`
-		CanPost           objects.NumberFlagBool    `json:"can_post"`
-		ShowReplyButton   objects.NumberFlagBool    `json:"show_reply_button"`
-		GroupsCanPost     objects.NumberFlagBool    `json:"groups_can_post"`
+		CanPost           objects.BoolInt           `json:"can_post"`
+		ShowReplyButton   objects.BoolInt           `json:"show_reply_button"`
+		GroupsCanPost     objects.BoolInt           `json:"groups_can_post"`
 		CurrentLevelCount int                       `json:"current_level_count"`
 		Profiles          []objects.UserFull        `json:"profiles"`
 		Groups            []objects.GroupFull       `json:"groups"`
@@ -109,9 +109,9 @@ type WallGetCommentExtendedResponse struct {
 type WallGetCommentsResponse struct {
 	BaseResponse
 	Response struct {
-		CanPost           objects.NumberFlagBool    `json:"can_post"`
-		ShowReplyButton   objects.NumberFlagBool    `json:"show_reply_button"`
-		GroupsCanPost     objects.NumberFlagBool    `json:"groups_can_post"`
+		CanPost           objects.BoolInt           `json:"can_post"`
+		ShowReplyButton   objects.BoolInt           `json:"show_reply_button"`
+		GroupsCanPost     objects.BoolInt           `json:"groups_can_post"`
 		CurrentLevelCount int                       `json:"current_level_count"`
 		Count             int                       `json:"count"`
 		Items             []objects.WallWallComment `json:"items"`
@@ -121,9 +121,9 @@ type WallGetCommentsResponse struct {
 type WallGetCommentsExtendedResponse struct {
 	BaseResponse
 	Response struct {
-		CanPost           objects.NumberFlagBool    `json:"can_post"`
-		ShowReplyButton   objects.NumberFlagBool    `json:"show_reply_button"`
-		GroupsCanPost     objects.NumberFlagBool    `json:"groups_can_post"`
+		CanPost           objects.BoolInt           `json:"can_post"`
+		ShowReplyButton   objects.BoolInt           `json:"show_reply_button"`
+		GroupsCanPost     objects.BoolInt           `json:"groups_can_post"`
 		CurrentLevelCount int                       `json:"current_level_count"`
 		Count             int                       `json:"count"`
 		Items             []objects.WallWallComment `json:"items"`
@@ -142,6 +142,11 @@ type WallGetRepostsResponse struct {
 type WallOpenCommentsResponse struct {
 	BaseResponse
 	Response int `json:"response"`
+}
+
+type WallParseAttachedLinkResponse struct {
+	BaseResponse
+	Response objects.WallParseAttachedLink `json:"response"`
 }
 
 type WallPinResponse struct {

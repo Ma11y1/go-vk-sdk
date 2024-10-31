@@ -7,59 +7,59 @@ import (
 )
 
 type UserFull struct {
-	ID                     int            `json:"id"`
-	FirstName              string         `json:"first_name"`
-	LastName               string         `json:"last_name"`
-	FirstNameNom           string         `json:"first_name_nom"`
-	FirstNameGen           string         `json:"first_name_gen"`
-	FirstNameDat           string         `json:"first_name_dat"`
-	FirstNameAcc           string         `json:"first_name_acc"`
-	FirstNameIns           string         `json:"first_name_ins"`
-	FirstNameAbl           string         `json:"first_name_abl"`
-	LastNameNom            string         `json:"last_name_nom"`
-	LastNameGen            string         `json:"last_name_gen"`
-	LastNameDat            string         `json:"last_name_dat"`
-	LastNameAcc            string         `json:"last_name_acc"`
-	LastNameIns            string         `json:"last_name_ins"`
-	LastNameAbl            string         `json:"last_name_abl"`
-	MaidenName             string         `json:"maiden_name"`
-	Sex                    int            `json:"sex"`
-	Nickname               string         `json:"nickname"`
-	Domain                 string         `json:"domain"`
-	ScreenName             string         `json:"screen_name"`
-	Bdate                  string         `json:"bdate"`
-	City                   City           `json:"city"`
-	Country                Country        `json:"country"`
-	Photo50                string         `json:"photo_50"`
-	Photo100               string         `json:"photo_100"`
-	Photo200               string         `json:"photo_200"`
-	PhotoMax               string         `json:"photo_max"`
-	Photo200Orig           string         `json:"photo_200_orig"`
-	Photo400Orig           string         `json:"photo_400_orig"`
-	PhotoMaxOrig           string         `json:"photo_max_orig"`
-	PhotoID                string         `json:"photo_id"`
-	FriendStatus           int            `json:"friend_status"`
-	OnlineApp              int            `json:"online_app"`
-	Online                 NumberFlagBool `json:"online"`
-	OnlineMobile           NumberFlagBool `json:"online_mobile"`
-	HasPhoto               NumberFlagBool `json:"has_photo"`
-	HasMobile              NumberFlagBool `json:"has_mobile"`
-	IsClosed               NumberFlagBool `json:"is_closed"`
-	IsFriend               NumberFlagBool `json:"is_friend"`
-	IsFavorite             NumberFlagBool `json:"is_favorite"`
-	IsHiddenFromFeed       NumberFlagBool `json:"is_hidden_from_feed"`
-	CanAccessClosed        NumberFlagBool `json:"can_access_closed"`
-	CanBeInvitedGroup      NumberFlagBool `json:"can_be_invited_group"`
-	CanPost                NumberFlagBool `json:"can_post"`
-	CanSeeAllPosts         NumberFlagBool `json:"can_see_all_posts"`
-	CanSeeAudio            NumberFlagBool `json:"can_see_audio"`
-	CanWritePrivateMessage NumberFlagBool `json:"can_write_private_message"`
-	CanSendFriendRequest   NumberFlagBool `json:"can_send_friend_request"`
-	CanCallFromGroup       NumberFlagBool `json:"can_call_from_group"`
-	Verified               NumberFlagBool `json:"verified"`
-	Trending               NumberFlagBool `json:"trending"`
-	Blacklisted            NumberFlagBool `json:"blacklisted"`
-	BlacklistedByMe        NumberFlagBool `json:"blacklisted_by_me"`
+	ID                     int     `json:"id"`
+	FirstName              string  `json:"first_name"`
+	LastName               string  `json:"last_name"`
+	FirstNameNom           string  `json:"first_name_nom"`
+	FirstNameGen           string  `json:"first_name_gen"`
+	FirstNameDat           string  `json:"first_name_dat"`
+	FirstNameAcc           string  `json:"first_name_acc"`
+	FirstNameIns           string  `json:"first_name_ins"`
+	FirstNameAbl           string  `json:"first_name_abl"`
+	LastNameNom            string  `json:"last_name_nom"`
+	LastNameGen            string  `json:"last_name_gen"`
+	LastNameDat            string  `json:"last_name_dat"`
+	LastNameAcc            string  `json:"last_name_acc"`
+	LastNameIns            string  `json:"last_name_ins"`
+	LastNameAbl            string  `json:"last_name_abl"`
+	MaidenName             string  `json:"maiden_name"`
+	Sex                    int     `json:"sex"`
+	Nickname               string  `json:"nickname"`
+	Domain                 string  `json:"domain"`
+	ScreenName             string  `json:"screen_name"`
+	Bdate                  string  `json:"bdate"`
+	City                   City    `json:"city"`
+	Country                Country `json:"country"`
+	Photo50                string  `json:"photo_50"`
+	Photo100               string  `json:"photo_100"`
+	Photo200               string  `json:"photo_200"`
+	PhotoMax               string  `json:"photo_max"`
+	Photo200Orig           string  `json:"photo_200_orig"`
+	Photo400Orig           string  `json:"photo_400_orig"`
+	PhotoMaxOrig           string  `json:"photo_max_orig"`
+	PhotoID                string  `json:"photo_id"`
+	FriendStatus           int     `json:"friend_status"`
+	OnlineApp              int     `json:"online_app"`
+	Online                 BoolInt `json:"online"`
+	OnlineMobile           BoolInt `json:"online_mobile"`
+	HasPhoto               BoolInt `json:"has_photo"`
+	HasMobile              BoolInt `json:"has_mobile"`
+	IsClosed               BoolInt `json:"is_closed"`
+	IsFriend               BoolInt `json:"is_friend"`
+	IsFavorite             BoolInt `json:"is_favorite"`
+	IsHiddenFromFeed       BoolInt `json:"is_hidden_from_feed"`
+	CanAccessClosed        BoolInt `json:"can_access_closed"`
+	CanBeInvitedGroup      BoolInt `json:"can_be_invited_group"`
+	CanPost                BoolInt `json:"can_post"`
+	CanSeeAllPosts         BoolInt `json:"can_see_all_posts"`
+	CanSeeAudio            BoolInt `json:"can_see_audio"`
+	CanWritePrivateMessage BoolInt `json:"can_write_private_message"`
+	CanSendFriendRequest   BoolInt `json:"can_send_friend_request"`
+	CanCallFromGroup       BoolInt `json:"can_call_from_group"`
+	Verified               BoolInt `json:"verified"`
+	Trending               BoolInt `json:"trending"`
+	Blacklisted            BoolInt `json:"blacklisted"`
+	BlacklistedByMe        BoolInt `json:"blacklisted_by_me"`
 
 	Facebook string `json:"facebook"`
 
@@ -117,7 +117,29 @@ type UserFull struct {
 	Skype           string            `json:"skype"`
 }
 
-func (user UserFull) ToMention() string {
+func (user *UserFull) ToMention() string {
+	return fmt.Sprintf("[id%d|%s %s]", user.ID, user.FirstName, user.LastName)
+}
+
+// User min version
+type User struct {
+	ID           int           `json:"id"`
+	FirstName    string        `json:"first_name"`
+	LastName     string        `json:"last_name"`
+	FriendStatus int           `json:"friend_status"`
+	Mutual       RequestMutual `json:"mutual"`
+	OnlineApp    int           `json:"online_app"`
+	Online       BoolInt       `json:"online"`
+	OnlineMobile BoolInt       `json:"online_mobile"`
+	Sex          int           `json:"sex"`
+	ScreenName   string        `json:"screen_name"`
+	Photo50      string        `json:"photo_50"`
+	Photo100     string        `json:"photo_100"`
+	Verified     BoolInt       `json:"verified"`
+	Trending     BoolInt       `json:"trending"`
+}
+
+func (user *User) ToMention() string {
 	return fmt.Sprintf("[id%d|%s %s]", user.ID, user.FirstName, user.LastName)
 }
 
@@ -128,12 +150,12 @@ type ImageStatusInfo struct {
 }
 
 type UsersOnlineInfo struct {
-	AppID    int            `json:"app_id"`
-	LastSeen int            `json:"last_seen"`
-	Status   string         `json:"status"`
-	Visible  NumberFlagBool `json:"visible"`
-	IsOnline NumberFlagBool `json:"is_online"`
-	IsMobile NumberFlagBool `json:"is_mobile"`
+	AppID    int     `json:"app_id"`
+	LastSeen int     `json:"last_seen"`
+	Status   string  `json:"status"`
+	Visible  BoolInt `json:"visible"`
+	IsOnline BoolInt `json:"is_online"`
+	IsMobile BoolInt `json:"is_mobile"`
 }
 
 type UsersUserMin struct {

@@ -15,53 +15,53 @@ type Video struct {
 	ReleaseDate int `json:"release_date"`
 
 	// Information whether current user can add the video.
-	CanAdd NumberFlagBool `json:"can_add"`
+	CanAdd BoolInt `json:"can_add"`
 
 	// Information whether current user can add the video to faves.
-	CanAddToFaves NumberFlagBool `json:"can_add_to_faves"`
+	CanAddToFaves BoolInt `json:"can_add_to_faves"`
 
 	// Information whether current user can comment the video.
-	CanComment NumberFlagBool `json:"can_comment"`
+	CanComment BoolInt `json:"can_comment"`
 
 	// Information whether current user can edit the video.
-	CanEdit NumberFlagBool `json:"can_edit"`
+	CanEdit BoolInt `json:"can_edit"`
 
 	// Information whether current user can like the video.
-	CanLike NumberFlagBool `json:"can_like"`
+	CanLike BoolInt `json:"can_like"`
 
 	// Information whether current user can download the video.
 	CanDownload int `json:"can_download"`
 
 	// Information whether current user can repost this video.
-	CanRepost         NumberFlagBool `json:"can_repost"`
-	CanSubscribe      NumberFlagBool `json:"can_subscribe"`
-	CanAttachLink     NumberFlagBool `json:"can_attach_link"`
-	IsFavorite        NumberFlagBool `json:"is_favorite"`
-	IsPrivate         NumberFlagBool `json:"is_private"`
-	IsExplicit        NumberFlagBool `json:"is_explicit"`
-	IsSubscribed      NumberFlagBool `json:"is_subscribed"`
-	Added             NumberFlagBool `json:"added"`
-	Repeat            NumberFlagBool `json:"repeat"` // Information whether the video is repeated
-	ContentRestricted int            `json:"content_restricted"`
-	Live              NumberFlagBool `json:"live"` // Returns if the video is a live stream
-	Upcoming          NumberFlagBool `json:"upcoming"`
-	Comments          int            `json:"comments"`    // Number of comments
-	Date              int            `json:"date"`        // Date when video has been uploaded in Unixtime
-	Description       string         `json:"description"` // Video description
-	Duration          int            `json:"duration"`    // Video duration in seconds
-	Files             VideoFiles     `json:"files"`
-	Trailer           VideoFiles     `json:"trailer,omitempty"`
-	FirstFrame        []VideoImage   `json:"first_frame"`
-	Image             []VideoImage   `json:"image"`
-	Height            int            `json:"height"`   // Video height
-	ID                int            `json:"id"`       // Video ID
-	OwnerID           int            `json:"owner_id"` // Video owner ID
-	UserID            int            `json:"user_id"`
-	Photo130          string         `json:"photo_130"`  // url of the preview image with 130 px in width
-	Photo320          string         `json:"photo_320"`  // url of the preview image with 320 px in width
-	Photo640          string         `json:"photo_640"`  // url of the preview image with 640 px in width
-	Photo800          string         `json:"photo_800"`  // url of the preview image with 800 px in width
-	Photo1280         string         `json:"photo_1280"` // url of the preview image with 1280 px in width
+	CanRepost         BoolInt      `json:"can_repost"`
+	CanSubscribe      BoolInt      `json:"can_subscribe"`
+	CanAttachLink     BoolInt      `json:"can_attach_link"`
+	IsFavorite        BoolInt      `json:"is_favorite"`
+	IsPrivate         BoolInt      `json:"is_private"`
+	IsExplicit        BoolInt      `json:"is_explicit"`
+	IsSubscribed      BoolInt      `json:"is_subscribed"`
+	Added             BoolInt      `json:"added"`
+	Repeat            BoolInt      `json:"repeat"` // Information whether the video is repeated
+	ContentRestricted int          `json:"content_restricted"`
+	Live              BoolInt      `json:"live"` // Returns if the video is a live stream
+	Upcoming          BoolInt      `json:"upcoming"`
+	Comments          int          `json:"comments"`    // Number of comments
+	Date              int          `json:"date"`        // Date when video has been uploaded in Unixtime
+	Description       string       `json:"description"` // Video description
+	Duration          int          `json:"duration"`    // Video duration in seconds
+	Files             VideoFiles   `json:"files"`
+	Trailer           VideoFiles   `json:"trailer,omitempty"`
+	FirstFrame        []VideoImage `json:"first_frame"`
+	Image             []VideoImage `json:"image"`
+	Height            int          `json:"height"`   // Video height
+	ID                int          `json:"id"`       // Video ID
+	OwnerID           int          `json:"owner_id"` // Video owner ID
+	UserID            int          `json:"user_id"`
+	Photo130          string       `json:"photo_130"`  // url of the preview image with 130 px in width
+	Photo320          string       `json:"photo_320"`  // url of the preview image with 320 px in width
+	Photo640          string       `json:"photo_640"`  // url of the preview image with 640 px in width
+	Photo800          string       `json:"photo_800"`  // url of the preview image with 800 px in width
+	Photo1280         string       `json:"photo_1280"` // url of the preview image with 1280 px in width
 
 	// url of the page with a player that can be used to play the video in the browser.
 	Player                   string            `json:"player"`
@@ -92,15 +92,15 @@ func (video *Video) ToAttachment() string {
 }
 
 type VideoRestriction struct {
-	Title          string         `json:"title"`
-	Text           string         `json:"text"`
-	AlwaysShown    NumberFlagBool `json:"always_shown"`
-	Blur           NumberFlagBool `json:"blur"`
-	CanPlay        NumberFlagBool `json:"can_play"`
-	CanPreview     NumberFlagBool `json:"can_preview"`
-	CardIcon       []Image        `json:"card_icon"`
-	ListIcon       []Image        `json:"list_icon"`
-	DisclaimerType int            `json:"disclaimer_type"`
+	Title          string  `json:"title"`
+	Text           string  `json:"text"`
+	AlwaysShown    BoolInt `json:"always_shown"`
+	Blur           BoolInt `json:"blur"`
+	CanPlay        BoolInt `json:"can_play"`
+	CanPreview     BoolInt `json:"can_preview"`
+	CardIcon       []Image `json:"card_icon"`
+	ListIcon       []Image `json:"list_icon"`
+	DisclaimerType int     `json:"disclaimer_type"`
 }
 
 type VideoActionButton struct {
@@ -137,7 +137,7 @@ type VideoFiles struct {
 }
 
 type VideoCatBlock struct {
-	CanHide NumberFlagBool    `json:"can_hide"`
+	CanHide BoolInt           `json:"can_hide"`
 	ID      int               `json:"id"`
 	Items   []VideoCatElement `json:"items"`
 	Name    string            `json:"name"`
@@ -147,25 +147,25 @@ type VideoCatBlock struct {
 }
 
 type VideoCatElement struct {
-	CanAdd      NumberFlagBool `json:"can_add"`
-	CanEdit     NumberFlagBool `json:"can_edit"`
-	IsPrivate   NumberFlagBool `json:"is_private"`
-	Comments    int            `json:"comments"`
-	Count       int            `json:"count"`
-	Date        int            `json:"date"`
-	Description string         `json:"description"`
-	Duration    int            `json:"duration"`
-	ID          int            `json:"id"`
-	OwnerID     int            `json:"owner_id"`
-	Photo130    string         `json:"photo_130"`
-	Photo160    string         `json:"photo_160"`
-	Photo320    string         `json:"photo_320"`
-	Photo640    string         `json:"photo_640"`
-	Photo800    string         `json:"photo_800"`
-	Title       string         `json:"title"`
-	Type        string         `json:"type"`
-	UpdatedTime int            `json:"updated_time"`
-	Views       int            `json:"views"`
+	CanAdd      BoolInt `json:"can_add"`
+	CanEdit     BoolInt `json:"can_edit"`
+	IsPrivate   BoolInt `json:"is_private"`
+	Comments    int     `json:"comments"`
+	Count       int     `json:"count"`
+	Date        int     `json:"date"`
+	Description string  `json:"description"`
+	Duration    int     `json:"duration"`
+	ID          int     `json:"id"`
+	OwnerID     int     `json:"owner_id"`
+	Photo130    string  `json:"photo_130"`
+	Photo160    string  `json:"photo_160"`
+	Photo320    string  `json:"photo_320"`
+	Photo640    string  `json:"photo_640"`
+	Photo800    string  `json:"photo_800"`
+	Title       string  `json:"title"`
+	Type        string  `json:"type"`
+	UpdatedTime int     `json:"updated_time"`
+	Views       int     `json:"views"`
 }
 
 type VideoSaveResult struct {
@@ -189,40 +189,43 @@ type VideoAlbum struct {
 }
 
 type VideoAlbumFull struct {
-	Count       int            `json:"count"`        // Total number of videos in album
-	ID          int            `json:"id"`           // Album ID
-	Image       []VideoImage   `json:"image"`        // Album cover image in different sizes
-	IsSystem    NumberFlagBool `json:"is_system"`    // Information whether album is system
-	OwnerID     int            `json:"owner_id"`     // Album owner's ID
-	Photo160    string         `json:"photo_160"`    // url of the preview image with 160px in width
-	Photo320    string         `json:"photo_320"`    // url of the preview image with 320px in width
-	Title       string         `json:"title"`        // Album title
-	UpdatedTime int            `json:"updated_time"` // Date when the album has been updated last time in Unixtime
-	ImageBlur   int            `json:"image_blur"`
-	Privacy     Privacy        `json:"privacy"`
+	Count       int          `json:"count"`        // Total number of videos in album
+	ID          int          `json:"id"`           // Album ID
+	Image       []VideoImage `json:"image"`        // Album cover image in different sizes
+	IsSystem    BoolInt      `json:"is_system"`    // Information whether album is system
+	OwnerID     int          `json:"owner_id"`     // Album owner's ID
+	Photo160    string       `json:"photo_160"`    // url of the preview image with 160px in width
+	Photo320    string       `json:"photo_320"`    // url of the preview image with 320px in width
+	Title       string       `json:"title"`        // Album title
+	UpdatedTime int          `json:"updated_time"` // Date when the album has been updated last time in Unixtime
+	ImageBlur   int          `json:"image_blur"`
+	Privacy     Privacy      `json:"privacy"`
+	CanDelete   BoolInt      `json:"can_delete"`
+	CanEdit     BoolInt      `json:"can_edit"`
+	CanUpload   BoolInt      `json:"can_upload"`
 }
 
 type VideoFull struct {
-	AccessKey     string         `json:"access_key"`  // Video access key
-	AddingDate    int            `json:"adding_date"` // Date when the video has been added in Unixtime
-	IsFavorite    NumberFlagBool `json:"is_favorite"`
-	CanAdd        NumberFlagBool `json:"can_add"`     // Information whether current user can add the video
-	CanComment    NumberFlagBool `json:"can_comment"` // Information whether current user can comment the video
-	CanEdit       NumberFlagBool `json:"can_edit"`    // Information whether current user can edit the video
-	CanRepost     NumberFlagBool `json:"can_repost"`  // Information whether current user can comment the video
-	CanLike       NumberFlagBool `json:"can_like"`
-	CanAddToFaves NumberFlagBool `json:"can_add_to_faves"`
-	Repeat        NumberFlagBool `json:"repeat"`      // Information whether the video is repeated
-	Comments      int            `json:"comments"`    // Number of comments
-	Date          int            `json:"date"`        // Date when video has been uploaded in Unixtime
-	Description   string         `json:"description"` // Video description
-	Duration      int            `json:"duration"`    // Video duration in seconds
-	Files         VideoFiles     `json:"files"`
-	Trailer       VideoFiles     `json:"trailer"`
-	ID            int            `json:"id"` // Video ID
-	Likes         Likes          `json:"likes"`
-	Live          int            `json:"live"`     // Returns if the video is live translation
-	OwnerID       int            `json:"owner_id"` // Video owner ID
+	AccessKey     string     `json:"access_key"`  // Video access key
+	AddingDate    int        `json:"adding_date"` // Date when the video has been added in Unixtime
+	IsFavorite    BoolInt    `json:"is_favorite"`
+	CanAdd        BoolInt    `json:"can_add"`     // Information whether current user can add the video
+	CanComment    BoolInt    `json:"can_comment"` // Information whether current user can comment the video
+	CanEdit       BoolInt    `json:"can_edit"`    // Information whether current user can edit the video
+	CanRepost     BoolInt    `json:"can_repost"`  // Information whether current user can comment the video
+	CanLike       BoolInt    `json:"can_like"`
+	CanAddToFaves BoolInt    `json:"can_add_to_faves"`
+	Repeat        BoolInt    `json:"repeat"`      // Information whether the video is repeated
+	Comments      int        `json:"comments"`    // Number of comments
+	Date          int        `json:"date"`        // Date when video has been uploaded in Unixtime
+	Description   string     `json:"description"` // Video description
+	Duration      int        `json:"duration"`    // Video duration in seconds
+	Files         VideoFiles `json:"files"`
+	Trailer       VideoFiles `json:"trailer"`
+	ID            int        `json:"id"` // Video ID
+	Likes         Likes      `json:"likes"`
+	Live          int        `json:"live"`     // Returns if the video is live translation
+	OwnerID       int        `json:"owner_id"` // Video owner ID
 
 	// url of the page with a player that can be used to play the video in the browser.
 	Player     string       `json:"player"`
@@ -243,42 +246,42 @@ func (video *VideoFull) ToAttachment() string {
 }
 
 type VideoTag struct {
-	Date       int            `json:"date"`
-	ID         int            `json:"id"`
-	PlacerID   int            `json:"placer_id"`
-	TaggedName string         `json:"tagged_name"`
-	UserID     int            `json:"user_id"`
-	Viewed     NumberFlagBool `json:"viewed"`
+	Date       int     `json:"date"`
+	ID         int     `json:"id"`
+	PlacerID   int     `json:"placer_id"`
+	TaggedName string  `json:"tagged_name"`
+	UserID     int     `json:"user_id"`
+	Viewed     BoolInt `json:"viewed"`
 }
 
 type VideoTagInfo struct {
-	AccessKey   string         `json:"access_key"`
-	AddingDate  int            `json:"adding_date"`
-	CanAdd      NumberFlagBool `json:"can_add"`
-	CanEdit     NumberFlagBool `json:"can_edit"`
-	Comments    int            `json:"comments"`
-	Date        int            `json:"date"`
-	Description string         `json:"description"`
-	Duration    int            `json:"duration"`
-	Files       VideoFiles     `json:"files"`
-	ID          int            `json:"id"`
-	Live        int            `json:"live"`
-	OwnerID     int            `json:"owner_id"`
-	Photo130    string         `json:"photo_130"`
-	Photo320    string         `json:"photo_320"`
-	Photo800    string         `json:"photo_800"`
-	PlacerID    int            `json:"placer_id"`
-	Player      string         `json:"player"`
-	Processing  int            `json:"processing"`
-	TagCreated  int            `json:"tag_created"`
-	TagID       int            `json:"tag_id"`
-	Title       string         `json:"title"`
-	Views       int            `json:"views"`
+	AccessKey   string     `json:"access_key"`
+	AddingDate  int        `json:"adding_date"`
+	CanAdd      BoolInt    `json:"can_add"`
+	CanEdit     BoolInt    `json:"can_edit"`
+	Comments    int        `json:"comments"`
+	Date        int        `json:"date"`
+	Description string     `json:"description"`
+	Duration    int        `json:"duration"`
+	Files       VideoFiles `json:"files"`
+	ID          int        `json:"id"`
+	Live        int        `json:"live"`
+	OwnerID     int        `json:"owner_id"`
+	Photo130    string     `json:"photo_130"`
+	Photo320    string     `json:"photo_320"`
+	Photo800    string     `json:"photo_800"`
+	PlacerID    int        `json:"placer_id"`
+	Player      string     `json:"player"`
+	Processing  int        `json:"processing"`
+	TagCreated  int        `json:"tag_created"`
+	TagID       int        `json:"tag_id"`
+	Title       string     `json:"title"`
+	Views       int        `json:"views"`
 }
 
 type VideoImage struct {
 	Image
-	WithPadding NumberFlagBool `json:"with_padding"`
+	WithPadding BoolInt `json:"with_padding"`
 }
 
 type VideoLive struct {

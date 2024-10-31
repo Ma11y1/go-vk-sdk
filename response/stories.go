@@ -20,7 +20,7 @@ type StoriesGetResponse struct {
 		Count            int                       `json:"count"`
 		Items            []objects.StoriesFeedItem `json:"items"`
 		PromoData        objects.StoriesPromoBlock `json:"promo_data"`
-		NeedUploadScreen objects.NumberFlagBool    `json:"need_upload_screen"`
+		NeedUploadScreen objects.BoolInt           `json:"need_upload_screen"`
 	} `json:"response"`
 }
 
@@ -30,7 +30,7 @@ type StoriesGetExtendedResponse struct {
 		Count            int                       `json:"count"`
 		Items            []objects.StoriesFeedItem `json:"items"`
 		PromoData        objects.StoriesPromoBlock `json:"promo_data"`
-		NeedUploadScreen objects.NumberFlagBool    `json:"need_upload_screen"`
+		NeedUploadScreen objects.BoolInt           `json:"need_upload_screen"`
 		objects.UsersAndGroups
 	} `json:"response"`
 }
@@ -66,6 +66,17 @@ type StoriesGetByIDExtendedResponse struct {
 		Count int                    `json:"count"`
 		Items []objects.StoriesStory `json:"items"`
 		objects.UsersAndGroups
+	} `json:"response"`
+}
+
+type StoriesGetDetailedStatsResponse struct {
+	BaseResponse
+	Response struct {
+		Achievement         string                 `json:"achievement"`
+		AchievementSubtitle string                 `json:"achievement_subtitle"`
+		Categories          []objects.StatCategory `json:"categories"`
+		NeedPrivacyBlock    bool                   `json:"need_privacy_block"`
+		Preview             string                 `json:"preview"`
 	} `json:"response"`
 }
 

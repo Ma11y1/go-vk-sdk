@@ -24,15 +24,15 @@ type AppsApp struct {
 	Icon150               string                          `json:"icon_150"`
 	Icon278               string                          `json:"icon_278"`
 	Icon75                string                          `json:"icon_75"`
-	International         NumberFlagBool                  `json:"international"`
-	IsInCatalog           NumberFlagBool                  `json:"is_in_catalog"`
-	Installed             NumberFlagBool                  `json:"installed"`
-	PushEnabled           NumberFlagBool                  `json:"push_enabled"`
-	HideTabbar            NumberFlagBool                  `json:"hide_tabbar"`
-	IsNew                 NumberFlagBool                  `json:"is_new"`
-	New                   NumberFlagBool                  `json:"new"`
-	IsInstalled           NumberFlagBool                  `json:"is_installed"`
-	HasVkConnect          NumberFlagBool                  `json:"has_vk_connect"`
+	International         BoolInt                         `json:"international"`
+	IsInCatalog           BoolInt                         `json:"is_in_catalog"`
+	Installed             BoolInt                         `json:"installed"`
+	PushEnabled           BoolInt                         `json:"push_enabled"`
+	HideTabbar            BoolInt                         `json:"hide_tabbar"`
+	IsNew                 BoolInt                         `json:"is_new"`
+	New                   BoolInt                         `json:"new"`
+	IsInstalled           BoolInt                         `json:"is_installed"`
+	HasVkConnect          BoolInt                         `json:"has_vk_connect"`
 	LeaderboardType       int                             `json:"leaderboard_type"`
 	MembersCount          int                             `json:"members_count"`
 	PlatformID            int                             `json:"platform_id"`

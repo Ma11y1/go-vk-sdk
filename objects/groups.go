@@ -24,29 +24,29 @@ type GroupFull struct {
 	MemberStatus         int                 `json:"member_status,omitempty"`
 	City                 City                `json:"city,omitempty"`
 	Country              Country             `json:"country,omitempty"`
-	IsAdmin              NumberFlagBool      `json:"is_admin"`
-	IsAdvertiser         NumberFlagBool      `json:"is_advertiser,omitempty"`
-	IsMember             NumberFlagBool      `json:"is_member,omitempty"`
-	IsFavorite           NumberFlagBool      `json:"is_favorite,omitempty"`
-	IsAdult              NumberFlagBool      `json:"is_adult,omitempty"`
-	IsSubscribed         NumberFlagBool      `json:"is_subscribed,omitempty"`
-	CanPost              NumberFlagBool      `json:"can_post,omitempty"`
-	CanSeeAllPosts       NumberFlagBool      `json:"can_see_all_posts,omitempty"`
-	CanCreateTopic       NumberFlagBool      `json:"can_create_topic,omitempty"`
-	CanUploadVideo       NumberFlagBool      `json:"can_upload_video,omitempty"`
-	CanUploadDoc         NumberFlagBool      `json:"can_upload_doc,omitempty"`
-	HasPhoto             NumberFlagBool      `json:"has_photo,omitempty"`
-	CanMessage           NumberFlagBool      `json:"can_message,omitempty"`
-	IsMessagesBlocked    NumberFlagBool      `json:"is_messages_blocked,omitempty"`
-	CanSendNotify        NumberFlagBool      `json:"can_send_notify,omitempty"`
-	IsSubscribedPodcasts NumberFlagBool      `json:"is_subscribed_podcasts,omitempty"`
-	CanSubscribePodcasts NumberFlagBool      `json:"can_subscribe_podcasts,omitempty"`
-	CanSubscribePosts    NumberFlagBool      `json:"can_subscribe_posts,omitempty"`
-	HasMarketApp         NumberFlagBool      `json:"has_market_app,omitempty"`
-	IsHiddenFromFeed     NumberFlagBool      `json:"is_hidden_from_feed,omitempty"`
-	IsMarketCartEnabled  NumberFlagBool      `json:"is_market_cart_enabled,omitempty"`
-	Verified             NumberFlagBool      `json:"verified,omitempty"`
-	Trending             NumberFlagBool      `json:"trending,omitempty"`
+	IsAdmin              BoolInt             `json:"is_admin"`
+	IsAdvertiser         BoolInt             `json:"is_advertiser,omitempty"`
+	IsMember             BoolInt             `json:"is_member,omitempty"`
+	IsFavorite           BoolInt             `json:"is_favorite,omitempty"`
+	IsAdult              BoolInt             `json:"is_adult,omitempty"`
+	IsSubscribed         BoolInt             `json:"is_subscribed,omitempty"`
+	CanPost              BoolInt             `json:"can_post,omitempty"`
+	CanSeeAllPosts       BoolInt             `json:"can_see_all_posts,omitempty"`
+	CanCreateTopic       BoolInt             `json:"can_create_topic,omitempty"`
+	CanUploadVideo       BoolInt             `json:"can_upload_video,omitempty"`
+	CanUploadDoc         BoolInt             `json:"can_upload_doc,omitempty"`
+	HasPhoto             BoolInt             `json:"has_photo,omitempty"`
+	CanMessage           BoolInt             `json:"can_message,omitempty"`
+	IsMessagesBlocked    BoolInt             `json:"is_messages_blocked,omitempty"`
+	CanSendNotify        BoolInt             `json:"can_send_notify,omitempty"`
+	IsSubscribedPodcasts BoolInt             `json:"is_subscribed_podcasts,omitempty"`
+	CanSubscribePodcasts BoolInt             `json:"can_subscribe_podcasts,omitempty"`
+	CanSubscribePosts    BoolInt             `json:"can_subscribe_posts,omitempty"`
+	HasMarketApp         BoolInt             `json:"has_market_app,omitempty"`
+	IsHiddenFromFeed     BoolInt             `json:"is_hidden_from_feed,omitempty"`
+	IsMarketCartEnabled  BoolInt             `json:"is_market_cart_enabled,omitempty"`
+	Verified             BoolInt             `json:"verified,omitempty"`
+	Trending             BoolInt             `json:"trending,omitempty"`
 	Description          string              `json:"description,omitempty"`
 	WikiPage             string              `json:"wiki_page,omitempty"`
 	MembersCount         int                 `json:"members_count,omitempty"`
@@ -111,8 +111,8 @@ type GroupAddressTimetable struct {
 }
 
 type GroupAddressesInfo struct {
-	IsEnabled     NumberFlagBool `json:"is_enabled"`
-	MainAddressID int            `json:"main_address_id"`
+	IsEnabled     BoolInt `json:"is_enabled"`
+	MainAddressID int     `json:"main_address_id"`
 }
 
 func (group GroupFull) ToMention() string {
@@ -120,7 +120,7 @@ func (group GroupFull) ToMention() string {
 }
 
 type GroupLike struct {
-	IsLiked NumberFlagBool   `json:"is_liked"`
+	IsLiked BoolInt          `json:"is_liked"`
 	Friends GroupLikeFriends `json:"friends"`
 }
 
@@ -130,18 +130,18 @@ type GroupLikeFriends struct {
 }
 
 type GroupLiveCovers struct {
-	IsEnabled  NumberFlagBool `json:"is_enabled"`
-	IsScalable NumberFlagBool `json:"is_scalable"`
-	StoryIDs   []string       `json:"story_ids"`
+	IsEnabled  BoolInt  `json:"is_enabled"`
+	IsScalable BoolInt  `json:"is_scalable"`
+	StoryIDs   []string `json:"story_ids"`
 }
 
 type GroupsBanInfo struct {
-	AdminID        int            `json:"admin_id"`
-	Comment        string         `json:"comment"`
-	Date           int            `json:"date"`
-	EndDate        int            `json:"end_date"`
-	Reason         int            `json:"reason"`
-	CommentVisible NumberFlagBool `json:"comment_visible"`
+	AdminID        int     `json:"admin_id"`
+	Comment        string  `json:"comment"`
+	Date           int     `json:"date"`
+	EndDate        int     `json:"end_date"`
+	Reason         int     `json:"reason"`
+	CommentVisible BoolInt `json:"comment_visible"`
 }
 
 type GroupCallbackServer struct {
@@ -200,8 +200,8 @@ func (personal *GroupCountersGroup) UnmarshalJSON(data []byte) error {
 }
 
 type GroupCover struct {
-	Enabled NumberFlagBool `json:"enabled"`
-	Images  []Image        `json:"images"`
+	Enabled BoolInt `json:"enabled"`
+	Images  []Image `json:"images"`
 }
 
 type GroupBanInfo struct {
@@ -229,12 +229,12 @@ type GroupCategoryType struct {
 }
 
 type GroupLink struct {
-	Desc            string         `json:"desc"`
-	EditTitle       NumberFlagBool `json:"edit_title"`
-	ImageProcessing NumberFlagBool `json:"image_processing"`
-	Name            string         `json:"name"`
-	ID              int            `json:"id"`
-	URL             string         `json:"url"`
+	Desc            string  `json:"desc"`
+	EditTitle       BoolInt `json:"edit_title"`
+	ImageProcessing BoolInt `json:"image_processing"`
+	Name            string  `json:"name"`
+	ID              int     `json:"id"`
+	URL             string  `json:"url"`
 }
 
 type GroupPublicCategoryList struct {
@@ -269,10 +269,10 @@ type GroupSettings struct {
 	Articles           int                       `json:"articles"`
 	Events             int                       `json:"events"`
 	AgeLimits          int                       `json:"age_limits"`
-	ObsceneFilter      NumberFlagBool            `json:"obscene_filter"`
-	ObsceneStopwords   NumberFlagBool            `json:"obscene_stopwords"`
+	ObsceneFilter      BoolInt                   `json:"obscene_filter"`
+	ObsceneStopwords   BoolInt                   `json:"obscene_stopwords"`
 	LiveCovers         struct {
-		IsEnabled NumberFlagBool `json:"is_enabled"`
+		IsEnabled BoolInt `json:"is_enabled"`
 	} `json:"live_covers"`
 	Market           GroupMarketInfo     `json:"market"`
 	SectionsList     []IDTitle           `json:"sections_list"`
@@ -289,9 +289,9 @@ type GroupSettings struct {
 }
 
 type GroupMarketServices struct {
-	Enabled         NumberFlagBool     `json:"enabled"`
-	CanMessage      NumberFlagBool     `json:"can_message"`
-	CommentsEnabled NumberFlagBool     `json:"comments_enabled"`
+	Enabled         BoolInt            `json:"enabled"`
+	CanMessage      BoolInt            `json:"can_message"`
+	CommentsEnabled BoolInt            `json:"comments_enabled"`
 	ContactID       int                `json:"contact_id"`
 	Currency        MarketCurrency     `json:"currency"`
 	ViewType        GroupSelectedItems `json:"view_type"`
@@ -323,53 +323,53 @@ type GroupYoulaSubcategory struct {
 }
 
 type GroupYoulaSettings struct {
-	IsActive              NumberFlagBool `json:"is_active"`
-	IsModerated           NumberFlagBool `json:"is_moderated"`
-	ShowModerationSetting NumberFlagBool `json:"show_moderation_setting"`
-	ModerationStatus      int            `json:"moderation_status"`
-	DeclineReason         string         `json:"decline_reason"`
-	GroupMode             int            `json:"group_mode"`
-	SelectedCategoryIDs   []int          `json:"selected_category_ids"`
-	Lat                   float64        `json:"lat"`
-	Long                  float64        `json:"long"`
-	Radius                float64        `json:"radius"`
-	RadiusArea            string         `json:"radius_area"`
-	Address               string         `json:"address"`
-	Radiuses              []float64      `json:"radiuses"`
+	IsActive              BoolInt   `json:"is_active"`
+	IsModerated           BoolInt   `json:"is_moderated"`
+	ShowModerationSetting BoolInt   `json:"show_moderation_setting"`
+	ModerationStatus      int       `json:"moderation_status"`
+	DeclineReason         string    `json:"decline_reason"`
+	GroupMode             int       `json:"group_mode"`
+	SelectedCategoryIDs   []int     `json:"selected_category_ids"`
+	Lat                   float64   `json:"lat"`
+	Long                  float64   `json:"long"`
+	Radius                float64   `json:"radius"`
+	RadiusArea            string    `json:"radius_area"`
+	Address               string    `json:"address"`
+	Radiuses              []float64 `json:"radiuses"`
 }
 
 type GroupActionButton struct {
 	ActionType constants.GroupActionType `json:"action_type"`
 	Target     GroupActionButtonTarget   `json:"target"`
 	Title      string                    `json:"title"`
-	IsEnabled  NumberFlagBool            `json:"is_enabled,omitempty"`
+	IsEnabled  BoolInt                   `json:"is_enabled,omitempty"`
 }
 
 type GroupActionButtonTarget struct {
-	Email          string         `json:"email"`
-	Phone          string         `json:"phone"`
-	UserID         int            `json:"user_id"`
-	URL            string         `json:"url"`
-	GoogleStoreURL string         `json:"google_store_url"`
-	ItunesURL      string         `json:"itunes_url"`
-	AppID          int            `json:"app_id"`
-	IsInternal     NumberFlagBool `json:"is_internal"`
+	Email          string  `json:"email"`
+	Phone          string  `json:"phone"`
+	UserID         int     `json:"user_id"`
+	URL            string  `json:"url"`
+	GoogleStoreURL string  `json:"google_store_url"`
+	ItunesURL      string  `json:"itunes_url"`
+	AppID          int     `json:"app_id"`
+	IsInternal     BoolInt `json:"is_internal"`
 }
 
 type GroupXtrInvitedBy struct {
-	AdminLevel   int            `json:"admin_level"`
-	ID           int            `json:"id"`
-	InvitedBy    int            `json:"invited_by"`
-	Name         string         `json:"name"`
-	Photo100     string         `json:"photo_100"`
-	Photo200     string         `json:"photo_200"`
-	Photo50      string         `json:"photo_50"`
-	ScreenName   string         `json:"screen_name"`
-	Type         string         `json:"type"`
-	IsClosed     int            `json:"is_closed"`
-	IsAdmin      NumberFlagBool `json:"is_admin"`
-	IsMember     NumberFlagBool `json:"is_member"`
-	IsAdvertiser NumberFlagBool `json:"is_advertiser"`
+	AdminLevel   int     `json:"admin_level"`
+	ID           int     `json:"id"`
+	InvitedBy    int     `json:"invited_by"`
+	Name         string  `json:"name"`
+	Photo100     string  `json:"photo_100"`
+	Photo200     string  `json:"photo_200"`
+	Photo50      string  `json:"photo_50"`
+	ScreenName   string  `json:"screen_name"`
+	Type         string  `json:"type"`
+	IsClosed     int     `json:"is_closed"`
+	IsAdmin      BoolInt `json:"is_admin"`
+	IsMember     BoolInt `json:"is_member"`
+	IsAdvertiser BoolInt `json:"is_advertiser"`
 }
 
 func (group GroupXtrInvitedBy) ToMention() string {
@@ -377,71 +377,71 @@ func (group GroupXtrInvitedBy) ToMention() string {
 }
 
 type GroupLinksItem struct {
-	Desc      string         `json:"desc"`
-	EditTitle NumberFlagBool `json:"edit_title"`
-	ID        int            `json:"id"`
-	Name      string         `json:"name"`
-	Photo100  string         `json:"photo_100"`
-	Photo50   string         `json:"photo_50"`
-	URL       string         `json:"url"`
+	Desc      string  `json:"desc"`
+	EditTitle BoolInt `json:"edit_title"`
+	ID        int     `json:"id"`
+	Name      string  `json:"name"`
+	Photo100  string  `json:"photo_100"`
+	Photo50   string  `json:"photo_50"`
+	URL       string  `json:"url"`
 }
 
 type GroupLongPollEvents struct {
-	MessageNew                    NumberFlagBool `json:"message_new"`
-	MessageReply                  NumberFlagBool `json:"message_reply"`
-	PhotoNew                      NumberFlagBool `json:"photo_new"`
-	AudioNew                      NumberFlagBool `json:"audio_new"`
-	VideoNew                      NumberFlagBool `json:"video_new"`
-	WallReplyNew                  NumberFlagBool `json:"wall_reply_new"`
-	WallReplyEdit                 NumberFlagBool `json:"wall_reply_edit"`
-	WallReplyDelete               NumberFlagBool `json:"wall_reply_delete"`
-	WallReplyRestore              NumberFlagBool `json:"wall_reply_restore"`
-	WallPostNew                   NumberFlagBool `json:"wall_post_new"`
-	BoardPostNew                  NumberFlagBool `json:"board_post_new"`
-	BoardPostEdit                 NumberFlagBool `json:"board_post_edit"`
-	BoardPostRestore              NumberFlagBool `json:"board_post_restore"`
-	BoardPostDelete               NumberFlagBool `json:"board_post_delete"`
-	PhotoCommentNew               NumberFlagBool `json:"photo_comment_new"`
-	PhotoCommentEdit              NumberFlagBool `json:"photo_comment_edit"`
-	PhotoCommentDelete            NumberFlagBool `json:"photo_comment_delete"`
-	PhotoCommentRestore           NumberFlagBool `json:"photo_comment_restore"`
-	VideoCommentNew               NumberFlagBool `json:"video_comment_new"`
-	VideoCommentEdit              NumberFlagBool `json:"video_comment_edit"`
-	VideoCommentDelete            NumberFlagBool `json:"video_comment_delete"`
-	VideoCommentRestore           NumberFlagBool `json:"video_comment_restore"`
-	MarketCommentNew              NumberFlagBool `json:"market_comment_new"`
-	MarketCommentEdit             NumberFlagBool `json:"market_comment_edit"`
-	MarketCommentDelete           NumberFlagBool `json:"market_comment_delete"`
-	MarketCommentRestore          NumberFlagBool `json:"market_comment_restore"`
-	MarketOrderNew                NumberFlagBool `json:"market_order_new"`
-	MarketOrderEdit               NumberFlagBool `json:"market_order_edit"`
-	PollVoteNew                   NumberFlagBool `json:"poll_vote_new"`
-	GroupJoin                     NumberFlagBool `json:"group_join"`
-	GroupLeave                    NumberFlagBool `json:"group_leave"`
-	GroupChangeSettings           NumberFlagBool `json:"group_change_settings"`
-	GroupChangePhoto              NumberFlagBool `json:"group_change_photo"`
-	GroupOfficersEdit             NumberFlagBool `json:"group_officers_edit"`
-	MessageAllow                  NumberFlagBool `json:"message_allow"`
-	MessageDeny                   NumberFlagBool `json:"message_deny"`
-	WallRepost                    NumberFlagBool `json:"wall_repost"`
-	UserBlock                     NumberFlagBool `json:"user_block"`
-	UserUnblock                   NumberFlagBool `json:"user_unblock"`
-	MessageEdit                   NumberFlagBool `json:"message_edit"`
-	MessageTypingState            NumberFlagBool `json:"message_typing_state"`
-	LeadFormsNew                  NumberFlagBool `json:"lead_forms_new"`
-	LikeAdd                       NumberFlagBool `json:"like_add"`
-	LikeRemove                    NumberFlagBool `json:"like_remove"`
-	VkpayTransaction              NumberFlagBool `json:"vkpay_transaction"`
-	AppPayload                    NumberFlagBool `json:"app_payload"`
-	MessageRead                   NumberFlagBool `json:"message_read"`
-	MessageEvent                  NumberFlagBool `json:"message_event"`
-	DonutSubscriptionCreate       NumberFlagBool `json:"donut_subscription_create"`
-	DonutSubscriptionProlonged    NumberFlagBool `json:"donut_subscription_prolonged"`
-	DonutSubscriptionExpired      NumberFlagBool `json:"donut_subscription_expired"`
-	DonutSubscriptionCancelled    NumberFlagBool `json:"donut_subscription_cancelled"`
-	DonutSubscriptionPriceChanged NumberFlagBool `json:"donut_subscription_price_changed"`
-	DonutMoneyWithdraw            NumberFlagBool `json:"donut_money_withdraw"`
-	DonutMoneyWithdrawError       NumberFlagBool `json:"donut_money_withdraw_error"`
+	MessageNew                    BoolInt `json:"message_new"`
+	MessageReply                  BoolInt `json:"message_reply"`
+	PhotoNew                      BoolInt `json:"photo_new"`
+	AudioNew                      BoolInt `json:"audio_new"`
+	VideoNew                      BoolInt `json:"video_new"`
+	WallReplyNew                  BoolInt `json:"wall_reply_new"`
+	WallReplyEdit                 BoolInt `json:"wall_reply_edit"`
+	WallReplyDelete               BoolInt `json:"wall_reply_delete"`
+	WallReplyRestore              BoolInt `json:"wall_reply_restore"`
+	WallPostNew                   BoolInt `json:"wall_post_new"`
+	BoardPostNew                  BoolInt `json:"board_post_new"`
+	BoardPostEdit                 BoolInt `json:"board_post_edit"`
+	BoardPostRestore              BoolInt `json:"board_post_restore"`
+	BoardPostDelete               BoolInt `json:"board_post_delete"`
+	PhotoCommentNew               BoolInt `json:"photo_comment_new"`
+	PhotoCommentEdit              BoolInt `json:"photo_comment_edit"`
+	PhotoCommentDelete            BoolInt `json:"photo_comment_delete"`
+	PhotoCommentRestore           BoolInt `json:"photo_comment_restore"`
+	VideoCommentNew               BoolInt `json:"video_comment_new"`
+	VideoCommentEdit              BoolInt `json:"video_comment_edit"`
+	VideoCommentDelete            BoolInt `json:"video_comment_delete"`
+	VideoCommentRestore           BoolInt `json:"video_comment_restore"`
+	MarketCommentNew              BoolInt `json:"market_comment_new"`
+	MarketCommentEdit             BoolInt `json:"market_comment_edit"`
+	MarketCommentDelete           BoolInt `json:"market_comment_delete"`
+	MarketCommentRestore          BoolInt `json:"market_comment_restore"`
+	MarketOrderNew                BoolInt `json:"market_order_new"`
+	MarketOrderEdit               BoolInt `json:"market_order_edit"`
+	PollVoteNew                   BoolInt `json:"poll_vote_new"`
+	GroupJoin                     BoolInt `json:"group_join"`
+	GroupLeave                    BoolInt `json:"group_leave"`
+	GroupChangeSettings           BoolInt `json:"group_change_settings"`
+	GroupChangePhoto              BoolInt `json:"group_change_photo"`
+	GroupOfficersEdit             BoolInt `json:"group_officers_edit"`
+	MessageAllow                  BoolInt `json:"message_allow"`
+	MessageDeny                   BoolInt `json:"message_deny"`
+	WallRepost                    BoolInt `json:"wall_repost"`
+	UserBlock                     BoolInt `json:"user_block"`
+	UserUnblock                   BoolInt `json:"user_unblock"`
+	MessageEdit                   BoolInt `json:"message_edit"`
+	MessageTypingState            BoolInt `json:"message_typing_state"`
+	LeadFormsNew                  BoolInt `json:"lead_forms_new"`
+	LikeAdd                       BoolInt `json:"like_add"`
+	LikeRemove                    BoolInt `json:"like_remove"`
+	VkpayTransaction              BoolInt `json:"vkpay_transaction"`
+	AppPayload                    BoolInt `json:"app_payload"`
+	MessageRead                   BoolInt `json:"message_read"`
+	MessageEvent                  BoolInt `json:"message_event"`
+	DonutSubscriptionCreate       BoolInt `json:"donut_subscription_create"`
+	DonutSubscriptionProlonged    BoolInt `json:"donut_subscription_prolonged"`
+	DonutSubscriptionExpired      BoolInt `json:"donut_subscription_expired"`
+	DonutSubscriptionCancelled    BoolInt `json:"donut_subscription_cancelled"`
+	DonutSubscriptionPriceChanged BoolInt `json:"donut_subscription_price_changed"`
+	DonutMoneyWithdraw            BoolInt `json:"donut_money_withdraw"`
+	DonutMoneyWithdrawError       BoolInt `json:"donut_money_withdraw_error"`
 }
 
 type GroupLongPollServer struct {
@@ -457,7 +457,7 @@ func (lp GroupLongPollServer) GetURL(wait int) string {
 type GroupLongPollSettings struct {
 	APIVersion string              `json:"api_version"`
 	Events     GroupLongPollEvents `json:"events"`
-	IsEnabled  NumberFlagBool      `json:"is_enabled"`
+	IsEnabled  BoolInt             `json:"is_enabled"`
 }
 
 type GroupMarketInfo struct {
@@ -465,10 +465,10 @@ type GroupMarketInfo struct {
 	ContactID       int                       `json:"contact_id,omitempty"`
 	Currency        MarketCurrency            `json:"currency,omitempty"`
 	CurrencyText    string                    `json:"currency_text,omitempty"`
-	Enabled         NumberFlagBool            `json:"enabled"`
-	CommentsEnabled NumberFlagBool            `json:"comments_enabled,omitempty"`
-	CanMessage      NumberFlagBool            `json:"can_message,omitempty"`
-	IsHsEnabled     NumberFlagBool            `json:"is_hs_enabled,omitempty"`
+	Enabled         BoolInt                   `json:"enabled"`
+	CommentsEnabled BoolInt                   `json:"comments_enabled,omitempty"`
+	CanMessage      BoolInt                   `json:"can_message,omitempty"`
+	IsHsEnabled     BoolInt                   `json:"is_hs_enabled,omitempty"`
 	MainAlbumID     int                       `json:"main_album_id,omitempty"`
 	PriceMax        string                    `json:"price_max,omitempty"`
 	PriceMin        string                    `json:"price_min,omitempty"`
@@ -491,18 +491,18 @@ type GroupMemberRoleXtrUser struct {
 }
 
 type GroupMemberStatus struct {
-	Member      NumberFlagBool `json:"member"`
-	UserID      int            `json:"user_id"`
-	Permissions []string       `json:"permissions"`
+	Member      BoolInt  `json:"member"`
+	UserID      int      `json:"user_id"`
+	Permissions []string `json:"permissions"`
 }
 
 type GroupMemberStatusFull struct {
-	Invitation NumberFlagBool `json:"invitation"`
-	Member     NumberFlagBool `json:"member"`
-	Request    NumberFlagBool `json:"request"`
-	CanInvite  NumberFlagBool `json:"can_invite"`
-	CanRecall  NumberFlagBool `json:"can_recall"`
-	UserID     int            `json:"user_id"`
+	Invitation BoolInt `json:"invitation"`
+	Member     BoolInt `json:"member"`
+	Request    BoolInt `json:"request"`
+	CanInvite  BoolInt `json:"can_invite"`
+	CanRecall  BoolInt `json:"can_recall"`
+	UserID     int     `json:"user_id"`
 }
 
 type GroupOnlineStatus struct {
@@ -543,4 +543,12 @@ type GroupProfileItem struct {
 	Photo50   string `json:"photo_50"`
 	Photo100  string `json:"photo_100"`
 	FirstName string `json:"first_name"`
+}
+
+type GroupAttach struct {
+	ID         int    `json:"id"`
+	IsFavorite bool   `json:"is_favorite"`
+	Size       int    `json:"size"`
+	Status     string `json:"status"`
+	Text       string `json:"text"`
 }

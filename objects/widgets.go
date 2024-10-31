@@ -8,8 +8,8 @@ type WidgetsCommentMedia struct {
 }
 
 type WidgetsCommentReplies struct {
-	CanPost       NumberFlagBool              `json:"can_post"`
-	GroupsCanPost NumberFlagBool              `json:"groups_can_post"`
+	CanPost       BoolInt                     `json:"can_post"`
+	GroupsCanPost BoolInt                     `json:"groups_can_post"`
 	Count         int                         `json:"count"`
 	Replies       []WidgetsCommentRepliesItem `json:"replies"`
 }
@@ -25,8 +25,8 @@ type WidgetsCommentRepliesItem struct {
 
 type WidgetsWidgetComment struct {
 	Attachments []WallCommentAttachment `json:"attachments"`
-	CanDelete   NumberFlagBool          `json:"can_delete"`
-	IsFavorite  NumberFlagBool          `json:"is_favorite"`
+	CanDelete   BoolInt                 `json:"can_delete"`
+	IsFavorite  BoolInt                 `json:"is_favorite"`
 	Comments    WidgetsCommentReplies   `json:"comments"`
 	Date        int                     `json:"date"`
 	FromID      int                     `json:"from_id"`

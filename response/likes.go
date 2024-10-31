@@ -37,7 +37,7 @@ type LikesGetListExtendedResponse struct {
 type LikesIsLikedResponse struct {
 	BaseResponse
 	Response struct {
-		Liked  objects.NumberFlagBool `json:"liked"`
-		Copied objects.NumberFlagBool `json:"copied"`
+		Liked  objects.BoolInt `json:"liked"`
+		Copied objects.BoolInt `json:"copied"`
 	} `json:"response"`
 }

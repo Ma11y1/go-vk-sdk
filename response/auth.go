@@ -109,7 +109,7 @@ func (a *AuthUserVKIDCodeFlowResponse) UnmarshalJSON(data []byte) error {
 type AuthRestoreResponse struct {
 	BaseResponse
 	Response struct {
-		Success objects.NumberFlagBool `json:"success"`
-		SID     string                 `json:"sid"`
+		Success objects.BoolInt `json:"success"`
+		SID     string          `json:"sid"`
 	} `json:"response"`
 }

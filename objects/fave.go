@@ -15,23 +15,23 @@ type FavePage struct {
 }
 
 type FaveFavesLink struct {
-	ID          string         `json:"id"`
-	Title       string         `json:"title"`
-	Description string         `json:"description"`
-	URL         string         `json:"url"`
-	Photo       Photo          `json:"photo"`
-	Caption     string         `json:"caption"`
-	IsFavorite  NumberFlagBool `json:"is_favorite"`
+	ID          string  `json:"id"`
+	Title       string  `json:"title"`
+	Description string  `json:"description"`
+	URL         string  `json:"url"`
+	Photo       Photo   `json:"photo"`
+	Caption     string  `json:"caption"`
+	IsFavorite  BoolInt `json:"is_favorite"`
 }
 
 type FaveItem struct {
-	Type      string         `json:"type"`
-	Seen      NumberFlagBool `json:"seen"`
-	AddedDate int            `json:"added_date"`
-	Tags      []FaveTag      `json:"tags"`
-	Link      FaveFavesLink  `json:"link,omitempty"`
-	Post      WallWallpost   `json:"post,omitempty"`
-	Video     Video          `json:"video,omitempty"`
-	Product   MarketItem     `json:"product,omitempty"`
-	Article   Article        `json:"article,omitempty"`
+	Type      string        `json:"type"`
+	Seen      BoolInt       `json:"seen"`
+	AddedDate int           `json:"added_date"`
+	Tags      []FaveTag     `json:"tags"`
+	Link      FaveFavesLink `json:"link,omitempty"`
+	Post      WallWallpost  `json:"post,omitempty"`
+	Video     Video         `json:"video,omitempty"`
+	Product   MarketItem    `json:"product,omitempty"`
+	Article   Article       `json:"article,omitempty"`
 }

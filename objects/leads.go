@@ -8,22 +8,22 @@ type LeadChecked struct {
 }
 
 type LeadComplete struct {
-	Cost     int            `json:"cost"`
-	Limit    int            `json:"limit"`
-	Spent    int            `json:"spent"`
-	Success  NumberFlagBool `json:"success"`
-	TestMode NumberFlagBool `json:"test_mode"`
+	Cost     int     `json:"cost"`
+	Limit    int     `json:"limit"`
+	Spent    int     `json:"spent"`
+	Success  BoolInt `json:"success"`
+	TestMode BoolInt `json:"test_mode"`
 }
 
 type LeadEntry struct {
-	Aid       int            `json:"aid"`
-	Comment   string         `json:"comment"`
-	Date      int            `json:"date"`
-	Sid       string         `json:"sid"`
-	StartDate int            `json:"start_date"`
-	Status    int            `json:"status"`
-	TestMode  NumberFlagBool `json:"test_mode"`
-	UID       int            `json:"uid"`
+	Aid       int     `json:"aid"`
+	Comment   string  `json:"comment"`
+	Date      int     `json:"date"`
+	Sid       string  `json:"sid"`
+	StartDate int     `json:"start_date"`
+	Status    int     `json:"status"`
+	TestMode  BoolInt `json:"test_mode"`
+	UID       int     `json:"uid"`
 }
 
 type LeadLead struct {
@@ -44,6 +44,6 @@ type LeadLeadDays struct {
 }
 
 type LeadStart struct {
-	TestMode NumberFlagBool `json:"test_mode"`
-	VkSid    string         `json:"vk_sid"`
+	TestMode BoolInt `json:"test_mode"`
+	VkSid    string  `json:"vk_sid"`
 }

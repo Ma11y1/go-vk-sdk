@@ -6,7 +6,7 @@ import "go-vk-sdk/objects"
 
 type SecureAddAppEventResponse struct {
 	BaseResponse
-	Response objects.NumberFlagBool `json:"response"`
+	Response objects.BoolInt `json:"response"`
 }
 
 type SecureCheckTokenResponse struct {

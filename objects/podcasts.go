@@ -29,12 +29,12 @@ type PodcastsEpisode struct {
 	LyricsID            int                 `json:"lyrics_id"`
 	NoSearch            int                 `json:"no_search"`
 	TrackCode           string              `json:"track_code"`
-	IsHq                NumberFlagBool      `json:"is_hq"`
-	IsFocusTrack        NumberFlagBool      `json:"is_focus_track"`
-	IsExplicit          NumberFlagBool      `json:"is_explicit"`
-	ShortVideosAllowed  NumberFlagBool      `json:"short_videos_allowed"`
-	StoriesAllowed      NumberFlagBool      `json:"stories_allowed"`
-	StoriesCoverAllowed NumberFlagBool      `json:"stories_cover_allowed"`
+	IsHq                BoolInt             `json:"is_hq"`
+	IsFocusTrack        BoolInt             `json:"is_focus_track"`
+	IsExplicit          BoolInt             `json:"is_explicit"`
+	ShortVideosAllowed  BoolInt             `json:"short_videos_allowed"`
+	StoriesAllowed      BoolInt             `json:"stories_allowed"`
+	StoriesCoverAllowed BoolInt             `json:"stories_cover_allowed"`
 	PodcastInfo         PodcastsPodcastInfo `json:"podcast_info"`
 }
 
@@ -42,8 +42,8 @@ type PodcastsPodcastInfo struct {
 	Cover struct {
 		Sizes []Image `json:"cover"`
 	}
-	Plays       int            `json:"plays"`
-	IsFavorite  NumberFlagBool `json:"is_favorite"`
-	Description string         `json:"description"`
-	Position    int            `json:"position"`
+	Plays       int     `json:"plays"`
+	IsFavorite  BoolInt `json:"is_favorite"`
+	Description string  `json:"description"`
+	Position    int     `json:"position"`
 }

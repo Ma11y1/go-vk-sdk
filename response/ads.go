@@ -241,7 +241,7 @@ type AdsRemoveOfficeUsersResponse struct {
 
 type AdsRemoveTargetContactsResponse struct {
 	BaseResponse
-	Response objects.NumberFlagBool `json:"response"`
+	Response objects.BoolInt `json:"response"`
 }
 
 type AdsSaveLookalikeRequestResultResponse struct {

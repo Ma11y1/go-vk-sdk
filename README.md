@@ -1,7 +1,9 @@
 
 [![VK Developers](https://img.shields.io/badge/developers-%234a76a8.svg?logo=VK&logoColor=white)](https://dev.vk.com/)
 
-**Tool for working with VKontakte API**
+### Tool for working with VKontakte API
+
+### **All requests have not been tested, so there may be errors in the return values, especially in JSON names**
 
 # Install
 ```bash

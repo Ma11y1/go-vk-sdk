@@ -14,14 +14,14 @@ type MarketCurrency struct {
 }
 
 type MarketAlbum struct {
-	Count       int            `json:"count"`
-	ID          int            `json:"id"`
-	OwnerID     int            `json:"owner_id"`
-	Photo       Photo          `json:"photo"`
-	Title       string         `json:"title"`
-	UpdatedTime int            `json:"updated_time"`
-	IsMain      NumberFlagBool `json:"is_main"`
-	IsHidden    NumberFlagBool `json:"is_hidden"`
+	Count       int     `json:"count"`
+	ID          int     `json:"id"`
+	OwnerID     int     `json:"owner_id"`
+	Photo       Photo   `json:"photo"`
+	Title       string  `json:"title"`
+	UpdatedTime int     `json:"updated_time"`
+	IsMain      BoolInt `json:"is_main"`
+	IsHidden    BoolInt `json:"is_hidden"`
 }
 
 func (m *MarketAlbum) ToAttachment() string {
@@ -45,10 +45,10 @@ type MarketItem struct {
 	OwnerID            int                  `json:"owner_id"`
 	Price              MarketPrice          `json:"price"`
 	ThumbPhoto         string               `json:"thumb_photo"`
-	CanComment         NumberFlagBool       `json:"can_comment"`
-	CanRepost          NumberFlagBool       `json:"can_repost"`
-	IsFavorite         NumberFlagBool       `json:"is_favorite"`
-	IsMainVariant      NumberFlagBool       `json:"is_main_variant"`
+	CanComment         BoolInt              `json:"can_comment"`
+	CanRepost          BoolInt              `json:"can_repost"`
+	IsFavorite         BoolInt              `json:"is_favorite"`
+	IsMainVariant      BoolInt              `json:"is_main_variant"`
 	AlbumsIDs          []int                `json:"albums_ids"`
 	Photos             []Photo              `json:"photos"`
 	Likes              LikesInfo            `json:"likes"`
@@ -160,8 +160,8 @@ type MarketOrderDelivery struct {
 type MarketDeliveryPoint struct {
 	ID           int                        `json:"id"`
 	ExternalID   string                     `json:"external_id"`
-	OutpostOnly  NumberFlagBool             `json:"outpost_only"`
-	CashOnly     NumberFlagBool             `json:"cash_only"`
+	OutpostOnly  BoolInt                    `json:"outpost_only"`
+	CashOnly     BoolInt                    `json:"cash_only"`
 	Address      MarketDeliveryPointAddress `json:"address"`
 	DisplayTitle string                     `json:"display_title"`
 	ServiceID    int                        `json:"service_id"`
@@ -197,9 +197,9 @@ type MarketOrderItem struct {
 }
 
 type MarketPriceDetail struct {
-	Title    string         `json:"title"`
-	Price    MarketPrice    `json:"price"`
-	IsAccent NumberFlagBool `json:"is_accent,omitempty"`
+	Title    string      `json:"title"`
+	Price    MarketPrice `json:"price"`
+	IsAccent BoolInt     `json:"is_accent,omitempty"`
 }
 
 type MarketCategoryTree struct {

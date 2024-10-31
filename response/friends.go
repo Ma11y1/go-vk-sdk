@@ -24,11 +24,11 @@ type FriendsAreFriendsResponse struct {
 type FriendsDeleteResponse struct {
 	BaseResponse
 	Response struct {
-		Success           objects.NumberFlagBool `json:"success"`
-		FriendDeleted     objects.NumberFlagBool `json:"friend_deleted"`
-		OutRequestDeleted objects.NumberFlagBool `json:"out_request_deleted"`
-		InRequestDeleted  objects.NumberFlagBool `json:"in_request_deleted"`
-		SuggestionDeleted objects.NumberFlagBool `json:"suggestion_deleted"`
+		Success           objects.BoolInt `json:"success"`
+		FriendDeleted     objects.BoolInt `json:"friend_deleted"`
+		OutRequestDeleted objects.BoolInt `json:"out_request_deleted"`
+		InRequestDeleted  objects.BoolInt `json:"in_request_deleted"`
+		SuggestionDeleted objects.BoolInt `json:"suggestion_deleted"`
 	} `json:"response"`
 }
 

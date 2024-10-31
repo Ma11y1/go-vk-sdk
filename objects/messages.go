@@ -55,13 +55,13 @@ type Message struct {
 	Geo          MessageGeo       `json:"geo"`
 	PinnedAt     int              `json:"pinned_at,omitempty"`
 	ID           int              `json:"id"`        // EventType ID
-	Deleted      NumberFlagBool   `json:"deleted"`   // Is it an deleted message
-	Important    NumberFlagBool   `json:"important"` // Is it an important message
-	IsHidden     NumberFlagBool   `json:"is_hidden"`
-	IsCropped    NumberFlagBool   `json:"is_cropped"`
-	IsSilent     NumberFlagBool   `json:"is_silent"`
-	Out          NumberFlagBool   `json:"out"` // Information whether the message is outcoming
-	WasListened  NumberFlagBool   `json:"was_listened,omitempty"`
+	Deleted      BoolInt          `json:"deleted"`   // Is it an deleted message
+	Important    BoolInt          `json:"important"` // Is it an important message
+	IsHidden     BoolInt          `json:"is_hidden"`
+	IsCropped    BoolInt          `json:"is_cropped"`
+	IsSilent     BoolInt          `json:"is_silent"`
+	Out          BoolInt          `json:"out"` // Information whether the message is outcoming
+	WasListened  BoolInt          `json:"was_listened,omitempty"`
 	Keyboard     MessagesKeyboard `json:"keyboard"`
 	Template     MessagesTemplate `json:"template"`
 	Payload      string           `json:"payload"`
@@ -87,11 +87,11 @@ type MessagesBasePayload struct {
 type MessagesKeyboard struct {
 	AuthorID int                        `json:"author_id,omitempty"` // Community or bot, which set this keyboard
 	Buttons  [][]MessagesKeyboardButton `json:"buttons"`
-	OneTime  NumberFlagBool             `json:"one_time,omitempty"` // Should this keyboard disappear on first use
-	Inline   NumberFlagBool             `json:"inline,omitempty"`
+	OneTime  BoolInt                    `json:"one_time,omitempty"` // Should this keyboard disappear on first use
+	Inline   BoolInt                    `json:"inline,omitempty"`
 }
 
-func NewMessagesKeyboard(oneTime NumberFlagBool) *MessagesKeyboard {
+func NewMessagesKeyboard(oneTime BoolInt) *MessagesKeyboard {
 	return &MessagesKeyboard{
 		Buttons: [][]MessagesKeyboardButton{},
 		OneTime: oneTime,
@@ -403,17 +403,17 @@ func (contentSource MessageContentSource) ToJSON() string {
 }
 
 type MessagesChat struct {
-	AdminID        int            `json:"admin_id"` // Chat creator ID
-	ID             int            `json:"id"`       // Chat ID
-	IsDefaultPhoto NumberFlagBool `json:"is_default_photo"`
-	IsGroupChannel NumberFlagBool `json:"is_group_channel"`
-	Photo100       string         `json:"photo_100"` // url of the preview image with 100 px in width
-	Photo200       string         `json:"photo_200"` // url of the preview image with 200 px in width
-	Photo50        string         `json:"photo_50"`  // url of the preview image with 50 px in width
-	Title          string         `json:"title"`     // Chat title
-	Type           string         `json:"type"`      // Chat type
-	Users          []int          `json:"users"`
-	MembersCount   int            `json:"members_count"`
+	AdminID        int     `json:"admin_id"` // Chat creator ID
+	ID             int     `json:"id"`       // Chat ID
+	IsDefaultPhoto BoolInt `json:"is_default_photo"`
+	IsGroupChannel BoolInt `json:"is_group_channel"`
+	Photo100       string  `json:"photo_100"` // url of the preview image with 100 px in width
+	Photo200       string  `json:"photo_200"` // url of the preview image with 200 px in width
+	Photo50        string  `json:"photo_50"`  // url of the preview image with 50 px in width
+	Title          string  `json:"title"`     // Chat title
+	Type           string  `json:"type"`      // Chat type
+	Users          []int   `json:"users"`
+	MembersCount   int     `json:"members_count"`
 }
 
 type MessagesChatPreview struct {
@@ -425,20 +425,20 @@ type MessagesChatPreview struct {
 	LocalID      int                              `json:"local_id"`
 	Joined       bool                             `json:"joined"`
 	ChatSettings MessagesConversationChatSettings `json:"chat_settings"`
-	IsMember     NumberFlagBool                   `json:"is_member"`
+	IsMember     BoolInt                          `json:"is_member"`
 }
 
 type MessagesChatPushSettings struct {
-	DisabledUntil int            `json:"disabled_until"` // Time until that notifications are disabled
-	Sound         NumberFlagBool `json:"sound"`          // Information whether the sound is on
+	DisabledUntil int     `json:"disabled_until"` // Time until that notifications are disabled
+	Sound         BoolInt `json:"sound"`          // Information whether the sound is on
 }
 
 type MessagesChatSettingsPhoto struct {
-	Photo100           string         `json:"photo_100"`
-	Photo200           string         `json:"photo_200"`
-	Photo50            string         `json:"photo_50"`
-	IsDefaultPhoto     NumberFlagBool `json:"is_default_photo"`
-	IsDefaultCallPhoto bool           `json:"is_default_call_photo"`
+	Photo100           string  `json:"photo_100"`
+	Photo200           string  `json:"photo_200"`
+	Photo50            string  `json:"photo_50"`
+	IsDefaultPhoto     BoolInt `json:"is_default_photo"`
+	IsDefaultCallPhoto bool    `json:"is_default_call_photo"`
 }
 
 type MessagesConversation struct {
@@ -454,13 +454,13 @@ type MessagesConversation struct {
 	OutRead                   int                              `json:"out_read"`
 	Peer                      MessagesConversationPeer         `json:"peer"`
 	PushSettings              MessagesConversationPushSettings `json:"push_settings"`
-	Important                 NumberFlagBool                   `json:"important"`
-	Unanswered                NumberFlagBool                   `json:"unanswered"`
-	IsMarkedUnread            NumberFlagBool                   `json:"is_marked_unread"`
-	CanSendMoney              NumberFlagBool                   `json:"can_send_money"`
-	CanReceiveMoney           NumberFlagBool                   `json:"can_receive_money"`
-	IsNew                     NumberFlagBool                   `json:"is_new"`
-	IsArchived                NumberFlagBool                   `json:"is_archived"`
+	Important                 BoolInt                          `json:"important"`
+	Unanswered                BoolInt                          `json:"unanswered"`
+	IsMarkedUnread            BoolInt                          `json:"is_marked_unread"`
+	CanSendMoney              BoolInt                          `json:"can_send_money"`
+	CanReceiveMoney           BoolInt                          `json:"can_receive_money"`
+	IsNew                     BoolInt                          `json:"is_new"`
+	IsArchived                BoolInt                          `json:"is_archived"`
 	UnreadCount               int                              `json:"unread_count"` // Unread messages number
 	CurrentKeyboard           MessagesKeyboard                 `json:"current_keyboard"`
 	SortID                    struct {
@@ -470,8 +470,8 @@ type MessagesConversation struct {
 }
 
 type MessagesConversationCanWrite struct {
-	Allowed NumberFlagBool `json:"allowed"`
-	Reason  int            `json:"reason"`
+	Allowed BoolInt `json:"allowed"`
+	Reason  int     `json:"reason"`
 }
 
 type MessagesConversationChatSettings struct {
@@ -483,35 +483,35 @@ type MessagesConversationChatSettings struct {
 	Title         string                    `json:"title"`
 	ActiveIDs     []int                     `json:"active_ids"`
 	ACL           struct {
-		CanInvite            NumberFlagBool `json:"can_invite"`
-		CanChangeInfo        NumberFlagBool `json:"can_change_info"`
-		CanChangePin         NumberFlagBool `json:"can_change_pin"`
-		CanPromoteUsers      NumberFlagBool `json:"can_promote_users"`
-		CanSeeInviteLink     NumberFlagBool `json:"can_see_invite_link"`
-		CanChangeInviteLink  NumberFlagBool `json:"can_change_invite_link"`
-		CanCopyChat          NumberFlagBool `json:"can_copy_chat"`
-		CanModerate          NumberFlagBool `json:"can_moderate"`
-		CanCall              NumberFlagBool `json:"can_call"`
-		CanUseMassMentions   NumberFlagBool `json:"can_use_mass_mentions"`
-		CanChangeServiceType NumberFlagBool `json:"can_change_service_type"`
-		CanChangeStyle       NumberFlagBool `json:"can_change_style"`
+		CanInvite            BoolInt `json:"can_invite"`
+		CanChangeInfo        BoolInt `json:"can_change_info"`
+		CanChangePin         BoolInt `json:"can_change_pin"`
+		CanPromoteUsers      BoolInt `json:"can_promote_users"`
+		CanSeeInviteLink     BoolInt `json:"can_see_invite_link"`
+		CanChangeInviteLink  BoolInt `json:"can_change_invite_link"`
+		CanCopyChat          BoolInt `json:"can_copy_chat"`
+		CanModerate          BoolInt `json:"can_moderate"`
+		CanCall              BoolInt `json:"can_call"`
+		CanUseMassMentions   BoolInt `json:"can_use_mass_mentions"`
+		CanChangeServiceType BoolInt `json:"can_change_service_type"`
+		CanChangeStyle       BoolInt `json:"can_change_style"`
 	} `json:"acl"`
-	IsGroupChannel   NumberFlagBool          `json:"is_group_channel"`
-	IsDisappearing   NumberFlagBool          `json:"is_disappearing"`
-	IsService        NumberFlagBool          `json:"is_service"`
-	IsCreatedForCall NumberFlagBool          `json:"is_created_for_call"`
+	IsGroupChannel   BoolInt                 `json:"is_group_channel"`
+	IsDisappearing   BoolInt                 `json:"is_disappearing"`
+	IsService        BoolInt                 `json:"is_service"`
+	IsCreatedForCall BoolInt                 `json:"is_created_for_call"`
 	OwnerID          int                     `json:"owner_id"`
 	AdminIDs         []int                   `json:"admin_ids"`
 	Permissions      MessagesChatPermissions `json:"permissions"`
 }
 
 type MessagesConversationMember struct {
-	MemberID  int            `json:"member_id"`
-	JoinDate  int            `json:"join_date"`
-	InvitedBy int            `json:"invited_by"`
-	IsOwner   NumberFlagBool `json:"is_owner,omitempty"`
-	IsAdmin   NumberFlagBool `json:"is_admin,omitempty"`
-	CanKick   NumberFlagBool `json:"can_kick,omitempty"`
+	MemberID  int     `json:"member_id"`
+	JoinDate  int     `json:"join_date"`
+	InvitedBy int     `json:"invited_by"`
+	IsOwner   BoolInt `json:"is_owner,omitempty"`
+	IsAdmin   BoolInt `json:"is_admin,omitempty"`
+	CanKick   BoolInt `json:"can_kick,omitempty"`
 }
 
 type MessagesChatPermissions struct {
@@ -532,11 +532,11 @@ type MessagesConversationPeer struct {
 }
 
 type MessagesConversationPushSettings struct {
-	DisabledUntil        int            `json:"disabled_until"`
-	DisabledForever      NumberFlagBool `json:"disabled_forever"`
-	NoSound              NumberFlagBool `json:"no_sound"`
-	DisabledMentions     NumberFlagBool `json:"disabled_mentions"`
-	DisabledMassMentions NumberFlagBool `json:"disabled_mass_mentions"`
+	DisabledUntil        int     `json:"disabled_until"`
+	DisabledForever      BoolInt `json:"disabled_forever"`
+	NoSound              BoolInt `json:"no_sound"`
+	DisabledMentions     BoolInt `json:"disabled_mentions"`
+	DisabledMassMentions BoolInt `json:"disabled_mass_mentions"`
 }
 
 type MessagesConversationWithMessage struct {
@@ -572,8 +572,8 @@ type MessagesHistoryMessageAttachment struct {
 }
 
 type MessagesLastActivity struct {
-	Online NumberFlagBool `json:"online"` // Information whether user is online
-	Time   int            `json:"time"`   // Time when user was online in Unixtime
+	Online BoolInt `json:"online"` // Information whether user is online
+	Time   int     `json:"time"`   // Time when user was online in Unixtime
 }
 
 type MessagesLongPollParams struct {
@@ -625,12 +625,12 @@ type MessagesMessageAttachment struct {
 }
 
 type MessageCall struct {
-	InitiatorID int            `json:"initiator_id"`
-	ReceiverID  int            `json:"receiver_id"`
-	State       string         `json:"state"`
-	Time        int            `json:"time"`
-	Duration    int            `json:"duration"`
-	Video       NumberFlagBool `json:"video"`
+	InitiatorID int     `json:"initiator_id"`
+	ReceiverID  int     `json:"receiver_id"`
+	State       string  `json:"state"`
+	Time        int     `json:"time"`
+	Duration    int     `json:"duration"`
+	Video       BoolInt `json:"video"`
 }
 
 type MessagesPinnedMessage struct {

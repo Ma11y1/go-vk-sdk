@@ -1,11 +1,11 @@
 package objects
 
 type FriendsStatus struct {
-	FriendStatus   int            `json:"friend_status"`
-	ReadState      NumberFlagBool `json:"read_state"`
-	RequestMessage string         `json:"request_message"`
-	Sign           string         `json:"sign"`
-	UserID         int            `json:"user_id"`
+	FriendStatus   int     `json:"friend_status"`
+	ReadState      BoolInt `json:"read_state"`
+	RequestMessage string  `json:"request_message"`
+	Sign           string  `json:"sign"`
+	UserID         int     `json:"user_id"`
 }
 
 type FriendsList struct {
