@@ -19,50 +19,86 @@ type MarketAddAlbumResponse struct {
 	} `json:"response"`
 }
 
+type MarketAddPropertyResponse struct {
+	BaseResponse
+	Response struct {
+		PropertyID int `json:"property_id"`
+	} `json:"response"`
+}
+
+type MarketAddPropertyVariantResponse struct {
+	BaseResponse
+	Response struct {
+		VariantID int `json:"variant_id"`
+	} `json:"response"`
+}
+
 type MarketAddToAlbumResponse struct {
 	BaseResponse
-	Response int `json:"response"`
+	Response objects.BoolInt `json:"response"`
 }
 
 type MarketCreateCommentResponse struct {
 	BaseResponse
-	Response int `json:"response"`
+	Response objects.BoolInt `json:"response"`
 }
 
 type MarketDeleteResponse struct {
 	BaseResponse
-	Response int `json:"response"`
+	Response objects.BoolInt `json:"response"`
 }
 
 type MarketDeleteAlbumResponse struct {
 	BaseResponse
-	Response int `json:"response"`
+	Response objects.BoolInt `json:"response"`
 }
 
 type MarketDeleteCommentResponse struct {
 	BaseResponse
-	Response int `json:"response"`
+	Response objects.BoolInt `json:"response"`
+}
+
+type MarketDeletePropertyResponse struct {
+	BaseResponse
+	Response objects.BoolInt `json:"response"`
+}
+
+type MarketDeletePropertyVariantResponse struct {
+	BaseResponse
+	Response objects.BoolInt `json:"response"`
 }
 
 type MarketEditResponse struct {
 	BaseResponse
-	Response int `json:"response"`
+	Response objects.BoolInt `json:"response"`
 }
 
 type MarketEditAlbumResponse struct {
 	BaseResponse
-	Response int `json:"response"`
+	Response objects.BoolInt `json:"response"`
 }
 
 type MarketEditCommentResponse struct {
 	BaseResponse
-	Response int `json:"response"`
+	Response objects.BoolInt `json:"response"`
 }
 
 type MarketEditOrderResponse struct {
 	BaseResponse
-	Response int `json:"response"`
+	Response objects.BoolInt `json:"response"`
 }
+
+type MarketEditPropertyResponse struct {
+	BaseResponse
+	Response objects.BoolInt `json:"response"`
+}
+
+type MarketEditPropertyVariantResponse struct {
+	BaseResponse
+	Response objects.BoolInt `json:"response"`
+}
+
+type MarketFilterCategoriesResponse MarketGetCategoriesResponse
 
 type MarketGetResponse struct {
 	BaseResponse
@@ -143,6 +179,45 @@ type MarketGetOrderItemsResponse struct {
 	} `json:"response"`
 }
 
+type MarketGetOrdersResponse struct {
+	BaseResponse
+	Response struct {
+		Count int                   `json:"count"`
+		Items []objects.MarketOrder `json:"items"`
+	} `json:"response"`
+}
+
+type MarketGetOrdersExtendedResponse struct {
+	BaseResponse
+	Response struct {
+		Count  int                   `json:"count"`
+		Items  []objects.MarketOrder `json:"items"`
+		Groups []objects.GroupFull   `json:"groups"`
+	} `json:"response"`
+}
+
+type MarketGetProductPhotoUploadServerResponse struct {
+	BaseResponse
+	Response struct {
+		UploadURL string `json:"upload_url"`
+	} `json:"response"`
+}
+
+type MarketGetPropertiesResponse struct {
+	BaseResponse
+	Response struct {
+		Count int                          `json:"count"`
+		Items []objects.MarketItemProperty `json:"items"`
+	} `json:"response"`
+}
+
+type MarketGroupItemsResponse struct {
+	BaseResponse
+	Response struct {
+		ID int `json:"item_group_id"`
+	} `json:"response"`
+}
+
 type MarketRemoveFromAlbumResponse struct {
 	BaseResponse
 	Response int `json:"response"`
@@ -195,4 +270,24 @@ type MarketSearchItemsResponse struct {
 		Items    []objects.MarketItem `json:"items"`
 		Groups   []objects.GroupFull  `json:"groups,omitempty"`
 	} `json:"response"`
+}
+
+type MarketSearchItemsBasicResponse struct {
+	BaseResponse
+	Response struct {
+		Count   int                       `json:"count"`
+		HasMore bool                      `json:"has_more"`
+		Items   []objects.MarketItemBasic `json:"items"`
+		Total   int                       `json:"total"`
+	} `json:"response"`
+}
+
+type MarketSaveProductPhotoResponse struct {
+	BaseResponse
+	Response objects.MarketPhotoID `json:"response"`
+}
+
+type MarketUngroupItemsResponse struct {
+	BaseResponse
+	Response objects.BoolInt `json:"response"`
 }

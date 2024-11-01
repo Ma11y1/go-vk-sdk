@@ -335,6 +335,27 @@ func (r *GroupsGetRequest) Exec(ctx context.Context) (response response.GroupsGe
 	return
 }
 
+// GroupsGetExtendedRequest defines the request for groups.get
+//
+// The method returns a list of communities for the specified user.
+// Doc: https://dev.vk.com/method/groups.get
+type GroupsGetExtendedRequest struct {
+	BaseRequest
+}
+
+// NewGroupsGetExtendedRequest creates a new request for groups.get
+func NewGroupsGetExtendedRequest(a *api.API, actor actor.Actor) *GroupsGetExtendedRequest {
+	r := &GroupsGetExtendedRequest{*NewMethodBaseRequest(a, actor, "groups.get")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
+}
+
+// Exec executes the request and unmarshals the response into GroupsGetExtendedResponse
+func (r *GroupsGetExtendedRequest) Exec(ctx context.Context) (response response.GroupsGetExtendedResponse, err error) {
+	err = r.PostUnmarshal(ctx, &response)
+	return
+}
+
 // GroupsGetAddressesRequest defines the request for groups.getAddresses
 //
 // The method returns the addresses of a specified community.
@@ -468,6 +489,27 @@ func (r *GroupsGetCatalogInfoRequest) Exec(ctx context.Context) (response respon
 	return
 }
 
+// GroupsGetCatalogInfoExtendedRequest defines the request for groups.getCatalogInfo
+//
+// The method returns a list of categories for the community catalog.
+// Doc: https://dev.vk.com/method/groups.getCatalogInfo
+type GroupsGetCatalogInfoExtendedRequest struct {
+	BaseRequest
+}
+
+// NewGroupsGetCatalogInfoExtendedRequest creates a new request for groups.getCatalogInfo
+func NewGroupsGetCatalogInfoExtendedRequest(a *api.API, actor actor.Actor) *GroupsGetCatalogInfoExtendedRequest {
+	r := &GroupsGetCatalogInfoExtendedRequest{*NewMethodBaseRequest(a, actor, "groups.getCatalogInfo")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
+}
+
+// Exec executes the request and unmarshals the response into GroupsGetCatalogInfoExtendedResponse
+func (r *GroupsGetCatalogInfoExtendedRequest) Exec(ctx context.Context) (response response.GroupsGetCatalogInfoExtendedResponse, err error) {
+	err = r.PostUnmarshal(ctx, &response)
+	return
+}
+
 // GroupsGetInvitedUsersRequest defines the request for groups.getInvitedUsers
 //
 // The method returns a list of users invited to the community by administrators.
@@ -502,6 +544,27 @@ func NewGroupsGetInvitesRequest(a *api.API, actor actor.Actor) *GroupsGetInvites
 
 // Exec executes the request and unmarshals the response into GroupsGetInvitesResponse
 func (r *GroupsGetInvitesRequest) Exec(ctx context.Context) (response response.GroupsGetInvitesResponse, err error) {
+	err = r.PostUnmarshal(ctx, &response)
+	return
+}
+
+// GroupsGetInvitesExtendedRequest defines the request for groups.getInvites
+//
+// The method returns a list of invitations to communities and events for the current user.
+// Doc: https://dev.vk.com/method/groups.getInvites
+type GroupsGetInvitesExtendedRequest struct {
+	BaseRequest
+}
+
+// NewGroupsGetInvitesExtendedRequest creates a new request for groups.getInvites
+func NewGroupsGetInvitesExtendedRequest(a *api.API, actor actor.Actor) *GroupsGetInvitesExtendedRequest {
+	r := &GroupsGetInvitesExtendedRequest{*NewMethodBaseRequest(a, actor, "groups.getInvites")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
+}
+
+// Exec executes the request and unmarshals the response into GroupsGetInvitesExtendedResponse
+func (r *GroupsGetInvitesExtendedRequest) Exec(ctx context.Context) (response response.GroupsGetInvitesExtendedResponse, err error) {
 	err = r.PostUnmarshal(ctx, &response)
 	return
 }
@@ -699,6 +762,73 @@ func NewGroupsIsMemberRequest(a *api.API, actor actor.Actor) *GroupsIsMemberRequ
 func (r *GroupsIsMemberRequest) Exec(ctx context.Context) (response response.GroupsIsMemberResponse, err error) {
 	err = r.PostUnmarshal(ctx, &response)
 	return
+}
+
+// GroupsIsMemberExtendedRequest defines the request for groups.isMember
+//
+// The method returns information on whether a user is a member of the community.
+// Doc: https://dev.vk.com/method/groups.isMember
+type GroupsIsMemberExtendedRequest struct {
+	BaseRequest
+}
+
+// NewGroupsIsMemberExtendedRequest creates a new request for groups.isMember
+func NewGroupsIsMemberExtendedRequest(a *api.API, actor actor.Actor) *GroupsIsMemberExtendedRequest {
+	r := &GroupsIsMemberExtendedRequest{*NewMethodBaseRequest(a, actor, "groups.isMember")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
+}
+
+// Exec executes the request and unmarshals the response into GroupsIsMemberExtendedResponse
+func (r *GroupsIsMemberExtendedRequest) Exec(ctx context.Context) (response response.GroupsIsMemberExtendedResponse, err error) {
+	err = r.PostUnmarshal(ctx, &response)
+	return
+}
+
+// GroupsIsMemberUserIDsRequest defines the request for groups.isMember
+//
+// The method returns information on whether a user is a member of the community.
+// Doc: https://dev.vk.com/method/groups.isMember
+type GroupsIsMemberUserIDsRequest struct {
+	BaseRequest
+}
+
+// NewGroupsIsMemberUserIDsRequest creates a new request for groups.isMember
+func NewGroupsIsMemberUserIDsRequest(a *api.API, actor actor.Actor) *GroupsIsMemberUserIDsRequest {
+	return &GroupsIsMemberUserIDsRequest{*NewMethodBaseRequest(a, actor, "groups.isMember")}
+}
+
+// Exec executes the request and unmarshals the response into GroupsIsMemberUserIDsResponse
+func (r *GroupsIsMemberUserIDsRequest) Exec(ctx context.Context) (response response.GroupsIsMemberUserIDsResponse, err error) {
+	err = r.PostUnmarshal(ctx, &response)
+	return
+}
+
+// GroupsIsMemberUserIDsExtendedRequest defines the request for groups.isMember
+//
+// The method returns information on whether a user is a member of the community.
+// Doc: https://dev.vk.com/method/groups.isMember
+type GroupsIsMemberUserIDsExtendedRequest struct {
+	BaseRequest
+}
+
+// NewGroupsIsMemberUserIDsExtendedRequest creates a new request for groups.isMember
+func NewGroupsIsMemberUserIDsExtendedRequest(a *api.API, actor actor.Actor) *GroupsIsMemberUserIDsExtendedRequest {
+	r := &GroupsIsMemberUserIDsExtendedRequest{*NewMethodBaseRequest(a, actor, "groups.isMember")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
+}
+
+// Exec executes the request and unmarshals the response into GroupsIsMemberUserIDsExtendedResponse
+func (r *GroupsIsMemberUserIDsExtendedRequest) Exec(ctx context.Context) (response response.GroupsIsMemberUserIDsExtendedResponse, err error) {
+	err = r.PostUnmarshal(ctx, &response)
+	return
+}
+
+// UserIDs count users < 500
+func (r *GroupsIsMemberUserIDsExtendedRequest) UserIDs(ids string) *GroupsIsMemberUserIDsExtendedRequest {
+	_ = r.parameters.Set(constants.ParameterNameUserIDs, ids)
+	return r
 }
 
 // GroupsJoinRequest defines the request for groups.join

@@ -235,7 +235,9 @@ type StoriesGetRepliesExtendedRequest struct {
 
 // NewStoriesGetRepliesExtendedRequest creates a new request for stories.getReplies
 func NewStoriesGetRepliesExtendedRequest(a *api.API, actor actor.Actor) *StoriesGetRepliesExtendedRequest {
-	return &StoriesGetRepliesExtendedRequest{*NewMethodBaseRequest(a, actor, "stories.getReplies")}
+	r := &StoriesGetRepliesExtendedRequest{*NewMethodBaseRequest(a, actor, "stories.getReplies")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
 }
 
 // Exec executes the request and unmarshals the response into StoriesGetRepliesExtendedResponse
@@ -387,7 +389,9 @@ type StoriesSearchExtendedRequest struct {
 
 // NewStoriesSearchExtendedRequest creates a new request for stories.search
 func NewStoriesSearchExtendedRequest(a *api.API, actor actor.Actor) *StoriesSearchExtendedRequest {
-	return &StoriesSearchExtendedRequest{*NewMethodBaseRequest(a, actor, "stories.search")}
+	r := &StoriesSearchExtendedRequest{*NewMethodBaseRequest(a, actor, "stories.search")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
 }
 
 // Exec executes the request and unmarshals the response into StoriesSearchExtendedResponse

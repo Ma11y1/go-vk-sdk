@@ -112,8 +112,8 @@ type PollsGetByIDRequest struct {
 	BaseRequest
 }
 
-// NewPollsGetByIdRequest creates a new request for polls.getById
-func NewPollsGetByIdRequest(a *api.API, actor actor.Actor) *PollsGetByIDRequest {
+// NewPollsGetByIDRequest creates a new request for polls.getById
+func NewPollsGetByIDRequest(a *api.API, actor actor.Actor) *PollsGetByIDRequest {
 	return &PollsGetByIDRequest{*NewMethodBaseRequest(a, actor, "polls.getById")}
 }
 

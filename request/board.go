@@ -4,6 +4,7 @@ import (
 	"context"
 	"go-vk-sdk/actor"
 	"go-vk-sdk/api"
+	"go-vk-sdk/constants"
 	"go-vk-sdk/response"
 )
 
@@ -180,6 +181,27 @@ func (r *BoardGetCommentsRequest) Exec(ctx context.Context) (response response.B
 	return
 }
 
+// BoardGetCommentsExtendedRequest defines the request for board.getComments
+//
+// The method returns a list of comments from a specified topic.
+// Doc: https://dev.vk.com/method/board.getComments
+type BoardGetCommentsExtendedRequest struct {
+	BaseRequest
+}
+
+// NewBoardGetCommentsExtendedRequest creates a new request for board.getComments
+func NewBoardGetCommentsExtendedRequest(a *api.API, actor actor.Actor) *BoardGetCommentsExtendedRequest {
+	r := &BoardGetCommentsExtendedRequest{*NewMethodBaseRequest(a, actor, "board.getComments")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
+}
+
+// Exec executes the request and unmarshals the response into BoardGetCommentsExtendedResponse
+func (r *BoardGetCommentsExtendedRequest) Exec(ctx context.Context) (response response.BoardGetCommentsExtendedResponse, err error) {
+	err = r.PostUnmarshal(ctx, &response)
+	return
+}
+
 // BoardGetTopicsRequest defines the request for board.getTopics
 //
 // The method returns a list of topics in the group discussions.
@@ -195,6 +217,27 @@ func NewBoardGetTopicsRequest(a *api.API, actor actor.Actor) *BoardGetTopicsRequ
 
 // Exec executes the request and unmarshals the response into BoardGetTopicsResponse
 func (r *BoardGetTopicsRequest) Exec(ctx context.Context) (response response.BoardGetTopicsResponse, err error) {
+	err = r.PostUnmarshal(ctx, &response)
+	return
+}
+
+// BoardGetTopicsExtendedRequest defines the request for board.getTopics
+//
+// The method returns a list of topics in the group discussions.
+// Doc: https://dev.vk.com/method/board.getTopics
+type BoardGetTopicsExtendedRequest struct {
+	BaseRequest
+}
+
+// NewBoardGetTopicsExtendedRequest creates a new request for board.getTopics
+func NewBoardGetTopicsExtendedRequest(a *api.API, actor actor.Actor) *BoardGetTopicsExtendedRequest {
+	r := &BoardGetTopicsExtendedRequest{*NewMethodBaseRequest(a, actor, "board.getTopics")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
+}
+
+// Exec executes the request and unmarshals the response into BoardGetTopicsExtendedResponse
+func (r *BoardGetTopicsExtendedRequest) Exec(ctx context.Context) (response response.BoardGetTopicsExtendedResponse, err error) {
 	err = r.PostUnmarshal(ctx, &response)
 	return
 }

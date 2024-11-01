@@ -36,6 +36,13 @@ type LeadFormsListResponse struct {
 	Response []objects.LeadFormsForm `json:"response"`
 }
 
+type LeadFormsGetUploadURLResponse struct {
+	BaseResponse
+	Response struct {
+		URL string `json:"url"`
+	} `json:"response"`
+}
+
 type LeadFormsUpdateResponse struct {
 	BaseResponse
 	Response struct {

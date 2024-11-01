@@ -4,6 +4,7 @@ import (
 	"context"
 	"go-vk-sdk/actor"
 	"go-vk-sdk/api"
+	"go-vk-sdk/constants"
 	"go-vk-sdk/response"
 )
 
@@ -176,6 +177,27 @@ func NewFaveGetRequest(a *api.API, actor actor.Actor) *FaveGetRequest {
 
 // Exec executes the request and unmarshals the response into FaveGetResponse
 func (r *FaveGetRequest) Exec(ctx context.Context) (response response.FaveGetResponse, err error) {
+	err = r.PostUnmarshal(ctx, &response)
+	return
+}
+
+// FaveGetExtendedRequest defines the request for fave.get
+//
+// The method returns objects added to the user's bookmarks.
+// Doc: https://dev.vk.com/method/fave.get
+type FaveGetExtendedRequest struct {
+	BaseRequest
+}
+
+// NewFaveGetExtendedRequest creates a new request for fave.get
+func NewFaveGetExtendedRequest(a *api.API, actor actor.Actor) *FaveGetExtendedRequest {
+	r := &FaveGetExtendedRequest{*NewMethodBaseRequest(a, actor, "fave.get")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
+}
+
+// Exec executes the request and unmarshals the response into FaveGetExtendedResponse
+func (r *FaveGetExtendedRequest) Exec(ctx context.Context) (response response.FaveGetExtendedResponse, err error) {
 	err = r.PostUnmarshal(ctx, &response)
 	return
 }

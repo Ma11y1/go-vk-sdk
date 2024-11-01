@@ -34,6 +34,20 @@ type MarketCategory struct {
 	Parent *MarketCategory `json:"parent"`
 }
 
+type MarketItemBasic struct {
+	ID              int         `json:"id"`
+	Title           string      `json:"title"`
+	IsFavorite      bool        `json:"is_favorite"`
+	OwnerID         int         `json:"owner_id"`
+	Price           MarketPrice `json:"price"`
+	ThumpPhoto      string      `json:"thump_photo"`
+	GroupLink       string      `json:"group_link"`
+	GroupName       string      `json:"group_name"`
+	IsAdult         bool        `json:"is_adult"`
+	IsGroupVerified bool        `json:"is_group_verified"`
+	IsOwner         bool        `json:"is_owner"`
+}
+
 type MarketItem struct {
 	ID                 int                  `json:"id"`
 	Title              string               `json:"title"`
@@ -84,20 +98,30 @@ func (m *MarketItem) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+func (m *MarketItem) ToAttachment() string {
+	return fmt.Sprintf("m%d_%d", m.OwnerID, m.ID)
+}
+
 type MarketItemProperty struct {
-	VariantID    int    `json:"variant_id"`
-	VariantName  string `json:"variant_name"`
-	PropertyName string `json:"property_name"`
+	ID           int                     `json:"id"`
+	Title        string                  `json:"title"`
+	Type         string                  `json:"type"`
+	Variants     []MarketPropertyVariant `json:"variants"`
+	VariantID    int                     `json:"variant_id"`
+	VariantName  string                  `json:"variant_name"`
+	PropertyName string                  `json:"property_name"`
+}
+
+type MarketPropertyVariant struct {
+	ID    int    `json:"id"`
+	Title string `json:"title"`
+	Value string `json:"value"`
 }
 
 type MarketDimensions struct {
 	Width  int `json:"width"`
 	Height int `json:"height"`
 	Length int `json:"length"`
-}
-
-func (m *MarketItem) ToAttachment() string {
-	return fmt.Sprintf("m%d_%d", m.OwnerID, m.ID)
 }
 
 type MarketPrice struct {
@@ -138,15 +162,26 @@ type MarketOrder struct {
 	GroupID           int                         `json:"group_id"`
 	UserID            int                         `json:"user_id"`
 	Date              int                         `json:"date"`
+	DateViewed        int                         `json:"date_viewed"`
+	Discount          MarketPrice                 `json:"discount"`
 	Status            constants.MarketOrderStatus `json:"status"`
 	ItemsCount        int                         `json:"items_count"`
 	TotalPrice        MarketPrice                 `json:"total_price"`
 	DisplayOrderID    string                      `json:"display_order_id"`
 	Comment           string                      `json:"comment"`
+	CommentForUser    string                      `json:"comment_for_user"`
 	PreviewOrderItems []MarketOrderItem           `json:"preview_order_items"`
 	PriceDetails      []MarketPriceDetail         `json:"price_details"`
 	Delivery          MarketOrderDelivery         `json:"delivery"`
 	Recipient         MarketOrderRecipient        `json:"recipient"`
+	Address           string                      `json:"address"`
+	CanAddReview      bool                        `json:"can_add_review"`
+	CancelInfo        Link                        `json:"cancel_info"`
+	IsViewByAdmin     bool                        `json:"is_viewed_by_admin"`
+	MerchantComment   string                      `json:"merchant_comment"`
+	TrackLink         string                      `json:"track_link"`
+	TrackNumber       string                      `json:"track_number"`
+	Weight            int                         `json:"weight"`
 }
 
 type MarketOrderDelivery struct {
@@ -215,4 +250,9 @@ type MarketCategoryTreeView struct {
 	Type     string   `json:"type"`
 	Selected bool     `json:"selected"`
 	RootPath []string `json:"root_path"`
+}
+
+type MarketPhotoID struct {
+	ID    int   `json:"photo_id"`
+	Photo Photo `json:"photo"`
 }

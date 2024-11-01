@@ -4,6 +4,7 @@ import (
 	"context"
 	"go-vk-sdk/actor"
 	"go-vk-sdk/api"
+	"go-vk-sdk/constants"
 	"go-vk-sdk/response"
 )
 
@@ -290,6 +291,27 @@ func NewFriendsGetRequestsRequest(a *api.API, actor actor.Actor) *FriendsGetRequ
 
 // Exec executes the request and unmarshals the response into FriendsGetRequestsResponse
 func (r *FriendsGetRequestsRequest) Exec(ctx context.Context) (response response.FriendsGetRequestsResponse, err error) {
+	err = r.PostUnmarshal(ctx, &response)
+	return
+}
+
+// FriendsGetRequestsExtendedRequest defines the request for friends.getRequests
+//
+// Returns information about received or sent friend requests for the current user.
+// Doc: https://dev.vk.com/method/friends.getRequests
+type FriendsGetRequestsExtendedRequest struct {
+	BaseRequest
+}
+
+// NewFriendsGetRequestsExtendedRequest creates a new request for friends.getRequests
+func NewFriendsGetRequestsExtendedRequest(a *api.API, actor actor.Actor) *FriendsGetRequestsExtendedRequest {
+	r := &FriendsGetRequestsExtendedRequest{*NewMethodBaseRequest(a, actor, "friends.getRequests")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
+}
+
+// Exec executes the request and unmarshals the response into FriendsGetRequestsExtendedResponse
+func (r *FriendsGetRequestsExtendedRequest) Exec(ctx context.Context) (response response.FriendsGetRequestsExtendedResponse, err error) {
 	err = r.PostUnmarshal(ctx, &response)
 	return
 }

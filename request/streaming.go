@@ -9,21 +9,21 @@ import (
 
 // Doc: https://dev.vk.com/method/streaming
 
-// StreamingGetServerUrlRequest defines the request for streaming.getServerUrl
+// StreamingGetServerURLRequest defines the request for streaming.getServerUrl
 //
 // Retrieves data for connecting to the Streaming API.
 // Doc: https://dev.vk.com/method/streaming.getServerUrl
-type StreamingGetServerUrlRequest struct {
+type StreamingGetServerURLRequest struct {
 	BaseRequest
 }
 
-// NewStreamingGetServerUrlRequest creates a new request for streaming.getServerUrl
-func NewStreamingGetServerUrlRequest(a *api.API, actor actor.Actor) *StreamingGetServerUrlRequest {
-	return &StreamingGetServerUrlRequest{*NewMethodBaseRequest(a, actor, "streaming.getServerUrl")}
+// NewStreamingGetServerURLRequest creates a new request for streaming.getServerUrl
+func NewStreamingGetServerURLRequest(a *api.API, actor actor.Actor) *StreamingGetServerURLRequest {
+	return &StreamingGetServerURLRequest{*NewMethodBaseRequest(a, actor, "streaming.getServerUrl")}
 }
 
-// Exec executes the request and unmarshals the response into StreamingGetServerUrlResponse
-func (r *StreamingGetServerUrlRequest) Exec(ctx context.Context) (response response.StreamingGetServerURLResponse, err error) {
+// Exec executes the request and unmarshals the response into StreamingGetServerURLResponse
+func (r *StreamingGetServerURLRequest) Exec(ctx context.Context) (response response.StreamingGetServerURLResponse, err error) {
 	err = r.PostUnmarshal(ctx, &response)
 	return
 }

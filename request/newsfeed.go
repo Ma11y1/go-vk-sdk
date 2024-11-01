@@ -104,6 +104,25 @@ func (r *NewsfeedGetBannedRequest) Exec(ctx context.Context) (response response.
 	return
 }
 
+// NewsfeedGetBannedExtendedRequest defines the request for newsfeed.getBanned
+//
+// Returns a list of users and groups hidden from the current user's newsfeed.
+// Doc: https://dev.vk.com/method/newsfeed.getBanned
+type NewsfeedGetBannedExtendedRequest struct {
+	BaseRequest
+}
+
+// NewNewsfeedGetBannedExtendedRequest creates a new request for newsfeed.getBanned
+func NewNewsfeedGetBannedExtendedRequest(a *api.API, actor actor.Actor) *NewsfeedGetBannedExtendedRequest {
+	return &NewsfeedGetBannedExtendedRequest{*NewMethodBaseRequest(a, actor, "newsfeed.getBanned")}
+}
+
+// Exec executes the request and unmarshals the response into NewsfeedGetBannedExtendedResponse
+func (r *NewsfeedGetBannedExtendedRequest) Exec(ctx context.Context) (response response.NewsfeedGetBannedExtendedResponse, err error) {
+	err = r.PostUnmarshal(ctx, &response)
+	return
+}
+
 // NewsfeedGetCommentsRequest defines the request for newsfeed.getComments
 //
 // Returns data necessary to display the comments section of the user's newsfeed.
@@ -252,6 +271,25 @@ func NewNewsfeedSearchRequest(a *api.API, actor actor.Actor) *NewsfeedSearchRequ
 
 // Exec executes the request and unmarshals the response into NewsfeedSearchResponse
 func (r *NewsfeedSearchRequest) Exec(ctx context.Context) (response response.NewsfeedSearchResponse, err error) {
+	err = r.PostUnmarshal(ctx, &response)
+	return
+}
+
+// NewsfeedSearchExtendedRequest defines the request for newsfeed.search
+//
+// Returns search results by statuses, in descending order from newest to oldest.
+// Doc: https://dev.vk.com/method/newsfeed.search
+type NewsfeedSearchExtendedRequest struct {
+	BaseRequest
+}
+
+// NewNewsfeedSearchExtendedRequest creates a new request for newsfeed.search
+func NewNewsfeedSearchExtendedRequest(a *api.API, actor actor.Actor) *NewsfeedSearchExtendedRequest {
+	return &NewsfeedSearchExtendedRequest{*NewMethodBaseRequest(a, actor, "newsfeed.search")}
+}
+
+// Exec executes the request and unmarshals the response into NewsfeedSearchExtendedResponse
+func (r *NewsfeedSearchExtendedRequest) Exec(ctx context.Context) (response response.NewsfeedSearchExtendedResponse, err error) {
 	err = r.PostUnmarshal(ctx, &response)
 	return
 }

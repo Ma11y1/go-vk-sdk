@@ -66,6 +66,25 @@ func (r *NotesDeleteRequest) Exec(ctx context.Context) (response response.NotesD
 	return
 }
 
+// NotesDeleteCommentRequest defines the request for notes.deleteComment
+//
+// Removes a comment from a note.
+// Doc: https://dev.vk.com/method/notes.deleteComment
+type NotesDeleteCommentRequest struct {
+	BaseRequest
+}
+
+// NewNotesDeleteCommentRequest creates a new request for notes.delete
+func NewNotesDeleteCommentRequest(a *api.API, actor actor.Actor) *NotesDeleteCommentRequest {
+	return &NotesDeleteCommentRequest{*NewMethodBaseRequest(a, actor, "notes.deleteComment")}
+}
+
+// Exec executes the request and unmarshals the response into NotesDeleteCommentResponse
+func (r *NotesDeleteCommentRequest) Exec(ctx context.Context) (response response.NotesDeleteCommentResponse, err error) {
+	err = r.PostUnmarshal(ctx, &response)
+	return
+}
+
 // NotesEditRequest defines the request for notes.edit
 //
 // Edits a note of the current user.
@@ -123,21 +142,21 @@ func (r *NotesGetRequest) Exec(ctx context.Context) (response response.NotesGetR
 	return
 }
 
-// NotesGetByIdRequest defines the request for notes.getById
+// NotesGetByIDRequest defines the request for notes.getById
 //
 // Returns a note by its ID.
 // Doc: https://dev.vk.com/method/notes.getById
-type NotesGetByIdRequest struct {
+type NotesGetByIDRequest struct {
 	BaseRequest
 }
 
-// NewNotesGetByIdRequest creates a new request for notes.getById
-func NewNotesGetByIdRequest(a *api.API, actor actor.Actor) *NotesGetByIdRequest {
-	return &NotesGetByIdRequest{*NewMethodBaseRequest(a, actor, "notes.getById")}
+// NewNotesGetByIDRequest creates a new request for notes.getById
+func NewNotesGetByIDRequest(a *api.API, actor actor.Actor) *NotesGetByIDRequest {
+	return &NotesGetByIDRequest{*NewMethodBaseRequest(a, actor, "notes.getById")}
 }
 
 // Exec executes the request and unmarshals the response into NotesGetByIdResponse
-func (r *NotesGetByIdRequest) Exec(ctx context.Context) (response response.NotesGetByIDResponse, err error) {
+func (r *NotesGetByIDRequest) Exec(ctx context.Context) (response response.NotesGetByIDResponse, err error) {
 	err = r.PostUnmarshal(ctx, &response)
 	return
 }

@@ -83,6 +83,25 @@ func (r *UtilsGetLinkStatsRequest) Exec(ctx context.Context) (response response.
 	return
 }
 
+// UtilsGetLinkStatsExtendedRequest defines the request for utils.getLinkStats
+//
+// Retrieves link statistics.
+// Doc: https://dev.vk.com/method/utils.getLinkStats
+type UtilsGetLinkStatsExtendedRequest struct {
+	BaseRequest
+}
+
+// NewUtilsGetLinkStatsExtendedRequest creates a new request for utils.getLinkStats
+func NewUtilsGetLinkStatsExtendedRequest(a *api.API, actor actor.Actor) *UtilsGetLinkStatsExtendedRequest {
+	return &UtilsGetLinkStatsExtendedRequest{*NewMethodBaseRequest(a, actor, "utils.getLinkStats")}
+}
+
+// Exec executes the request and unmarshals the response into UtilsGetLinkStatsExtendedResponse
+func (r *UtilsGetLinkStatsExtendedRequest) Exec(ctx context.Context) (response response.UtilsGetLinkStatsExtendedResponse, err error) {
+	err = r.PostUnmarshal(ctx, &response)
+	return
+}
+
 // UtilsGetServerTimeRequest defines the request for utils.getServerTime
 //
 // Retrieves the current server time.

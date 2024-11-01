@@ -30,11 +30,7 @@ type NotesDeleteResponse struct {
 
 type NotesDeleteCommentResponse struct {
 	BaseResponse
-	Response struct {
-		Items []objects.NewsfeedNewsfeedItem `json:"items"`
-		objects.UsersAndGroups
-		NextFrom string `json:"next_from"`
-	} `json:"response"`
+	Response objects.BoolInt `json:"response"`
 }
 
 type NotesEditResponse struct {

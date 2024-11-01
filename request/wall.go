@@ -4,6 +4,7 @@ import (
 	"context"
 	"go-vk-sdk/actor"
 	"go-vk-sdk/api"
+	"go-vk-sdk/constants"
 	"go-vk-sdk/response"
 )
 
@@ -190,7 +191,9 @@ type WallGetExtendedRequest struct {
 
 // NewWallGetExtendedRequest creates a new request for wall.get
 func NewWallGetExtendedRequest(a *api.API, actor actor.Actor) *WallGetExtendedRequest {
-	return &WallGetExtendedRequest{*NewMethodBaseRequest(a, actor, "wall.get")}
+	r := &WallGetExtendedRequest{*NewMethodBaseRequest(a, actor, "wall.get")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
 }
 
 // Exec executes the request and unmarshals the response into WallGetExtendedResponse
@@ -228,7 +231,9 @@ type WallGetByIDExtendedRequest struct {
 
 // NewWallGetByIDExtendedRequest creates a new request for wall.getById
 func NewWallGetByIDExtendedRequest(a *api.API, actor actor.Actor) *WallGetByIDExtendedRequest {
-	return &WallGetByIDExtendedRequest{*NewMethodBaseRequest(a, actor, "wall.getById")}
+	r := &WallGetByIDExtendedRequest{*NewMethodBaseRequest(a, actor, "wall.getById")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
 }
 
 // Exec executes the request and unmarshals the response into WallGetByIDExtendedResponse
@@ -266,7 +271,9 @@ type WallGetCommentExtendedRequest struct {
 
 // NewWallGetCommentExtendedRequest creates a new request for wall.getComment
 func NewWallGetCommentExtendedRequest(a *api.API, actor actor.Actor) *WallGetCommentExtendedRequest {
-	return &WallGetCommentExtendedRequest{*NewMethodBaseRequest(a, actor, "wall.getComment")}
+	r := &WallGetCommentExtendedRequest{*NewMethodBaseRequest(a, actor, "wall.getComment")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
 }
 
 // Exec executes the request and unmarshals the response into WallGetCommentExtendedResponse
@@ -304,7 +311,9 @@ type WallGetCommentsExtendedRequest struct {
 
 // NewWallGetCommentsExtendedRequest creates a new request for wall.getComments
 func NewWallGetCommentsExtendedRequest(a *api.API, actor actor.Actor) *WallGetCommentsExtendedRequest {
-	return &WallGetCommentsExtendedRequest{*NewMethodBaseRequest(a, actor, "wall.getComments")}
+	r := &WallGetCommentsExtendedRequest{*NewMethodBaseRequest(a, actor, "wall.getComments")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
 }
 
 // Exec executes the request and unmarshals the response into WallGetCommentsExtendedResponse
@@ -551,7 +560,9 @@ type WallSearchExtendedRequest struct {
 
 // NewWallSearchExtendedRequest creates a new request for wall.search
 func NewWallSearchExtendedRequest(a *api.API, actor actor.Actor) *WallSearchExtendedRequest {
-	return &WallSearchExtendedRequest{*NewMethodBaseRequest(a, actor, "wall.search")}
+	r := &WallSearchExtendedRequest{*NewMethodBaseRequest(a, actor, "wall.search")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
 }
 
 // Exec executes the request and unmarshals the response into WallSearchExtendedResponse

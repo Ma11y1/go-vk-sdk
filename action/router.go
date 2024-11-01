@@ -28,7 +28,7 @@ type Router struct {
 	Market          *Market
 	Marusia         *Marusia
 	Messages        *Messages
-	NewsFeed        *NewsFeed
+	NewsFeed        *Newsfeed
 	Notes           *Notes
 	Notifications   *Notifications
 	Orders          *Orders
@@ -78,7 +78,7 @@ func NewRouter(api *api.API) *Router {
 		Market:          &Market{BaseAction: BaseAction{api: api}},
 		Marusia:         &Marusia{BaseAction: BaseAction{api: api}},
 		Messages:        &Messages{BaseAction: BaseAction{api: api}},
-		NewsFeed:        &NewsFeed{BaseAction: BaseAction{api: api}},
+		NewsFeed:        &Newsfeed{BaseAction: BaseAction{api: api}},
 		Notes:           &Notes{BaseAction: BaseAction{api: api}},
 		Notifications:   &Notifications{BaseAction: BaseAction{api: api}},
 		Orders:          &Orders{BaseAction: BaseAction{api: api}},

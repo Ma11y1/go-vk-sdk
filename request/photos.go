@@ -220,6 +220,27 @@ func (r *PhotosGetRequest) Exec(ctx context.Context) (response response.PhotosGe
 	return
 }
 
+// PhotosGetExtendedRequest defines the request for photos.get
+//
+// Returns a list of photos in an album.
+// Doc: https://dev.vk.com/method/photos.get
+type PhotosGetExtendedRequest struct {
+	BaseRequest
+}
+
+// NewPhotosGetExtendedRequest creates a new request for photos.get
+func NewPhotosGetExtendedRequest(a *api.API, actor actor.Actor) *PhotosGetExtendedRequest {
+	r := &PhotosGetExtendedRequest{*NewMethodBaseRequest(a, actor, "photos.get")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
+}
+
+// Exec executes the request and unmarshals the response into PhotosGetExtendedResponse
+func (r *PhotosGetExtendedRequest) Exec(ctx context.Context) (response response.PhotosGetExtendedResponse, err error) {
+	err = r.PostUnmarshal(ctx, &response)
+	return
+}
+
 // PhotosGetAlbumsRequest defines the request for photos.getAlbums
 //
 // Returns a list of photo albums.
@@ -277,6 +298,27 @@ func (r *PhotosGetAllRequest) Exec(ctx context.Context) (response response.Photo
 	return
 }
 
+// PhotosGetAllExtendedRequest defines the request for photos.getAll
+//
+// Returns all photos in reverse chronological order.
+// Doc: https://dev.vk.com/method/photos.getAll
+type PhotosGetAllExtendedRequest struct {
+	BaseRequest
+}
+
+// NewPhotosGetAllExtendedRequest creates a new request for photos.getAll
+func NewPhotosGetAllExtendedRequest(a *api.API, actor actor.Actor) *PhotosGetAllExtendedRequest {
+	r := &PhotosGetAllExtendedRequest{*NewMethodBaseRequest(a, actor, "photos.getAll")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
+}
+
+// Exec executes the request and unmarshals the response into PhotosGetAllExtendedResponse
+func (r *PhotosGetAllExtendedRequest) Exec(ctx context.Context) (response response.PhotosGetAllExtendedResponse, err error) {
+	err = r.PostUnmarshal(ctx, &response)
+	return
+}
+
 // PhotosGetAllCommentsRequest defines the request for photos.getAllComments
 //
 // Returns all comments in reverse chronological order.
@@ -296,21 +338,42 @@ func (r *PhotosGetAllCommentsRequest) Exec(ctx context.Context) (response respon
 	return
 }
 
-// PhotosGetByIdRequest defines the request for photos.getById
+// PhotosGetByIDRequest defines the request for photos.getById
 //
 // Returns information about photos by their IDs.
 // Doc: https://dev.vk.com/method/photos.getById
-type PhotosGetByIdRequest struct {
+type PhotosGetByIDRequest struct {
 	BaseRequest
 }
 
-// NewPhotosGetByIdRequest creates a new request for photos.getById
-func NewPhotosGetByIdRequest(a *api.API, actor actor.Actor) *PhotosGetByIdRequest {
-	return &PhotosGetByIdRequest{*NewMethodBaseRequest(a, actor, "photos.getById")}
+// NewPhotosGetByIDRequest creates a new request for photos.getById
+func NewPhotosGetByIDRequest(a *api.API, actor actor.Actor) *PhotosGetByIDRequest {
+	return &PhotosGetByIDRequest{*NewMethodBaseRequest(a, actor, "photos.getById")}
 }
 
-// Exec executes the request and unmarshals the response into PhotosGetByIdResponse
-func (r *PhotosGetByIdRequest) Exec(ctx context.Context) (response response.PhotosGetByIDResponse, err error) {
+// Exec executes the request and unmarshals the response into PhotosGetByIDResponse
+func (r *PhotosGetByIDRequest) Exec(ctx context.Context) (response response.PhotosGetByIDResponse, err error) {
+	err = r.PostUnmarshal(ctx, &response)
+	return
+}
+
+// PhotosGetByIDExtendedRequest defines the request for photos.getById
+//
+// Returns information about photos by their IDs.
+// Doc: https://dev.vk.com/method/photos.getById
+type PhotosGetByIDExtendedRequest struct {
+	BaseRequest
+}
+
+// NewPhotosGetByIDExtendedRequest creates a new request for photos.getById
+func NewPhotosGetByIDExtendedRequest(a *api.API, actor actor.Actor) *PhotosGetByIDExtendedRequest {
+	r := &PhotosGetByIDExtendedRequest{*NewMethodBaseRequest(a, actor, "photos.getById")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
+}
+
+// Exec executes the request and unmarshals the response into PhotosGetByIDExtendedResponse
+func (r *PhotosGetByIDExtendedRequest) Exec(ctx context.Context) (response response.PhotosGetByIDExtendedResponse, err error) {
 	err = r.PostUnmarshal(ctx, &response)
 	return
 }
@@ -349,6 +412,27 @@ func NewPhotosGetCommentsRequest(a *api.API, actor actor.Actor) *PhotosGetCommen
 
 // Exec executes the request and unmarshals the response into PhotosGetCommentsResponse
 func (r *PhotosGetCommentsRequest) Exec(ctx context.Context) (response response.PhotosGetCommentsResponse, err error) {
+	err = r.PostUnmarshal(ctx, &response)
+	return
+}
+
+// PhotosGetCommentsExtendedRequest defines the request for photos.getComments
+//
+// Returns a list of comments on a photo.
+// Doc: https://dev.vk.com/method/photos.getComments
+type PhotosGetCommentsExtendedRequest struct {
+	BaseRequest
+}
+
+// NewPhotosGetCommentsExtendedRequest creates a new request for photos.getComments
+func NewPhotosGetCommentsExtendedRequest(a *api.API, actor actor.Actor) *PhotosGetCommentsExtendedRequest {
+	r := &PhotosGetCommentsExtendedRequest{*NewMethodBaseRequest(a, actor, "photos.getComments")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
+}
+
+// Exec executes the request and unmarshals the response into PhotosGetCommentsExtendedResponse
+func (r *PhotosGetCommentsExtendedRequest) Exec(ctx context.Context) (response response.PhotosGetCommentsExtendedResponse, err error) {
 	err = r.PostUnmarshal(ctx, &response)
 	return
 }
@@ -502,6 +586,27 @@ func NewPhotosGetUserPhotosRequest(a *api.API, actor actor.Actor) *PhotosGetUser
 
 // Exec executes the request and unmarshals the response into PhotosGetUserPhotosResponse
 func (r *PhotosGetUserPhotosRequest) Exec(ctx context.Context) (response response.PhotosGetUserPhotosResponse, err error) {
+	err = r.PostUnmarshal(ctx, &response)
+	return
+}
+
+// PhotosGetUserPhotosExtendedRequest defines the request for photos.getUserPhotos
+//
+// Returns a list of photos where the user is tagged.
+// Doc: https://dev.vk.com/method/photos.getUserPhotos
+type PhotosGetUserPhotosExtendedRequest struct {
+	BaseRequest
+}
+
+// NewPhotosGetUserPhotosExtendedRequest creates a new request for photos.getUserPhotos
+func NewPhotosGetUserPhotosExtendedRequest(a *api.API, actor actor.Actor) *PhotosGetUserPhotosExtendedRequest {
+	r := &PhotosGetUserPhotosExtendedRequest{*NewMethodBaseRequest(a, actor, "photos.getUserPhotos")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
+}
+
+// Exec executes the request and unmarshals the response into PhotosGetUserPhotosExtendedResponse
+func (r *PhotosGetUserPhotosExtendedRequest) Exec(ctx context.Context) (response response.PhotosGetUserPhotosExtendedResponse, err error) {
 	err = r.PostUnmarshal(ctx, &response)
 	return
 }

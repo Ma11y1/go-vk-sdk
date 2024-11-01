@@ -282,14 +282,15 @@ type GroupsIsMemberExtendedResponse struct {
 		CanRecall  objects.BoolInt `json:"can_recall"` // Information whether user's invite to the group can be recalled
 	} `json:"response"`
 }
-type GroupsIsMemberUserIDsExtendedResponse struct {
-	BaseResponse
-	Response []objects.GroupMemberStatusFull `json:"response"`
-}
 
 type GroupsIsMemberUserIDsResponse struct {
 	BaseResponse
 	Response []objects.GroupMemberStatus `json:"response"`
+}
+
+type GroupsIsMemberUserIDsExtendedResponse struct {
+	BaseResponse
+	Response []objects.GroupMemberStatusFull `json:"response"`
 }
 
 type GroupsJoinResponse struct {

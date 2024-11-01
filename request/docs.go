@@ -85,21 +85,21 @@ func (r *DocsGetRequest) Exec(ctx context.Context) (response response.DocsGetRes
 	return
 }
 
-// DocsGetByIdRequest defines the request for docs.getById
+// DocsGetByIDRequest defines the request for docs.getById
 //
 // The method returns information about documents by their IDs.
 // Doc: https://dev.vk.com/method/docs.getById
-type DocsGetByIdRequest struct {
+type DocsGetByIDRequest struct {
 	BaseRequest
 }
 
-// NewDocsGetByIdRequest creates a new request for docs.getById
-func NewDocsGetByIdRequest(a *api.API, actor actor.Actor) *DocsGetByIdRequest {
-	return &DocsGetByIdRequest{*NewMethodBaseRequest(a, actor, "docs.getById")}
+// NewDocsGetByIDRequest creates a new request for docs.getById
+func NewDocsGetByIDRequest(a *api.API, actor actor.Actor) *DocsGetByIDRequest {
+	return &DocsGetByIDRequest{*NewMethodBaseRequest(a, actor, "docs.getById")}
 }
 
-// Exec executes the request and unmarshals the response into DocsGetByIdResponse
-func (r *DocsGetByIdRequest) Exec(ctx context.Context) (response response.DocsGetByIDResponse, err error) {
+// Exec executes the request and unmarshals the response into DocsGetByIDResponse
+func (r *DocsGetByIDRequest) Exec(ctx context.Context) (response response.DocsGetByIDResponse, err error) {
 	err = r.PostUnmarshal(ctx, &response)
 	return
 }

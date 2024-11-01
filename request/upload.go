@@ -515,36 +515,36 @@ func (r *UploadAppGroupImageRequest) Exec(ctx context.Context, file *objects.Upl
 	return
 }
 
-// UploadMarussiaPictureRequest
+// UploadMarusiaPictureRequest
 //
 //	Limits: height not more than 600 px, aspect ratio of at least 2:1.
-type UploadMarussiaPictureRequest struct {
+type UploadMarusiaPictureRequest struct {
 	BaseRequest
 }
 
-func NewUploadMarussiaPictureRequest(a *api.API, actor actor.Actor) *UploadMarussiaPictureRequest {
-	return &UploadMarussiaPictureRequest{*NewUploadBaseRequest(a, actor)}
+func NewUploadMarusiaPictureRequest(a *api.API, actor actor.Actor) *UploadMarusiaPictureRequest {
+	return &UploadMarusiaPictureRequest{*NewUploadBaseRequest(a, actor)}
 }
 
 // Exec UploadFile.FieldName = "photo"
-func (r *UploadMarussiaPictureRequest) Exec(ctx context.Context, file *objects.UploadFile) (response response.MarusiaUploadPictureResponse, err error) {
+func (r *UploadMarusiaPictureRequest) Exec(ctx context.Context, file *objects.UploadFile) (response response.MarusiaUploadPictureResponse, err error) {
 	err = uploadFile(&r.BaseRequest, ctx, file, &response)
 	return
 }
 
-// UploadMarussiaAudioRequest
+// UploadMarusiaAudioRequest
 //
 //	https://dev.vk.com/ru/marusia/media-api
-type UploadMarussiaAudioRequest struct {
+type UploadMarusiaAudioRequest struct {
 	BaseRequest
 }
 
-func NewUploadMarussiaAudioRequest(a *api.API, actor actor.Actor) *UploadMarussiaAudioRequest {
-	return &UploadMarussiaAudioRequest{*NewUploadBaseRequest(a, actor)}
+func NewUploadMarusiaAudioRequest(a *api.API, actor actor.Actor) *UploadMarusiaAudioRequest {
+	return &UploadMarusiaAudioRequest{*NewUploadBaseRequest(a, actor)}
 }
 
 // Exec UploadFile.FieldName = "file"
-func (r *UploadMarussiaAudioRequest) Exec(ctx context.Context, file *objects.UploadFile) (response response.MarusiaUploadAudioResponse, err error) {
+func (r *UploadMarusiaAudioRequest) Exec(ctx context.Context, file *objects.UploadFile) (response response.MarusiaUploadAudioResponse, err error) {
 	err = uploadFile(&r.BaseRequest, ctx, file, &response)
 	return
 }

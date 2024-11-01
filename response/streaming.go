@@ -34,8 +34,3 @@ type StreamingGetStemResponse struct {
 		Stem string `json:"stem"`
 	} `json:"response"`
 }
-
-type StreamingSetSettingsResponse struct {
-	BaseResponse
-	Response int `json:"response"`
-}

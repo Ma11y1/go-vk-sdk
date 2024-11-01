@@ -60,6 +60,7 @@ const (
 	ParameterNameToken                  string = "token"                     // type=string
 	ParameterNameOwnerID                string = "owner_id"                  // owner_id=int type=int
 	ParameterNameUserID                 string = "user_id"                   // user_id=int type=int, uint
+	ParameterNameUserIDs                string = "user_ids"                  // type=string
 	ParameterNameRetargetingGroupID     string = "retargeting_group_id"      // user_id=int type=int, uint
 	ParameterNameRestoreSID             string = "restore_sid"               // restore_sid=123123123 type=string
 	ParameterNameChangePasswordHash     string = "change_password_hash"      // type=string

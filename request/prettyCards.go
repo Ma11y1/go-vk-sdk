@@ -93,8 +93,8 @@ type PrettyCardsGetByIDRequest struct {
 	BaseRequest
 }
 
-// NewPrettyCardsGetByIdRequest creates a new request for prettyCards.getById
-func NewPrettyCardsGetByIdRequest(a *api.API, actor actor.Actor) *PrettyCardsGetByIDRequest {
+// NewPrettyCardsGetByIDRequest creates a new request for prettyCards.getById
+func NewPrettyCardsGetByIDRequest(a *api.API, actor actor.Actor) *PrettyCardsGetByIDRequest {
 	return &PrettyCardsGetByIDRequest{*NewMethodBaseRequest(a, actor, "prettyCards.getById")}
 }
 

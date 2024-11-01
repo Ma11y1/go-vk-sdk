@@ -147,7 +147,9 @@ type AppsGetFriendsListExtendedRequest struct {
 
 // NewAppsGetFriendsListExtendedRequest creates a new request for apps.getFriendsList
 func NewAppsGetFriendsListExtendedRequest(a *api.API, actor actor.Actor) *AppsGetFriendsListExtendedRequest {
-	return &AppsGetFriendsListExtendedRequest{*NewAppsGetFriendsListRequest(a, actor)}
+	r := &AppsGetFriendsListExtendedRequest{*NewAppsGetFriendsListRequest(a, actor)}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
 }
 
 // Exec executes the request and unmarshals the response into AppsGetFriendsListExtendedResponse

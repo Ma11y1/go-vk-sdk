@@ -205,6 +205,7 @@ type (
 		Rating       LinkRating      `json:"rating"`
 		Title        string          `json:"title"`
 		Target       string          `json:"target"`
+		Text         string          `json:"text"`
 		URL          string          `json:"url"`
 		IsFavorite   BoolInt         `json:"is_favorite"`
 	}

@@ -4,6 +4,7 @@ import (
 	"context"
 	"go-vk-sdk/actor"
 	"go-vk-sdk/api"
+	"go-vk-sdk/constants"
 	"go-vk-sdk/response"
 )
 
@@ -228,7 +229,9 @@ type VideoGetExtendedRequest struct {
 
 // NewVideoGetExtendedRequest creates a new request for video.get
 func NewVideoGetExtendedRequest(a *api.API, actor actor.Actor) *VideoGetExtendedRequest {
-	return &VideoGetExtendedRequest{*NewMethodBaseRequest(a, actor, "video.get")}
+	r := &VideoGetExtendedRequest{*NewMethodBaseRequest(a, actor, "video.get")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
 }
 
 // Exec executes the request and unmarshals the response into VideoGetExtendedResponse
@@ -285,7 +288,9 @@ type VideoGetAlbumsExtendedRequest struct {
 
 // NewVideoGetAlbumsExtendedRequest creates a new request for video.getAlbums
 func NewVideoGetAlbumsExtendedRequest(a *api.API, actor actor.Actor) *VideoGetAlbumsExtendedRequest {
-	return &VideoGetAlbumsExtendedRequest{*NewMethodBaseRequest(a, actor, "video.getAlbums")}
+	r := &VideoGetAlbumsExtendedRequest{*NewMethodBaseRequest(a, actor, "video.getAlbums")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
 }
 
 // Exec executes the request and unmarshals the response into VideoGetAlbumsExtendedResponse
@@ -323,7 +328,9 @@ type VideoGetAlbumsByVideoExtendedRequest struct {
 
 // NewVideoGetAlbumsByVideoExtendedRequest creates a new request for video.getAlbumsByVideo
 func NewVideoGetAlbumsByVideoExtendedRequest(a *api.API, actor actor.Actor) *VideoGetAlbumsByVideoExtendedRequest {
-	return &VideoGetAlbumsByVideoExtendedRequest{*NewMethodBaseRequest(a, actor, "video.getAlbumsByVideo")}
+	r := &VideoGetAlbumsByVideoExtendedRequest{*NewMethodBaseRequest(a, actor, "video.getAlbumsByVideo")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
 }
 
 // Exec executes the request and unmarshals the response into VideoGetAlbumsByVideoExtendedResponse
@@ -361,7 +368,9 @@ type VideoGetCommentsExtendedRequest struct {
 
 // NewVideoGetCommentsExtendedRequest creates a new request for video.getComments
 func NewVideoGetCommentsExtendedRequest(a *api.API, actor actor.Actor) *VideoGetCommentsExtendedRequest {
-	return &VideoGetCommentsExtendedRequest{*NewMethodBaseRequest(a, actor, "video.getComments")}
+	r := &VideoGetCommentsExtendedRequest{*NewMethodBaseRequest(a, actor, "video.getComments")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
 }
 
 // Exec executes the request and unmarshals the response into VideoGetCommentsExtendedResponse
@@ -627,7 +636,9 @@ type VideoSearchExtendedRequest struct {
 
 // NewVideoSearchExtendedRequest creates a new request for video.search
 func NewVideoSearchExtendedRequest(a *api.API, actor actor.Actor) *VideoSearchExtendedRequest {
-	return &VideoSearchExtendedRequest{*NewMethodBaseRequest(a, actor, "video.search")}
+	r := &VideoSearchExtendedRequest{*NewMethodBaseRequest(a, actor, "video.search")}
+	r.parameters.Set(constants.ParameterNameExtended, "1")
+	return r
 }
 
 // Exec executes the request and unmarshals the response into VideoSearchExtendedResponse
