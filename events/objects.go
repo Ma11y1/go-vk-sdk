@@ -2,16 +2,71 @@ package events
 
 import (
 	"encoding/json"
+	internalErrors "go-vk-sdk/errors"
 	"go-vk-sdk/objects"
+	"net/http"
+	"time"
 )
 
+// base events
+
+type Event interface {
+	EventType() EventType
+}
+
+type EventUpdate struct {
+	Type       EventType       `json:"type"`
+	EventID    string          `json:"event_id"`
+	VersionAPI string          `json:"v"`        // api version for which the event was generated
+	Object     json.RawMessage `json:"objects"`  // objects that triggered the event
+	GroupID    int             `json:"group_id"` // ID of the community where the event occurred
+	Secret     string          `json:"secret"`
+}
+
+// callback events
+
+type EventCallback struct {
+	Event           Event
+	Error           error
+	RetryCounter    int       // retry counter
+	IsRetryAfterKey bool      // retry after
+	Code            int       // retry after
+	Date            time.Time // retry after
+	IsRemove        bool      // remove
+}
+
+func (e *EventCallback) EventType() EventType {
+	return EventTypeCallback
+}
+
 type EventConfirmation struct {
-	GroupID int
+	Response                 http.ResponseWriter
+	GroupID                  int
+	isConfirmationSuccessful bool
 }
 
 func (e *EventConfirmation) EventType() EventType {
 	return EventTypeConfirmation
 }
+
+func (e *EventConfirmation) Confirm(code string) error {
+	if e.isConfirmationSuccessful {
+		return nil
+	}
+
+	if code == "" {
+		return internalErrors.ErrorLog("Callback.Event.Confirm()", "Code can not be empty")
+	}
+
+	_, err := e.Response.Write([]byte(code))
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// global events
 
 type EventMessageNew struct {
 	Message    objects.Message    `json:"message"`

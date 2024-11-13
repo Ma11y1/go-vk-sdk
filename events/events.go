@@ -7,20 +7,9 @@ import (
 
 type EventType string
 
-type Event interface {
-	EventType() EventType
-}
-
-type EventUpdate struct {
-	Type       EventType       `json:"type"`
-	EventID    string          `json:"event_id"`
-	VersionAPI string          `json:"v"`        // api version for which the event was generated
-	Object     json.RawMessage `json:"objects"`  // objects that triggered the event
-	GroupID    int             `json:"group_id"` // ID of the community where the event occurred
-}
-
 const (
-	EventTypeConfirmation                  EventType = "confirmation"
+	EventTypeCallback                      EventType = "callback"     // only callback
+	EventTypeConfirmation                  EventType = "confirmation" // only callback
 	EventTypeMessageNew                    EventType = "message_new"
 	EventTypeMessageReply                  EventType = "message_reply"
 	EventTypeMessageEdit                   EventType = "message_edit"
@@ -78,13 +67,11 @@ const (
 	EventTypeDonutMoneyWithdrawError       EventType = "donut_money_withdraw_error"
 )
 
-func NewEvent(eventType EventType, object json.RawMessage) (Event, error) {
+func NewEvent(eventUpdate *EventUpdate) (Event, error) {
 	var event Event
 	var err error
 
-	switch eventType {
-	case EventTypeConfirmation:
-		event = &EventConfirmation{}
+	switch eventUpdate.Type {
 	case EventTypeMessageNew:
 		event = &EventMessageNew{}
 	case EventTypeMessageReply:
@@ -203,7 +190,7 @@ func NewEvent(eventType EventType, object json.RawMessage) (Event, error) {
 		return nil, err
 	}
 
-	err = json.Unmarshal(object, event)
+	err = json.Unmarshal(eventUpdate.Object, event)
 	if err != nil {
 		return nil, err
 	}

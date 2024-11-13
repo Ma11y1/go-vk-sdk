@@ -152,14 +152,14 @@ func (l *LongPoll) Run(ctx context.Context) error {
 				return err // TODO complete error handling so as not to complete verification cycle
 			}
 
-			for _, data := range resp.Updates {
-				event, err := events.NewEvent(data.Type, data.Object)
+			for _, update := range resp.Updates {
+				event, err := events.NewEvent(&update)
 				if err != nil {
 					return err // TODO complete error handling so as not to complete verification cycle
 				}
 
 				l.chanUpdate <- &EventUpdate{
-					Type:  data.Type,
+					Type:  update.Type,
 					Event: event,
 				}
 			}

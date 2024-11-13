@@ -20,7 +20,7 @@ type StoreGetFavoriteStickersResponse struct {
 type StoreGetProductsResponse struct {
 	BaseResponse
 	Response []objects.Product `json:"response"`
-	//Response struct {
+	//Writer struct {
 	//	Count int               `json:"count"`
 	//	Items []objects.Product `json:"items"`
 	//} `json:"response"`

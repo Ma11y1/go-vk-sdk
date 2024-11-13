@@ -20,6 +20,8 @@ type Parameters interface {
 	BuildURLValuesEncode() string
 }
 
+type MapParameters map[string]string
+
 type BaseParameters struct {
 	mtx             sync.RWMutex
 	data            map[string]string

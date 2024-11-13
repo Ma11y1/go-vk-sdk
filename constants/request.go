@@ -42,6 +42,7 @@ const (
 	ParameterNameAccountID              string = "account_id"                // type=int
 	ParameterNameData                   string = "data"                      // type=string
 	ParameterNameClientSecret           string = "client_secret"             // type=string
+	ParameterNameSecretKey              string = "secret_key"                // type=string
 	ParameterNameGrandType              string = "grant_type"                // type=string
 	ParameterNameAuthorizationCode      string = "authorization_code"        // type=string
 	ParameterNameResponseType           string = "response_type"             // type=string
@@ -54,6 +55,7 @@ const (
 	ParameterNameScope                  string = "scope"                     // type=string
 	ParameterName2faSupported           string = "2fa_supported"             // type=0, 1
 	ParameterNameForceSMS               string = "force_sms"                 // type=0, 1
+	ParameterNameTitle                  string = "title"                     //type=string
 	ParameterNameTestRedirectURI        string = "test_redirect_uri"         // type=0, 1
 	ParameterNameConfirm                string = "confirm"                   // confirm=12345 type=string
 	ParameterNameRedirectURI            string = "redirect_uri"              // redirect_uri=URI type=string
@@ -70,6 +72,8 @@ const (
 	ParameterNameCount                  string = "count"                     // type=uint,int
 	ParameterNameFields                 string = "fields"                    // type=string
 	ParameterNameFilter                 string = "filter"                    // type=string
+	ParameterNameServerID               string = "server_id"                 // type=uint
+	ParameterNameServerIDs              string = "server_ids"                // type=string
 	ParameterNameDeviceID               string = "device_id"                 // type=string
 	ParameterNameDeviceModel            string = "device_model"              // type=string
 	ParameterNameDeviceYear             string = "device_year"               // type=int
@@ -105,6 +109,7 @@ const (
 	ParameterNameChatID                 string = "chat_id"                   //type=int
 	ParameterNamePeerID                 string = "peer_id"                   //type=int
 	ParameterNameSound                  string = "sound"                     //type=0,1
+	ParameterNameURL                    string = "url"                       //type=string
 	ParameterNameLinkType               string = "link_type"                 //type=string
 	ParameterNameLinkURL                string = "link_url"                  //type=string
 	ParameterNameLinkDomain             string = "link_domain"               //type=string

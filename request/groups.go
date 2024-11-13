@@ -7,6 +7,7 @@ import (
 	"go-vk-sdk/constants"
 	"go-vk-sdk/response"
 	"strconv"
+	"strings"
 )
 
 // Doc: https://dev.vk.com/method/groups
@@ -48,6 +49,34 @@ func NewGroupsAddCallbackServerRequest(a *api.API, actor actor.Actor) *GroupsAdd
 func (r *GroupsAddCallbackServerRequest) Exec(ctx context.Context) (response response.GroupsAddCallbackServerResponse, err error) {
 	err = r.PostUnmarshal(ctx, &response)
 	return
+}
+
+// GroupID required
+func (r *GroupsAddCallbackServerRequest) GroupID(id int) *GroupsAddCallbackServerRequest {
+	r.parameters.Set(constants.ParameterNameGroupID, strconv.Itoa(id))
+	return r
+}
+
+// URL required
+func (r *GroupsAddCallbackServerRequest) URL(url string) *GroupsAddCallbackServerRequest {
+	r.parameters.Set(constants.ParameterNameURL, url)
+	return r
+}
+
+// Title required. length < 15
+func (r *GroupsAddCallbackServerRequest) Title(title string) *GroupsAddCallbackServerRequest {
+	if len(title) < 15 {
+		r.parameters.Set(constants.ParameterNameTitle, title)
+	}
+	return r
+}
+
+// SecretKey required. length < 50
+func (r *GroupsAddCallbackServerRequest) SecretKey(key string) *GroupsAddCallbackServerRequest {
+	if len(key) < 50 {
+		r.parameters.Set(constants.ParameterNameSecretKey, key)
+	}
+	return r
 }
 
 // GroupsAddLinkRequest defines the request for groups.addLink
@@ -162,6 +191,18 @@ func NewGroupsDeleteCallbackServerRequest(a *api.API, actor actor.Actor) *Groups
 func (r *GroupsDeleteCallbackServerRequest) Exec(ctx context.Context) (response response.GroupsDeleteCallbackServerResponse, err error) {
 	err = r.PostUnmarshal(ctx, &response)
 	return
+}
+
+// GroupID required
+func (r *GroupsDeleteCallbackServerRequest) GroupID(id int) *GroupsDeleteCallbackServerRequest {
+	r.parameters.Set(constants.ParameterNameGroupID, strconv.Itoa(id))
+	return r
+}
+
+// ServerID Server ID to delete. Required
+func (r *GroupsDeleteCallbackServerRequest) ServerID(id int) *GroupsDeleteCallbackServerRequest {
+	r.parameters.Set(constants.ParameterNameServerID, strconv.Itoa(id))
+	return r
 }
 
 // GroupsDeleteLinkRequest defines the request for groups.deleteLink
@@ -413,6 +454,41 @@ func (r *GroupsGetByIDRequest) Exec(ctx context.Context) (response response.Grou
 	return
 }
 
+func (r *GroupsGetByIDRequest) GroupID(id string) *GroupsGetByIDRequest {
+	r.parameters.Set(constants.ParameterNameGroupID, id)
+	return r
+}
+
+// GroupIDs quantity ids < 501
+func (r *GroupsGetByIDRequest) GroupIDs(ids string) *GroupsGetByIDRequest {
+	r.parameters.Set(constants.ParameterNameGroupIDs, ids)
+	return r
+}
+
+// GroupIDsArr quantity ids < 501
+func (r *GroupsGetByIDRequest) GroupIDsArr(ids []string) *GroupsGetByIDRequest {
+	if len(ids) < 501 {
+		r.parameters.Set(constants.ParameterNameGroupIDs, strings.Join(ids, ","))
+	}
+	return r
+}
+
+// Fields activity, ban_info, can_post, can_see_all_posts, city, contacts, counters,
+// country, cover, description, finish_date, fixed_post, links, market, members_count, place,
+// site, start_date, status, verified, wiki_page,
+func (r *GroupsGetByIDRequest) Fields(fields string) *GroupsGetByIDRequest {
+	r.parameters.Set(constants.ParameterNameFields, fields)
+	return r
+}
+
+// FieldsArr activity, ban_info, can_post, can_see_all_posts, city, contacts, counters,
+// country, cover, description, finish_date, fixed_post, links, market, members_count, place,
+// site, start_date, status, verified, wiki_page,
+func (r *GroupsGetByIDRequest) FieldsArr(fields []string) *GroupsGetByIDRequest {
+	r.parameters.Set(constants.ParameterNameFields, strings.Join(fields, ","))
+	return r
+}
+
 // GroupsGetCallbackConfirmationCodeRequest defines the request for groups.getCallbackConfirmationCode
 //
 // The method returns a string needed to confirm the Callback api server address.
@@ -432,6 +508,11 @@ func (r *GroupsGetCallbackConfirmationCodeRequest) Exec(ctx context.Context) (re
 	return
 }
 
+func (r *GroupsGetCallbackConfirmationCodeRequest) GroupID(id int) *GroupsGetCallbackConfirmationCodeRequest {
+	r.parameters.Set(constants.ParameterNameGroupID, strconv.Itoa(id))
+	return r
+}
+
 // GroupsGetCallbackServersRequest defines the request for groups.getCallbackServers
 //
 // The method retrieves information about Callback api servers in the community.
@@ -449,6 +530,24 @@ func NewGroupsGetCallbackServersRequest(a *api.API, actor actor.Actor) *GroupsGe
 func (r *GroupsGetCallbackServersRequest) Exec(ctx context.Context) (response response.GroupsGetCallbackServersResponse, err error) {
 	err = r.PostUnmarshal(ctx, &response)
 	return
+}
+
+// GroupID required
+func (r *GroupsGetCallbackServersRequest) GroupID(id int) *GroupsGetCallbackServersRequest {
+	r.parameters.Set(constants.ParameterNameGroupID, strconv.Itoa(id))
+	return r
+}
+
+// ServerIDs Identifiers of the servers about which you want to obtain data. By default, all servers are returned.
+func (r *GroupsGetCallbackServersRequest) ServerIDs(ids string) *GroupsGetCallbackServersRequest {
+	r.parameters.Set(constants.ParameterNameServerIDs, ids)
+	return r
+}
+
+// ServerIDsArr Identifiers of the servers about which you want to obtain data. By default, all servers are returned.
+func (r *GroupsGetCallbackServersRequest) ServerIDsArr(ids []string) *GroupsGetCallbackServersRequest {
+	r.parameters.Set(constants.ParameterNameServerIDs, strings.Join(ids, ","))
+	return r
 }
 
 // GroupsGetCallbackSettingsRequest defines the request for groups.getCallbackSettings
@@ -943,6 +1042,48 @@ func NewGroupsSetCallbackSettingsRequest(a *api.API, actor actor.Actor) *GroupsS
 func (r *GroupsSetCallbackSettingsRequest) Exec(ctx context.Context) (response response.GroupsSetCallbackSettingsResponse, err error) {
 	err = r.PostUnmarshal(ctx, &response)
 	return
+}
+
+func (r *GroupsSetCallbackSettingsRequest) GroupID(id int) *GroupsSetCallbackSettingsRequest {
+	if id > 0 {
+		r.parameters.Set(constants.ParameterNameGroupID, strconv.Itoa(id))
+	}
+	return r
+}
+
+func (r *GroupsSetCallbackSettingsRequest) ServerID(id int) *GroupsSetCallbackSettingsRequest {
+	if id > 0 {
+		r.parameters.Set(constants.ParameterNameServerID, strconv.Itoa(id))
+	}
+	return r
+}
+
+func (r *GroupsSetCallbackSettingsRequest) APIVersion(v string) *GroupsSetCallbackSettingsRequest {
+	r.parameters.Set(constants.ParameterNameAPIVersion, v)
+	return r
+}
+
+func (r *GroupsSetCallbackSettingsRequest) SetEvent(event string, isEnable bool) *GroupsSetCallbackSettingsRequest {
+	if isEnable {
+		r.parameters.Set(event, "1")
+	} else {
+		r.parameters.Set(event, "0")
+	}
+	return r
+}
+
+func (r *GroupsSetCallbackSettingsRequest) ResetEvents() *GroupsSetCallbackSettingsRequest {
+	gid := r.parameters.Get(constants.ParameterNameGroupID)
+	sid := r.parameters.Get(constants.ParameterNameServerID)
+	v := r.parameters.Get(constants.ParameterNameAPIVersion)
+
+	r.ResetParameters()
+
+	r.parameters.SetIfNotEmpty(constants.ParameterNameGroupID, gid)
+	r.parameters.SetIfNotEmpty(constants.ParameterNameServerID, sid)
+	r.parameters.SetIfNotEmpty(constants.ParameterNameAPIVersion, v)
+
+	return r
 }
 
 // GroupsSetLongPollSettingsRequest defines the request for groups.setLongPollSettings
