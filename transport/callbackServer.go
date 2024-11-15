@@ -7,39 +7,35 @@ import (
 	internalErrors "go-vk-sdk/errors"
 	"go-vk-sdk/logger"
 	"net/http"
+	"net/url"
 )
 
 type CallbackServer interface {
 	Run() error
 	Stop(context.Context) error
-	SetAddress(string) error
-	SetHandler(http.Handler) error
+	GetURL() *url.URL
+	SetURL(url.URL) error
+	SetHandler(path string, handler http.Handler) error
+	SetHandleFunc(path string, fn func(http.ResponseWriter, *http.Request)) error
 	IsRunning() bool
 }
 
 type BaseCallbackServer struct {
 	server    *http.Server
 	handler   http.Handler
-	address   string
+	url       *url.URL
 	isRunning bool
 }
 
-func NewBaseCallbackServer(address string) *BaseCallbackServer {
+func NewBaseCallbackServer(url url.URL) *BaseCallbackServer {
 	return &BaseCallbackServer{
 		server: &http.Server{
-			Addr: address,
+			Addr: url.Host,
 		},
 		handler:   nil,
-		address:   address,
+		url:       &url,
 		isRunning: false,
 	}
-}
-
-func NewBaseCallbackServerWithHandler(address string, handler http.Handler) *BaseCallbackServer {
-	s := NewBaseCallbackServer(address)
-	s.handler = handler
-	s.server.Handler = handler
-	return s
 }
 
 func (s *BaseCallbackServer) Run() error {
@@ -49,7 +45,7 @@ func (s *BaseCallbackServer) Run() error {
 
 	s.isRunning = true
 	go func() {
-		logger.Log("BaseCallbackServer.Run()", fmt.Sprintf("Server is running at address: %s", s.address))
+		logger.Log("BaseCallbackServer.Run()", fmt.Sprintf("Server is running at url: %s", s.url.String()))
 
 		err := s.server.ListenAndServe()
 		if err != nil && !errors.Is(err, http.ErrServerClosed) {
@@ -74,34 +70,71 @@ func (s *BaseCallbackServer) Stop(ctx context.Context) error {
 		return internalErrors.ErrorLog("BaseCallbackServer.Stop()", "Server stop error: "+err.Error())
 	}
 
-	logger.Log("BaseCallbackServer.Stop()", "Server was stopped at address: "+s.address)
+	logger.Log("BaseCallbackServer.Stop()", "Server was stopped at url: "+s.url.String())
 
 	s.server = &http.Server{
-		Addr:    s.address,
+		Addr:    s.url.Host,
 		Handler: s.handler,
 	}
 
 	return nil
 }
 
-func (s *BaseCallbackServer) SetAddress(address string) error {
+func (s *BaseCallbackServer) GetURL() *url.URL {
+	return s.url
+}
+
+func (s *BaseCallbackServer) SetURL(url url.URL) error {
 	if s.isRunning {
-		return internalErrors.ErrorLog("BaseCallbackServer.SetHandler()", "Cannot change address while server is running")
+		return internalErrors.ErrorLog("BaseCallbackServer.SetURL()", "Cannot change url while server is running")
 	}
 
-	s.address = address
-	s.server.Addr = address
+	s.url = &url
+	s.server.Addr = url.Host
 
 	return nil
 }
 
-func (s *BaseCallbackServer) SetHandler(handler http.Handler) error {
+func (s *BaseCallbackServer) SetHandler(path string, handler http.Handler) error {
 	if s.isRunning {
 		return internalErrors.ErrorLog("BaseCallbackServer.SetHandler()", "Cannot change handler while server is running")
 	}
 
-	s.handler = handler
-	s.server.Handler = handler
+	if path == "" {
+		return internalErrors.ErrorLog("BaseCallbackServer.SetHandler()", "invalid value path")
+	}
+
+	if path[0] != '/' {
+		return internalErrors.ErrorLog("BaseCallbackServer.SetHandler()", "The first character of the path must be '/': "+path)
+	}
+
+	s.url.Path = path
+
+	m := http.NewServeMux()
+	m.Handle(path, handler)
+	s.server.Handler = m
+
+	return nil
+}
+
+func (s *BaseCallbackServer) SetHandleFunc(path string, fn func(http.ResponseWriter, *http.Request)) error {
+	if s.isRunning {
+		return internalErrors.ErrorLog("BaseCallbackServer.SetHandler()", "Cannot change handler while server is running")
+	}
+
+	if path == "" {
+		return internalErrors.ErrorLog("BaseCallbackServer.SetHandleFunc()", "invalid value path")
+	}
+
+	if path[0] != '/' {
+		return internalErrors.ErrorLog("BaseCallbackServer.SetHandleFunc()", "The first character of the path must be '/': "+path)
+	}
+
+	s.url.Path = path
+
+	m := http.NewServeMux()
+	m.HandleFunc(path, fn)
+	s.server.Handler = m
 
 	return nil
 }

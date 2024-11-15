@@ -3,6 +3,7 @@ package callback
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"go-vk-sdk/actor"
 	"go-vk-sdk/api"
@@ -13,6 +14,7 @@ import (
 	"go-vk-sdk/request"
 	"go-vk-sdk/transport"
 	"net/http"
+	"net/url"
 	"strconv"
 )
 
@@ -32,29 +34,22 @@ type Callback struct {
 	api              *api.API
 	actor            actor.Actor
 	eventEmitter     *events.EventEmitter[events.EventType, *events.EventCallback]
-	ConfirmationKey  string
-	confirmationKeys map[int]string
+	Name             string
 	SecretKey        string
+	confirmationKeys map[int]string
 	secretKeys       map[int]string
 }
 
-func NewCallback(api *api.API, actor actor.Actor, address, handlePath string) *Callback {
-	if address == "" || handlePath == "" {
-		panic(internalErrors.ErrorLog("Callback.NewCallback()", "invalid value address or handlePath"))
-	}
-
-	m := http.NewServeMux()
-
+func NewCallback(api *api.API, actor actor.Actor, url url.URL) *Callback {
 	callback := &Callback{
 		api:              api,
 		actor:            actor,
-		server:           transport.NewBaseCallbackServerWithHandler(address, m),
+		server:           transport.NewBaseCallbackServer(url),
 		eventEmitter:     events.NewEventEmitter[events.EventType, *events.EventCallback](),
+		Name:             "go-vk-sdk",
 		confirmationKeys: make(map[int]string),
 		secretKeys:       make(map[int]string),
 	}
-
-	m.HandleFunc(handlePath, callback.handle)
 
 	return callback
 }
@@ -65,9 +60,80 @@ func NewCallbackServer(api *api.API, actor actor.Actor, server transport.Callbac
 		actor:            actor,
 		server:           server,
 		eventEmitter:     events.NewEventEmitter[events.EventType, *events.EventCallback](),
+		Name:             "go-vk-sdk",
 		confirmationKeys: make(map[int]string),
 		secretKeys:       make(map[int]string),
 	}
+}
+
+// UpdateSettings Allows you to update the settings of the local server and VK server
+//
+//	It is advisable to call for initial initialization
+func (c *Callback) UpdateSettings(ctx context.Context, url string) error {
+	serverID := 0
+
+	g, err := request.NewGroupsGetByIDRequest(c.api, c.actor).Exec(ctx)
+	if err != nil || g.Error.Code != 0 {
+		if errors.Is(err, internalErrors.ParamCode) {
+			return internalErrors.ErrorLog("Callback.UpdateSettings()", "Error request groups, need group access token")
+		}
+		return internalErrors.ErrorLog("Callback.UpdateSettings()", err.Error())
+	}
+
+	groupID := g.Response.Groups[0].ID
+
+	servers, err := c.GetServers(groupID)
+	if err != nil {
+		return internalErrors.ErrorLog("Callback.UpdateSettings()", err.Error())
+	}
+
+	// update servers and get serverID
+	for _, server := range servers {
+		if server.URL == url {
+			if server.Status == string(ServerStatusOk) {
+				serverID = server.ID
+				c.secretKeys[groupID] = server.SecretKey
+				break
+			}
+
+			isSuccessful, err := c.DeleteServer(server.ID, groupID)
+			if err != nil {
+				logger.Log("Callback.UpdateSettings()", fmt.Sprintf("Error delete callback server %d from group %d: %s", server.ID, groupID, err.Error()))
+			}
+			if isSuccessful {
+				logger.Log("Callback.UpdateSettings()", fmt.Sprintf("Callback server %d was deleted from group %d", server.ID, groupID))
+			}
+		}
+	}
+
+	// create new server
+	if serverID == 0 {
+		secretKey, err := GenerateRandomString(24)
+		if err != nil {
+			return internalErrors.ErrorLog("Callback.UpdateSettings()", err.Error())
+		}
+
+		c.secretKeys[groupID] = secretKey
+
+		confirmationKey, err := c.GetConfirmationKey(groupID)
+		if err != nil {
+			return internalErrors.ErrorLog("Callback.UpdateSettings()", err.Error())
+		}
+
+		c.confirmationKeys[groupID] = confirmationKey
+
+		serverID, err = c.AddServer(groupID, c.Name, c.server.GetURL().String(), secretKey)
+		if err != nil {
+			return internalErrors.ErrorLog("Callback.UpdateSettings()", err.Error())
+		}
+	}
+
+	_, err = c.SetSettings(groupID, serverID)
+	if err != nil {
+		return internalErrors.ErrorLog("Callback.UpdateSettings()", err.Error())
+	}
+
+	return nil
 }
 
 func (c *Callback) Run() error {
@@ -187,31 +253,11 @@ func (c *Callback) SetDefaultHandler(path string) error {
 }
 
 func (c *Callback) SetHandler(path string, handler http.Handler) error {
-	if path == "" {
-		return internalErrors.ErrorLog("Callback.SetHandler()", "invalid value path")
-	}
-
-	if path[0] != '/' {
-		return internalErrors.ErrorLog("Callback.SetHandler()", "The first character of the path must be '/': "+path)
-	}
-
-	m := http.NewServeMux()
-	m.Handle(path, handler)
-	return c.server.SetHandler(m)
+	return c.server.SetHandler(path, handler)
 }
 
 func (c *Callback) SetHandleFunc(path string, fn func(http.ResponseWriter, *http.Request)) error {
-	if path == "" {
-		return internalErrors.ErrorLog("Callback.SetHandleFunc()", "invalid value path")
-	}
-
-	if path[0] != '/' {
-		return internalErrors.ErrorLog("Callback.SetHandleFunc()", "The first character of the path must be '/': "+path)
-	}
-
-	m := http.NewServeMux()
-	m.HandleFunc(path, fn)
-	return c.server.SetHandler(m)
+	return c.server.SetHandleFunc(path, fn)
 }
 
 // GetServers Retrieves information about servers for the Callback API in the community
@@ -286,14 +332,14 @@ func (c *Callback) SetSettingsEvents(groupID, serverID int, e []events.EventType
 	return true, nil
 }
 
-// GetConfirmationCode Allows you to get the string required to confirm the server address in the Callback API
-func (c *Callback) GetConfirmationCode(groupID int) (string, error) {
+// GetConfirmationKey Allows you to get the string required to confirm the server address in the Callback API
+func (c *Callback) GetConfirmationKey(groupID int) (string, error) {
 	res, err := request.NewGroupsGetCallbackConfirmationCodeRequest(c.api, c.actor).
 		GroupID(groupID).
 		Exec(context.Background())
 
 	if err != nil {
-		return "", internalErrors.ErrorLog("Callback.GetConfirmationCode()", "Request error: "+err.Error()+"\nResponse error: "+res.Error.Error())
+		return "", internalErrors.ErrorLog("Callback.GetConfirmationKey()", "Request error: "+err.Error()+"\nResponse error: "+res.Error.Error())
 	}
 
 	return res.Response.Code, nil
