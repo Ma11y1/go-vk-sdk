@@ -40,7 +40,7 @@ type Callback struct {
 	secretKeys       map[int]string
 }
 
-func NewCallback(api *api.API, actor actor.Actor, url url.URL) *Callback {
+func NewCallback(api *api.API, actor actor.Actor, url *url.URL) *Callback {
 	callback := &Callback{
 		api:              api,
 		actor:            actor,
@@ -49,6 +49,11 @@ func NewCallback(api *api.API, actor actor.Actor, url url.URL) *Callback {
 		Name:             "go-vk-sdk",
 		confirmationKeys: make(map[int]string),
 		secretKeys:       make(map[int]string),
+	}
+
+	err := callback.SetDefaultHandler(url.Path)
+	if err != nil {
+		panic(err)
 	}
 
 	return callback
@@ -249,14 +254,23 @@ func (c *Callback) ClearEventListeners(event events.EventType) {
 }
 
 func (c *Callback) SetDefaultHandler(path string) error {
+	if path == "" {
+		return internalErrors.ErrorLog("Callback.SetDefaultHandler()", "Invalid value handle path. Path is empty")
+	}
 	return c.SetHandleFunc(path, c.handle)
 }
 
 func (c *Callback) SetHandler(path string, handler http.Handler) error {
+	if path == "" {
+		return internalErrors.ErrorLog("Callback.SetHandler()", "Invalid value handle path. Path is empty")
+	}
 	return c.server.SetHandler(path, handler)
 }
 
 func (c *Callback) SetHandleFunc(path string, fn func(http.ResponseWriter, *http.Request)) error {
+	if path == "" {
+		return internalErrors.ErrorLog("Callback.SetHandleFunc()", "Invalid value handle path. Path is empty")
+	}
 	return c.server.SetHandleFunc(path, fn)
 }
 
@@ -315,16 +329,16 @@ func (c *Callback) SetSettings(groupID, serverID int) (bool, error) {
 
 // SetSettingsEvents Allows you to set event notification settings in the Callback API
 func (c *Callback) SetSettingsEvents(groupID, serverID int, e []events.EventType) (bool, error) {
-	request := request.NewGroupsSetCallbackSettingsRequest(c.api, c.actor).
+	req := request.NewGroupsSetCallbackSettingsRequest(c.api, c.actor).
 		GroupID(groupID).
 		ServerID(serverID).
 		APIVersion(c.api.Version)
 
-	for key, _ := range e {
-		request.SetEvent(string(key), true)
+	for _, event := range e {
+		req.SetEvent(string(event), true)
 	}
 
-	res, err := request.Exec(context.Background())
+	res, err := req.Exec(context.Background())
 	if err != nil {
 		return false, internalErrors.ErrorLog("Callback.SetSettings()", "Request error: "+err.Error()+"\nResponse error: "+res.Error.Error())
 	}

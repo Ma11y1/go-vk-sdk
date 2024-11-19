@@ -185,3 +185,49 @@ func main() {
 	}
 }
 ```
+
+### Callback API
+```GO
+package main
+
+import (
+	"go-vk-sdk/actor"
+	"go-vk-sdk/api"
+	"go-vk-sdk/callback"
+	"go-vk-sdk/events"
+	"go-vk-sdk/logger"
+	"net/url"
+	"time"
+)
+
+func main() {
+	logger.Enable()
+	a := api.NewAPI()
+
+	u, err := url.Parse("http://localhost:8080/callback")
+	if err != nil {
+		panic(err)
+	}
+	c := callback.NewCallback(a, &actor.Group{ID: 111, AccessToken: "12"}, u)
+
+	err = c.Run()
+	if err != nil {
+		panic(err)
+	}
+
+	c.AddEventListener(events.EventTypeConfirmation, events.NewEventListener(ConfirmationHandler))
+
+	for c.IsRunning() {
+		t := time.NewTicker(2 * time.Second)
+		<-t.C
+	}
+}
+
+func ConfirmationHandler(e *events.EventCallback) {
+	conf := e.Event.(*events.EventConfirmation)
+	err := conf.Confirm("code_confirm")
+	if err != nil {
+		panic(err)
+	}
+}
+```

@@ -27,13 +27,16 @@ type BaseCallbackServer struct {
 	isRunning bool
 }
 
-func NewBaseCallbackServer(url url.URL) *BaseCallbackServer {
+func NewBaseCallbackServer(url *url.URL) *BaseCallbackServer {
+	if url == nil || url.Host == "" {
+		panic(internalErrors.ErrorLog("BaseCallbackServer.NewBaseCallbackServer()", "Invalid URL"))
+	}
 	return &BaseCallbackServer{
 		server: &http.Server{
 			Addr: url.Host,
 		},
 		handler:   nil,
-		url:       &url,
+		url:       url,
 		isRunning: false,
 	}
 }
@@ -46,6 +49,10 @@ func (s *BaseCallbackServer) Run() error {
 	s.isRunning = true
 	go func() {
 		logger.Log("BaseCallbackServer.Run()", fmt.Sprintf("Server is running at url: %s", s.url.String()))
+
+		if s.handler == nil {
+			logger.Log("BaseCallbackServer.Run()", "Handler is undefined")
+		}
 
 		err := s.server.ListenAndServe()
 		if err != nil && !errors.Is(err, http.ErrServerClosed) {
@@ -113,6 +120,7 @@ func (s *BaseCallbackServer) SetHandler(path string, handler http.Handler) error
 	m := http.NewServeMux()
 	m.Handle(path, handler)
 	s.server.Handler = m
+	s.handler = m
 
 	return nil
 }
@@ -135,6 +143,7 @@ func (s *BaseCallbackServer) SetHandleFunc(path string, fn func(http.ResponseWri
 	m := http.NewServeMux()
 	m.HandleFunc(path, fn)
 	s.server.Handler = m
+	s.handler = m
 
 	return nil
 }
