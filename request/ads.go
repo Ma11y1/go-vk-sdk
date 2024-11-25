@@ -1002,7 +1002,7 @@ func (r *AdsGetCategoriesRequest) Exec(ctx context.Context) (response response.A
 	return
 }
 
-func (r *AdsGetCategoriesRequest) Lang(lang constants.LanguageName) *AdsGetCategoriesRequest {
+func (r *AdsGetCategoriesRequest) Lang(lang constants.LanguageType) *AdsGetCategoriesRequest {
 	r.parameters.Set(constants.ParameterNameLang, string(lang))
 	return r
 }
@@ -1519,7 +1519,7 @@ func (r *AdsGetSuggestionsRequest) CitiesString(cities string) *AdsGetSuggestion
 // ru - Russian
 // ua - Ukrainian
 // en - English
-func (r *AdsGetSuggestionsRequest) Lang(lang constants.LanguageName) *AdsGetSuggestionsRequest {
+func (r *AdsGetSuggestionsRequest) Lang(lang constants.LanguageType) *AdsGetSuggestionsRequest {
 	r.parameters.Set(constants.ParameterNameLang, string(lang))
 	return r
 }

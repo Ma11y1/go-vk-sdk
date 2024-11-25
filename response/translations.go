@@ -10,6 +10,6 @@ type TranslationsTranslateResponse struct {
 	BaseResponse
 	Response struct {
 		Texts      []string                          `json:"texts"`
-		SourceLang constants.LanguageTranslationName `json:"source_lang"`
+		SourceLang constants.LanguageTranslationType `json:"source_lang"`
 	} `json:"response"`
 }

@@ -1,29 +1,27 @@
 package constants
 
-// LanguageName
-type LanguageName string
+type LanguageType string
 
 const (
-	LangRU LanguageName = "ru"
-	LangUA LanguageName = "ua"
-	LangBE LanguageName = "be"
-	LangEN LanguageName = "en"
-	LangES LanguageName = "es"
-	LangFI LanguageName = "fi"
-	LangDE LanguageName = "de"
-	LangIT LanguageName = "it"
+	LangRU LanguageType = "ru"
+	LangUA LanguageType = "ua"
+	LangBE LanguageType = "be"
+	LangEN LanguageType = "en"
+	LangES LanguageType = "es"
+	LangFI LanguageType = "fi"
+	LangDE LanguageType = "de"
+	LangIT LanguageType = "it"
 )
 
-type LanguageTranslationName string
+type LanguageTranslationType string
 
 const (
-	LangTranslationRU LanguageTranslationName = "ru"
-	LangTranslationEN LanguageTranslationName = "en"
-	LangTranslationES LanguageTranslationName = "es"
-	LangTranslationPT LanguageTranslationName = "pt"
+	LangTranslationRU LanguageTranslationType = "ru"
+	LangTranslationEN LanguageTranslationType = "en"
+	LangTranslationES LanguageTranslationType = "es"
+	LangTranslationPT LanguageTranslationType = "pt"
 )
 
-// LanguageCode
 type LanguageCode int
 
 const (

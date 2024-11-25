@@ -446,8 +446,8 @@ const (
 	OrderStateChargeable OrderState = "chargeable" // unconfirmed order. Orders end up in this state if the stoe does not process notifications.
 	OrderStateDeclined   OrderState = "declined"   // a canceled order at the stage of obtaining information about the product, for example, error 20 was received, “Product does not exist.” An order can enter this state from the chargeable state.
 	OrderStateCancelled  OrderState = "cancelled"  // canceled order. An order can enter this state from the chargeable state.
-	OrderStateCharged    OrderState = "charged"    // paid order. An order can enter this state from the chargeable state, or immediately after payment, if the application processes notifications.
-	OrderStateRefunded   OrderState = "refunded"   // order canceled after payment, votes returned to the user.
+	OrderStateCharged    OrderState = "charged"    // paid order. An order can enter this state from the chargeable state, or immediately after payments, if the application processes notifications.
+	OrderStateRefunded   OrderState = "refunded"   // order canceled after payments, votes returned to the user.
 )
 
 // Pages

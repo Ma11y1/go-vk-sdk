@@ -146,11 +146,13 @@ func (c *Callback) Run() error {
 	if err != nil {
 		return internalErrors.ErrorLog("Callback.Run()", "Failed to start callback server: "+err.Error())
 	}
+	logger.Log("Callback.Run()", "Payments server is running at url: "+c.server.GetURL().String())
 	return nil
 }
 
 func (c *Callback) Stop(ctx context.Context) error {
 	err := c.server.Stop(ctx)
+	logger.Log("Callback.Stop()", "Payments server is stopped at url: "+c.server.GetURL().String())
 	if err != nil {
 		return internalErrors.ErrorLog("Callback.Stop()", "Failed to stop callback server: "+err.Error())
 	}

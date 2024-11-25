@@ -3,7 +3,6 @@ package transport
 import (
 	"context"
 	"errors"
-	"fmt"
 	internalErrors "go-vk-sdk/errors"
 	"go-vk-sdk/logger"
 	"net/http"
@@ -48,10 +47,8 @@ func (s *BaseCallbackServer) Run() error {
 
 	s.isRunning = true
 	go func() {
-		logger.Log("BaseCallbackServer.Run()", fmt.Sprintf("Server is running at url: %s", s.url.String()))
-
 		if s.handler == nil {
-			logger.Log("BaseCallbackServer.Run()", "Handler is undefined")
+			logger.Log("BaseCallbackServer.Run()", "Handler is undefined at url: "+s.url.String())
 		}
 
 		err := s.server.ListenAndServe()
@@ -76,8 +73,6 @@ func (s *BaseCallbackServer) Stop(ctx context.Context) error {
 	if err != nil {
 		return internalErrors.ErrorLog("BaseCallbackServer.Stop()", "Server stop error: "+err.Error())
 	}
-
-	logger.Log("BaseCallbackServer.Stop()", "Server was stopped at url: "+s.url.String())
 
 	s.server = &http.Server{
 		Addr:    s.url.Host,

@@ -49,7 +49,7 @@ func (r *SecureCheckTokenRequest) Exec(ctx context.Context) (response response.S
 
 // SecureGetAppBalanceRequest defines the request for secure.getAppBalance
 //
-// Returns the application's payment balance in hundredths of a voice.
+// Returns the application's payments balance in hundredths of a voice.
 // Doc: https://dev.vk.com/method/secure.getAppBalance
 type SecureGetAppBalanceRequest struct {
 	BaseRequest
