@@ -14,7 +14,7 @@ type AuthDirectError struct {
 }
 
 func (e *AuthDirectError) Error() string {
-	return fmt.Sprintf("%s Auth Direct error: %s\n %s", errorMessagePrefix, e.Type, e.Description)
+	return fmt.Sprintf("%s Auth Direct error: %s\n %s", MessagePrefix, e.Type, e.Description)
 }
 
 type AuthCodeFlowError struct {
@@ -24,5 +24,5 @@ type AuthCodeFlowError struct {
 }
 
 func (e *AuthCodeFlowError) Error() string {
-	return fmt.Sprintf("%s Auth Code flow error: %s\n %s", errorMessagePrefix, e.Type, e.Description)
+	return fmt.Sprintf("%s Auth Code flow error: %s\n %s", MessagePrefix, e.Type, e.Description)
 }

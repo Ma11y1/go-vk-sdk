@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"go-vk-sdk/actor"
 	"go-vk-sdk/api"
-	internalErrors "go-vk-sdk/errors"
 	"go-vk-sdk/events"
 	"go-vk-sdk/request"
 	"sync/atomic"
@@ -146,7 +145,7 @@ func (l *LongPoll) Run(ctx context.Context) error {
 			case FailedTypeOutdatedUserInfo:
 				err = l.UpdateServer(true)
 			default:
-				err = &internalErrors.FailedError{Code: resp.Failed}
+				err = &FailedError{Code: resp.Failed}
 			}
 			if err != nil {
 				return err // TODO complete error handling so as not to complete verification cycle

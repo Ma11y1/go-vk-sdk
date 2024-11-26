@@ -1,7 +1,6 @@
 package longPollUser
 
 import (
-	"go-vk-sdk/errors"
 	"time"
 )
 
@@ -121,7 +120,7 @@ func getString(m map[string]interface{}, key string) string {
 func interfaceToStringIntMap(m interface{}) (map[string]int, error) {
 	mapInterface, ok := m.(map[string]interface{})
 	if !ok {
-		return nil, &errors.ExpectedSliceError{V: m}
+		return nil, &ExpectedSliceError{V: m}
 	}
 
 	result := make(map[string]int, len(mapInterface)) // Предварительно задаем размер
@@ -129,7 +128,7 @@ func interfaceToStringIntMap(m interface{}) (map[string]int, error) {
 	for key, value := range mapInterface {
 		val, ok := value.(float64)
 		if !ok {
-			return nil, &errors.FailedCastError{V: value}
+			return nil, &FailedCastError{V: value}
 		}
 		result[key] = int(val)
 	}
@@ -140,7 +139,7 @@ func interfaceToStringIntMap(m interface{}) (map[string]int, error) {
 func interfaceToIDSlice(slice interface{}) ([]int, error) {
 	sliceInterface, ok := slice.([]interface{})
 	if !ok {
-		return nil, &errors.ExpectedSliceError{V: slice}
+		return nil, &ExpectedSliceError{V: slice}
 	}
 
 	result := make([]int, len(sliceInterface)) // Предварительно задаем размер
@@ -148,7 +147,7 @@ func interfaceToIDSlice(slice interface{}) ([]int, error) {
 	for i, value := range sliceInterface {
 		val, ok := value.(float64)
 		if !ok {
-			return nil, &errors.FailedCastError{V: value}
+			return nil, &FailedCastError{V: value}
 		}
 		result[i] = int(val)
 	}

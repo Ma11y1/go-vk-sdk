@@ -1,7 +1,6 @@
 package longPollUser
 
 import (
-	"go-vk-sdk/errors"
 	"time"
 )
 
@@ -125,7 +124,7 @@ func newEvent(data []interface{}, mode ExtraOptionsMode) (Event, error) {
 			}
 		}
 	default:
-		return nil, &errors.InvalidEventTypeError{Type: int(key)}
+		return nil, &InvalidEventTypeError{Type: int(key)}
 	}
 
 	err := event.init(data)
@@ -144,7 +143,7 @@ func (e *EventMessageFlagsReplace) EventType() EventType {
 
 func (e *EventMessageFlagsReplace) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &errors.TooShortEventArrayError{Action: "EventMessageFlagsReplace", Least: 3, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventMessageFlagsReplace", Least: 3, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -171,7 +170,7 @@ func (e *EventMessageFlagsSet) EventType() EventType {
 
 func (e *EventMessageFlagsSet) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &errors.TooShortEventArrayError{Action: "EventMessageFlagsSet", Least: 3, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventMessageFlagsSet", Least: 3, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -198,7 +197,7 @@ func (e *EventMessageFlagsReset) EventType() EventType {
 
 func (e *EventMessageFlagsReset) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &errors.TooShortEventArrayError{Action: "EventMessageFlagsReset", Least: 3, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventMessageFlagsReset", Least: 3, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -225,7 +224,7 @@ func (e *EventMessageNew) EventType() EventType {
 
 func (e *EventMessageNew) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &errors.TooShortEventArrayError{Action: "EventMessageNew", Least: 3, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventMessageNew", Least: 3, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -256,7 +255,7 @@ func (e *EventMessageEdit) EventType() EventType {
 
 func (e *EventMessageEdit) init(i []interface{}) error {
 	if len(i) < 6 {
-		return &errors.TooShortEventArrayError{Action: "EventMessageEdit", Least: 6, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventMessageEdit", Least: 6, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -306,7 +305,7 @@ func (e *EventMessagesIncomingRead) EventType() EventType {
 
 func (e *EventMessagesIncomingRead) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &errors.TooShortEventArrayError{Action: "EventMessagesIncomingRead", Least: 3, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventMessagesIncomingRead", Least: 3, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -332,7 +331,7 @@ func (e *EventMessagesOutgoingRead) EventType() EventType {
 
 func (e *EventMessagesOutgoingRead) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &errors.TooShortEventArrayError{Action: "EventMessagesOutgoingRead", Least: 3, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventMessagesOutgoingRead", Least: 3, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -360,7 +359,7 @@ func (e *EventFriendOnline) EventType() EventType {
 
 func (e *EventFriendOnline) init(i []interface{}) error {
 	if len(i) < 4 {
-		return &errors.TooShortEventArrayError{Action: "EventFriendOnline", Least: 4, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventFriendOnline", Least: 4, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -395,7 +394,7 @@ func (e *EventFriendOffline) EventType() EventType {
 
 func (e *EventFriendOffline) init(i []interface{}) error {
 	if len(i) < 4 {
-		return &errors.TooShortEventArrayError{Action: "EventFriendOffline", Least: 4, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventFriendOffline", Least: 4, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -425,7 +424,7 @@ func (e *EventDialogFlagsReset) EventType() EventType {
 
 func (e *EventDialogFlagsReset) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &errors.TooShortEventArrayError{Action: "EventDialogFlagsReset", Least: 3, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventDialogFlagsReset", Least: 3, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -451,7 +450,7 @@ func (e *EventDialogFlagsReplace) EventType() EventType {
 
 func (e *EventDialogFlagsReplace) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &errors.TooShortEventArrayError{Action: "EventDialogFlagsReplace", Least: 3, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventDialogFlagsReplace", Least: 3, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -477,7 +476,7 @@ func (e *EventDialogsFlagsSet) EventType() EventType {
 
 func (e *EventDialogsFlagsSet) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &errors.TooShortEventArrayError{Action: "EventDialogsFlagsSet", Least: 3, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventDialogsFlagsSet", Least: 3, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -503,7 +502,7 @@ func (e *EventMessagesDelete) EventType() EventType {
 
 func (e *EventMessagesDelete) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &errors.TooShortEventArrayError{Action: "EventMessagesDelete", Least: 3, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventMessagesDelete", Least: 3, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -529,7 +528,7 @@ func (e *EventMessagesRestore) EventType() EventType {
 
 func (e *EventMessagesRestore) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &errors.TooShortEventArrayError{Action: "EventMessagesRestore", Least: 3, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventMessagesRestore", Least: 3, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -555,7 +554,7 @@ func (e *EventMajorIDChange) EventType() EventType {
 
 func (e *EventMajorIDChange) init(i []interface{}) error {
 	if len(i) < 2 {
-		return &errors.TooShortEventArrayError{Action: "EventMajorIDChange", Least: 2, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventMajorIDChange", Least: 2, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -581,7 +580,7 @@ func (e *EventMinorIDChange) EventType() EventType {
 
 func (e *EventMinorIDChange) init(i []interface{}) error {
 	if len(i) < 2 {
-		return &errors.TooShortEventArrayError{Action: "EventMinorIDChange", Least: 2, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventMinorIDChange", Least: 2, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -610,7 +609,7 @@ func (e *EventChatParametersChange) EventType() EventType {
 
 func (e *EventChatParametersChange) init(i []interface{}) error {
 	if len(i) < 2 {
-		return &errors.TooShortEventArrayError{Action: "EventChatParametersChange", Least: 2, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventChatParametersChange", Least: 2, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -639,7 +638,7 @@ func (e *EventChatInfoChange) EventType() EventType {
 
 func (e *EventChatInfoChange) init(i []interface{}) error {
 	if len(i) < 4 {
-		return &errors.TooShortEventArrayError{Action: "EventChatInfoChange", Least: 4, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventChatInfoChange", Least: 4, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -669,7 +668,7 @@ func (e *EventUserTypingDialog) EventType() EventType {
 
 func (e *EventUserTypingDialog) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &errors.TooShortEventArrayError{Action: "EventUserTypingDialog", Least: 3, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventUserTypingDialog", Least: 3, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -695,7 +694,7 @@ func (e *EventUserTypingChat) EventType() EventType {
 
 func (e *EventUserTypingChat) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &errors.TooShortEventArrayError{Action: "EventUserTypingChat", Least: 3, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventUserTypingChat", Least: 3, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -723,7 +722,7 @@ func (e *EventUsersTypingChat) EventType() EventType {
 
 func (e *EventUsersTypingChat) init(i []interface{}) error {
 	if len(i) < 5 {
-		return &errors.TooShortEventArrayError{Action: "EventUsersTypingChat", Least: 5, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventUsersTypingChat", Least: 5, Got: len(i)}
 	}
 
 	userIDs, err := interfaceToIDSlice(i[1])
@@ -762,7 +761,7 @@ func (e *EventUsersRecordingAudioMessage) EventType() EventType {
 
 func (e *EventUsersRecordingAudioMessage) init(i []interface{}) error {
 	if len(i) < 5 {
-		return &errors.TooShortEventArrayError{Action: "EventUsersRecordingAudioMessage", Least: 5, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventUsersRecordingAudioMessage", Least: 5, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -799,7 +798,7 @@ func (e *EventUserCall) EventType() EventType {
 
 func (e *EventUserCall) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &errors.TooShortEventArrayError{Action: "EventUserCall", Least: 3, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventUserCall", Least: 3, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -824,7 +823,7 @@ func (e *EventMenuCounterChange) EventType() EventType {
 
 func (e *EventMenuCounterChange) init(i []interface{}) error {
 	if len(i) < 2 {
-		return &errors.TooShortEventArrayError{Action: "EventMenuCounterChange", Least: 2, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventMenuCounterChange", Least: 2, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -848,7 +847,7 @@ func (e *EventNotificationSettingsChange) EventType() EventType {
 // initMode8 should be called if ExtendedEvents flag set.
 func (e *EventNotificationSettingsChange) initMode8(i []interface{}) error {
 	if len(i) < 2 {
-		return &errors.TooShortEventArrayError{Action: "EventNotificationSettingsChange", Least: 2, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventNotificationSettingsChange", Least: 2, Got: len(i)}
 	}
 
 	v, err := interfaceToStringIntMap(i[1])
@@ -865,7 +864,7 @@ func (e *EventNotificationSettingsChange) initMode8(i []interface{}) error {
 
 func (e *EventNotificationSettingsChange) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &errors.TooShortEventArrayError{Action: "EventNotificationSettingsChange", Least: 3, Got: len(i)}
+		return &TooShortEventArrayError{Action: "EventNotificationSettingsChange", Least: 3, Got: len(i)}
 	}
 
 	if v, ok := i[1].(float64); ok {

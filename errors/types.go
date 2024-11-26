@@ -24,7 +24,7 @@ const (
 type ErrorType int
 
 func (e ErrorType) Error() string {
-	return fmt.Sprintf(errorMessagePrefix+"Error with code %d", e)
+	return fmt.Sprintf(MessagePrefix+"Error with code %d", e)
 }
 
 // Doc: https://dev.vk.com/ru/reference/s
@@ -288,23 +288,4 @@ const (
 	PhotoNotFoundCode                                 ErrorType = 5708 // Photo not found
 	InvalidPhotoCode                                  ErrorType = 5709 // Invalid Photo
 	InvalidHashCode                                   ErrorType = 5710 // Invalid hash
-)
-
-// PaymentsErrorCode
-//
-//	Errors 100-999 are specified by the app. Such errors always include an error description.
-//	See https://dev.vk.com/ru/api/payments/notifications/overview
-type PaymentsErrorCode int
-
-const (
-	PaymentsCommonError            PaymentsErrorCode = 1  // Critical: true/false.
-	PaymentsTemporaryDatabaseError PaymentsErrorCode = 2  // Critical: false.
-	PaymentsBadSignatures          PaymentsErrorCode = 10 // Critical: true.
-	// BadRequest Request parameters do not comply with the specification.
-	// No required fields in the request.
-	// Other request integrity errors.
-	PaymentsBadRequest        PaymentsErrorCode = 11 // Critical: true.
-	PaymentsProductNotExist   PaymentsErrorCode = 20 // Critical: true.
-	PaymentsProductOutOfStock PaymentsErrorCode = 21 // Critical: true.
-	PaymentsUserNotExist      PaymentsErrorCode = 22 // Critical: true.
 )

@@ -5,7 +5,7 @@ import "fmt"
 type NumberAPIError int
 
 func (e *NumberAPIError) Error() string {
-	return fmt.Sprintf("%s error number: %d", errorMessagePrefix, e)
+	return fmt.Sprintf("%s error number: %d", MessagePrefix, e)
 }
 
 type APIError struct {
@@ -24,13 +24,13 @@ type APIError struct {
 }
 
 func (e *APIError) Error() string {
-	return fmt.Sprintf("%s error code: %d -> %s", errorMessagePrefix, e.Code, e.Message)
+	return fmt.Sprintf("%s error code: %d -> %s", MessagePrefix, e.Code, e.Message)
 }
 
 type ExecuteAPIErrors []ExecuteAPIError
 
 func (e *ExecuteAPIErrors) Error() string {
-	return fmt.Sprintf("%s execute errors: %w", errorMessagePrefix, e)
+	return fmt.Sprintf("%s execute errors: %w", MessagePrefix, e)
 }
 
 type ExecuteAPIError struct {
@@ -40,7 +40,7 @@ type ExecuteAPIError struct {
 }
 
 func (e *ExecuteAPIError) Error() string {
-	return fmt.Sprintf("%s execute error code: %d -> %s", errorMessagePrefix, e.Code, e.Message)
+	return fmt.Sprintf("%s execute error code: %d -> %s", MessagePrefix, e.Code, e.Message)
 }
 
 type UploadAPIError struct {
@@ -52,10 +52,10 @@ type UploadAPIError struct {
 
 func (e *UploadAPIError) Error() string {
 	if e.Err != "" {
-		return fmt.Sprintf("%s upload error code:%d -> %s", errorMessagePrefix, e.Code, e.Err)
+		return fmt.Sprintf("%s upload error code:%d -> %s", MessagePrefix, e.Code, e.Err)
 	}
 
-	return fmt.Sprintf("%s upload error code:%d -> %s", errorMessagePrefix, e.Code, e.Description)
+	return fmt.Sprintf("%s upload error code:%d -> %s", MessagePrefix, e.Code, e.Description)
 }
 
 type AdsAPIError struct {
@@ -64,5 +64,5 @@ type AdsAPIError struct {
 }
 
 func (e *AdsAPIError) Error() string {
-	return fmt.Sprintf("%s Ads error: %s\n %s", errorMessagePrefix, e.Code, e.Description)
+	return fmt.Sprintf("%s Ads error: %s\n %s", MessagePrefix, e.Code, e.Description)
 }

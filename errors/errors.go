@@ -6,14 +6,14 @@ import (
 	"go-vk-sdk/logger"
 )
 
-const errorMessagePrefix = "GOVk-api-error: "
+const MessagePrefix = "GOVk-api-error: "
 
 func Error(from, message string) error {
-	return errors.New(fmt.Sprintf("[%s] %s: %s\n", errorMessagePrefix, from, message))
+	return errors.New(fmt.Sprintf("[%s] %s: %s\n", MessagePrefix, from, message))
 }
 
 func ErrorLog(from, message string) error {
-	str := fmt.Sprintf("[%s] %s: %s\n", errorMessagePrefix, from, message)
+	str := fmt.Sprintf("[%s] %s: %s\n", MessagePrefix, from, message)
 	logger.LogMessage(str)
 	return errors.New(str)
 }
@@ -28,5 +28,5 @@ func (e *InternalError) Log() {
 }
 
 func (e *InternalError) Error() string {
-	return fmt.Sprintf("[%s] %s: %s\n", errorMessagePrefix, e.From, e.Message)
+	return fmt.Sprintf("[%s] %s: %s\n", MessagePrefix, e.From, e.Message)
 }

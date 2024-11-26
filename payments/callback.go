@@ -17,14 +17,14 @@ import (
 type Callback struct {
 	server                       transport.CallbackServer
 	secret                       string
-	getItem                      func(e *GetItemRequest) (*GetItemResponse, *internalErrors.PaymentsError)
-	getItemTest                  func(e *GetItemRequest) (*GetItemResponse, *internalErrors.PaymentsError)
-	orderStatusChange            func(e *OrderStatusChangeRequest) (*OrderStatusChangeResponse, *internalErrors.PaymentsError)
-	orderStatusChangeTest        func(e *OrderStatusChangeRequest) (*OrderStatusChangeResponse, *internalErrors.PaymentsError)
-	getSubscription              func(e *GetSubscriptionRequest) (*GetSubscriptionResponse, *internalErrors.PaymentsError)
-	getSubscriptionTest          func(e *GetSubscriptionRequest) (*GetSubscriptionResponse, *internalErrors.PaymentsError)
-	subscriptionStatusChange     func(e *SubscriptionStatusChangeRequest) (*SubscriptionStatusChangeResponse, *internalErrors.PaymentsError)
-	subscriptionStatusChangeTest func(e *SubscriptionStatusChangeRequest) (*SubscriptionStatusChangeResponse, *internalErrors.PaymentsError)
+	getItem                      func(e *GetItemRequest) (*GetItemResponse, *Error)
+	getItemTest                  func(e *GetItemRequest) (*GetItemResponse, *Error)
+	orderStatusChange            func(e *OrderStatusChangeRequest) (*OrderStatusChangeResponse, *Error)
+	orderStatusChangeTest        func(e *OrderStatusChangeRequest) (*OrderStatusChangeResponse, *Error)
+	getSubscription              func(e *GetSubscriptionRequest) (*GetSubscriptionResponse, *Error)
+	getSubscriptionTest          func(e *GetSubscriptionRequest) (*GetSubscriptionResponse, *Error)
+	subscriptionStatusChange     func(e *SubscriptionStatusChangeRequest) (*SubscriptionStatusChangeResponse, *Error)
+	subscriptionStatusChangeTest func(e *SubscriptionStatusChangeRequest) (*SubscriptionStatusChangeResponse, *Error)
 }
 
 func NewCallback(url *url.URL, secret string) *Callback {
@@ -45,8 +45,8 @@ func (c *Callback) handle(w http.ResponseWriter, r *http.Request) {
 	if err := r.ParseForm(); err != nil {
 		// NOTE: what about net error?
 		c.sendResponse(w, &response{
-			Error: &internalErrors.PaymentsError{
-				Code:       internalErrors.PaymentsBadRequest,
+			Error: &Error{
+				Code:       BadRequest,
 				Msg:        err.Error(),
 				IsCritical: true,
 			},
@@ -58,8 +58,8 @@ func (c *Callback) handle(w http.ResponseWriter, r *http.Request) {
 	// If signatures do not match, give the error 10 in response
 	if r.PostForm.Get("sig") != Sign(r.PostForm, c.secret) {
 		c.sendResponse(w, &response{
-			Error: &internalErrors.PaymentsError{
-				Code:       internalErrors.PaymentsBadSignatures,
+			Error: &Error{
+				Code:       BadSignatures,
 				Msg:        "The calculated and sent signatures do not match",
 				IsCritical: true,
 			},
@@ -71,8 +71,8 @@ func (c *Callback) handle(w http.ResponseWriter, r *http.Request) {
 	resp, err := c.handleNotification(r.PostForm)
 	if err != nil {
 		c.sendResponse(w, &response{
-			Error: &internalErrors.PaymentsError{
-				Code:       internalErrors.PaymentsBadRequest,
+			Error: &Error{
+				Code:       BadRequest,
 				Msg:        err.Error(),
 				IsCritical: true,
 			},
@@ -149,8 +149,8 @@ func (c *Callback) handleNotification(u url.Values) (*response, error) {
 
 		r.Response, r.Error = c.subscriptionStatusChangeTest(&event)
 	default:
-		r.Error = &internalErrors.PaymentsError{
-			Code:       internalErrors.PaymentsCommonError,
+		r.Error = &Error{
+			Code:       CommonError,
 			Msg:        string(t) + " not processed",
 			IsCritical: true,
 		}
@@ -218,7 +218,7 @@ func (c *Callback) SetHandleFunc(path string, fn func(http.ResponseWriter, *http
 // developer shall return actual information about such product. When there
 // is no product available, reply with Error 20 "Product does not exist".
 //
-//	&errors.PaymentsError{
+//	&errors.Error{
 //		Code:     payments.ProductNotExist,
 //		Msg:      "Product does not exist",
 //		Critical: true,
@@ -236,7 +236,7 @@ func (c *Callback) SetHandleFunc(path string, fn func(http.ResponseWriter, *http
 // within the given time.
 //
 // Doc: https://dev.vk.com/ru/api/payments/notifications/get-item
-func (c *Callback) OnGetItem(f func(e *GetItemRequest) (*GetItemResponse, *internalErrors.PaymentsError), isTest bool) {
+func (c *Callback) OnGetItem(f func(e *GetItemRequest) (*GetItemResponse, *Error), isTest bool) {
 	if isTest {
 		c.getItemTest = f
 	} else {
@@ -258,7 +258,7 @@ func (c *Callback) OnGetItem(f func(e *GetItemRequest) (*GetItemResponse, *inter
 // checking whether such notification was received).
 //
 // Doc: https://dev.vk.com/ru/payments/notifications/order-status-change
-func (c *Callback) OnOrderStatusChange(f func(e *OrderStatusChangeRequest) (*OrderStatusChangeResponse, *internalErrors.PaymentsError), isTest bool) {
+func (c *Callback) OnOrderStatusChange(f func(e *OrderStatusChangeRequest) (*OrderStatusChangeResponse, *Error), isTest bool) {
 	if isTest {
 		c.orderStatusChangeTest = f
 	} else {
@@ -269,7 +269,7 @@ func (c *Callback) OnOrderStatusChange(f func(e *OrderStatusChangeRequest) (*Ord
 // OnGetSubscription is sent when a subscription dialog window is opened via application.
 //
 // Doc: https://dev.vk.com/ru/api/payments/notifications/get-subscription
-func (c *Callback) OnGetSubscription(f func(e *GetSubscriptionRequest) (*GetSubscriptionResponse, *internalErrors.PaymentsError), isTest bool) {
+func (c *Callback) OnGetSubscription(f func(e *GetSubscriptionRequest) (*GetSubscriptionResponse, *Error), isTest bool) {
 	if isTest {
 		c.getSubscriptionTest = f
 	} else {
@@ -301,7 +301,7 @@ func (c *Callback) OnGetSubscription(f func(e *GetSubscriptionRequest) (*GetSubs
 // new one.
 //
 // Doc: https://dev.vk.com/ru/api/payments/notifications/subscription-status-change
-func (c *Callback) OnSubscriptionStatusChange(f func(e *SubscriptionStatusChangeRequest) (*SubscriptionStatusChangeResponse, *internalErrors.PaymentsError), isTest bool) {
+func (c *Callback) OnSubscriptionStatusChange(f func(e *SubscriptionStatusChangeRequest) (*SubscriptionStatusChangeResponse, *Error), isTest bool) {
 	if isTest {
 		c.subscriptionStatusChangeTest = f
 	} else {

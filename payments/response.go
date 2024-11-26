@@ -38,7 +38,7 @@ type OrderStatusChangeResponse struct {
 // return current information about it. If there is no product, error 20
 // “Subscription does not exist” should be returned in the response.
 //
-//	&errors.PaymentsError{
+//	&errors.Error{
 //		Code:     payments.ProductNotExist,
 //		Msg:      "Subscription does not exist",
 //		Critical: true,
