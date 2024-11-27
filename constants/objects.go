@@ -16,16 +16,18 @@ const (
 )
 
 // Platform types
+type Platform int
+
 const (
-	_                    int = iota
-	PlatformMobile           // mobile web version
-	PlatformIPhone           // iPhone
-	PlatformIPad             // iPad
-	PlatformAndroid          // Android
-	PlatformWindowsPhone     // Windows Phone
-	PlatformWindows          // Windows 8
-	PlatformFull             // full web version
-	PlatformOther            // other apps
+	_                    Platform = iota
+	PlatformMobile                // mobile web version
+	PlatformIPhone                // iPhone
+	PlatformIPad                  // iPad
+	PlatformAndroid               // Android
+	PlatformWindowsPhone          // Windows Phone
+	PlatformWindows               // Windows 8
+	PlatformFull                  // full web version
+	PlatformOther                 // other apps
 )
 
 const (

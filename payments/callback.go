@@ -46,7 +46,7 @@ func (c *Callback) handle(w http.ResponseWriter, r *http.Request) {
 		// NOTE: what about net error?
 		c.sendResponse(w, &response{
 			Error: &Error{
-				Code:       BadRequest,
+				Code:       ErrorTypeBadRequest,
 				Msg:        err.Error(),
 				IsCritical: true,
 			},
@@ -59,7 +59,7 @@ func (c *Callback) handle(w http.ResponseWriter, r *http.Request) {
 	if r.PostForm.Get("sig") != Sign(r.PostForm, c.secret) {
 		c.sendResponse(w, &response{
 			Error: &Error{
-				Code:       BadSignatures,
+				Code:       ErrorTypeBadSignatures,
 				Msg:        "The calculated and sent signatures do not match",
 				IsCritical: true,
 			},
@@ -72,7 +72,7 @@ func (c *Callback) handle(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		c.sendResponse(w, &response{
 			Error: &Error{
-				Code:       BadRequest,
+				Code:       ErrorTypeBadRequest,
 				Msg:        err.Error(),
 				IsCritical: true,
 			},
@@ -150,7 +150,7 @@ func (c *Callback) handleNotification(u url.Values) (*response, error) {
 		r.Response, r.Error = c.subscriptionStatusChangeTest(&event)
 	default:
 		r.Error = &Error{
-			Code:       CommonError,
+			Code:       ErrorTypeCommonError,
 			Msg:        string(t) + " not processed",
 			IsCritical: true,
 		}
