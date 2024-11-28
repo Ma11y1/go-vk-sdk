@@ -28,16 +28,45 @@ type Callback struct {
 }
 
 func NewCallback(url *url.URL, secret string) *Callback {
-	return &Callback{
-		server: transport.NewBaseCallbackServer(url),
-		secret: secret,
-	}
+	return NewCallbackServer(transport.NewBaseCallbackServer(url), secret)
 }
 
 func NewCallbackServer(server transport.CallbackServer, secret string) *Callback {
 	return &Callback{
 		server: server,
 		secret: secret,
+		getItem: func(e *GetItemRequest) (*GetItemResponse, *Error) {
+			logger.Log("Payments.getItem()", "Notification handle is undefined")
+			return nil, nil
+		},
+		getItemTest: func(e *GetItemRequest) (*GetItemResponse, *Error) {
+			logger.Log("Payments.getItemTest()", "Notification handle is undefined")
+			return nil, nil
+		},
+		orderStatusChange: func(e *OrderStatusChangeRequest) (*OrderStatusChangeResponse, *Error) {
+			logger.Log("Payments.orderStatusChange()", "Notification handle is undefined")
+			return nil, nil
+		},
+		orderStatusChangeTest: func(e *OrderStatusChangeRequest) (*OrderStatusChangeResponse, *Error) {
+			logger.Log("Payments.orderStatusChangeTest()", "Notification handle is undefined")
+			return nil, nil
+		},
+		getSubscription: func(e *GetSubscriptionRequest) (*GetSubscriptionResponse, *Error) {
+			logger.Log("Payments.getSubscription()", "Notification handle is undefined")
+			return nil, nil
+		},
+		getSubscriptionTest: func(e *GetSubscriptionRequest) (*GetSubscriptionResponse, *Error) {
+			logger.Log("Payments.getSubscriptionTest()", "Notification handle is undefined")
+			return nil, nil
+		},
+		subscriptionStatusChange: func(e *SubscriptionStatusChangeRequest) (*SubscriptionStatusChangeResponse, *Error) {
+			logger.Log("Payments.subscriptionStatusChange()", "Notification handle is undefined")
+			return nil, nil
+		},
+		subscriptionStatusChangeTest: func(e *SubscriptionStatusChangeRequest) (*SubscriptionStatusChangeResponse, *Error) {
+			logger.Log("Payments.subscriptionStatusChangeTest()", "Notification handle is undefined")
+			return nil, nil
+		},
 	}
 }
 
@@ -91,64 +120,53 @@ func (c *Callback) handleNotification(u url.Values) (*response, error) {
 
 	t := NotificationType(u.Get("notification_type"))
 
-	switch {
-	case t == GetItem && c.getItem != nil:
+	switch t {
+	case GetItem, GetItem.TestMode():
 		var event GetItemRequest
 		if err := decoder.Decode(&event, u); err != nil {
 			return nil, internalErrors.ErrorLog("Payments.Callback.handleNotification()", err.Error())
 		}
 
-		r.Response, r.Error = c.getItem(&event)
-	case t == GetItem.TestMode() && c.getItemTest != nil:
-		var event GetItemRequest
-		if err := decoder.Decode(&event, u); err != nil {
-			return nil, internalErrors.ErrorLog("Payments.Callback.handleNotification()", err.Error())
+		if t == GetItem {
+			r.Response, r.Error = c.getItem(&event)
+		} else {
+			r.Response, r.Error = c.getItemTest(&event)
 		}
-
-		r.Response, r.Error = c.getItemTest(&event)
-	case t == GetSubscription && c.getSubscription != nil:
+	case GetSubscription, GetSubscription.TestMode():
 		var event GetSubscriptionRequest
 		if err := decoder.Decode(&event, u); err != nil {
 			return nil, internalErrors.ErrorLog("Payments.Callback.handleNotification()", err.Error())
 		}
 
-		r.Response, r.Error = c.getSubscription(&event)
-	case t == GetSubscription.TestMode() && c.getSubscriptionTest != nil:
-		var event GetSubscriptionRequest
-		if err := decoder.Decode(&event, u); err != nil {
-			return nil, internalErrors.ErrorLog("Payments.Callback.handleNotification()", err.Error())
+		if t == GetSubscription {
+			r.Response, r.Error = c.getSubscription(&event)
+		} else {
+			r.Response, r.Error = c.getSubscriptionTest(&event)
 		}
-
-		r.Response, r.Error = c.getSubscriptionTest(&event)
-	case t == OrderStatusChange && c.orderStatusChange != nil:
+	case OrderStatusChange, OrderStatusChange.TestMode():
 		var event OrderStatusChangeRequest
 		if err := decoder.Decode(&event, u); err != nil {
 			return nil, internalErrors.ErrorLog("Payments.Callback.handleNotification()", err.Error())
 		}
 
-		r.Response, r.Error = c.orderStatusChange(&event)
-	case t == OrderStatusChange.TestMode() && c.orderStatusChangeTest != nil:
-		var event OrderStatusChangeRequest
-		if err := decoder.Decode(&event, u); err != nil {
-			return nil, internalErrors.ErrorLog("Payments.Callback.handleNotification()", err.Error())
+		if t == OrderStatusChange {
+			r.Response, r.Error = c.orderStatusChange(&event)
+		} else {
+			r.Response, r.Error = c.orderStatusChange(&event)
 		}
-
-		r.Response, r.Error = c.orderStatusChangeTest(&event)
-	case t == SubscriptionStatusChange && c.subscriptionStatusChange != nil:
+	case SubscriptionStatusChange, SubscriptionStatusChange.TestMode():
 		var event SubscriptionStatusChangeRequest
 		if err := decoder.Decode(&event, u); err != nil {
 			return nil, internalErrors.ErrorLog("Payments.Callback.handleNotification()", err.Error())
 		}
 
-		r.Response, r.Error = c.subscriptionStatusChange(&event)
-	case t == SubscriptionStatusChange.TestMode() && c.subscriptionStatusChangeTest != nil:
-		var event SubscriptionStatusChangeRequest
-		if err := decoder.Decode(&event, u); err != nil {
-			return nil, internalErrors.ErrorLog("Payments.Callback.handleNotification()", err.Error())
+		if t == SubscriptionStatusChange {
+			r.Response, r.Error = c.subscriptionStatusChange(&event)
+		} else {
+			r.Response, r.Error = c.subscriptionStatusChangeTest(&event)
 		}
-
-		r.Response, r.Error = c.subscriptionStatusChangeTest(&event)
 	default:
+		logger.Log("Payments.Callback.handleNotification()", "Undefined notification type: "+string(t))
 		r.Error = &Error{
 			Code:       ErrorTypeCommonError,
 			Msg:        string(t) + " not processed",
@@ -164,7 +182,9 @@ func (c *Callback) sendResponse(w http.ResponseWriter, data *response) {
 	w.WriteHeader(http.StatusOK)
 
 	encoder := json.NewEncoder(w)
-	_ = encoder.Encode(data)
+	if err := encoder.Encode(data); err != nil {
+		logger.Log("Payments.Callback.sendResponse()", "Failed to encode response: "+err.Error())
+	}
 }
 
 func (c *Callback) Run() error {
@@ -236,12 +256,18 @@ func (c *Callback) SetHandleFunc(path string, fn func(http.ResponseWriter, *http
 // within the given time.
 //
 // Doc: https://dev.vk.com/ru/api/payments/notifications/get-item
-func (c *Callback) OnGetItem(f func(e *GetItemRequest) (*GetItemResponse, *Error), isTest bool) {
+func (c *Callback) OnGetItem(f func(e *GetItemRequest) (*GetItemResponse, *Error), isTest bool) error {
+	if f == nil {
+		return internalErrors.ErrorLog("Payments.Callback.OnGetItem()", "Invalid value function. Function is nil")
+	}
+
 	if isTest {
 		c.getItemTest = f
 	} else {
 		c.getItem = f
 	}
+
+	return nil
 }
 
 // OnOrderStatusChange
@@ -258,23 +284,35 @@ func (c *Callback) OnGetItem(f func(e *GetItemRequest) (*GetItemResponse, *Error
 // checking whether such notification was received).
 //
 // Doc: https://dev.vk.com/ru/payments/notifications/order-status-change
-func (c *Callback) OnOrderStatusChange(f func(e *OrderStatusChangeRequest) (*OrderStatusChangeResponse, *Error), isTest bool) {
+func (c *Callback) OnOrderStatusChange(f func(e *OrderStatusChangeRequest) (*OrderStatusChangeResponse, *Error), isTest bool) error {
+	if f == nil {
+		return internalErrors.ErrorLog("Payments.Callback.OnOrderStatusChange()", "Invalid value function. Function is nil")
+	}
+
 	if isTest {
 		c.orderStatusChangeTest = f
 	} else {
 		c.orderStatusChange = f
 	}
+
+	return nil
 }
 
 // OnGetSubscription is sent when a subscription dialog window is opened via application.
 //
 // Doc: https://dev.vk.com/ru/api/payments/notifications/get-subscription
-func (c *Callback) OnGetSubscription(f func(e *GetSubscriptionRequest) (*GetSubscriptionResponse, *Error), isTest bool) {
+func (c *Callback) OnGetSubscription(f func(e *GetSubscriptionRequest) (*GetSubscriptionResponse, *Error), isTest bool) error {
+	if f == nil {
+		return internalErrors.ErrorLog("Payments.Callback.OnGetSubscription()", "Invalid value function. Function is nil")
+	}
+
 	if isTest {
 		c.getSubscriptionTest = f
 	} else {
 		c.getSubscription = f
 	}
+
+	return nil
 }
 
 // OnSubscriptionStatusChange is sent the moment the subscription status
@@ -301,10 +339,16 @@ func (c *Callback) OnGetSubscription(f func(e *GetSubscriptionRequest) (*GetSubs
 // new one.
 //
 // Doc: https://dev.vk.com/ru/api/payments/notifications/subscription-status-change
-func (c *Callback) OnSubscriptionStatusChange(f func(e *SubscriptionStatusChangeRequest) (*SubscriptionStatusChangeResponse, *Error), isTest bool) {
+func (c *Callback) OnSubscriptionStatusChange(f func(e *SubscriptionStatusChangeRequest) (*SubscriptionStatusChangeResponse, *Error), isTest bool) error {
+	if f == nil {
+		return internalErrors.ErrorLog("Payments.Callback.OnSubscriptionStatusChange()", "Invalid value function. Function is nil")
+	}
+
 	if isTest {
 		c.subscriptionStatusChangeTest = f
 	} else {
 		c.subscriptionStatusChange = f
 	}
+
+	return nil
 }

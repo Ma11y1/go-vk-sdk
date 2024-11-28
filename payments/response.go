@@ -1,10 +1,8 @@
 package payments
 
-import internalErrors "go-vk-sdk/errors"
-
 type response struct {
-	Response interface{}                   `json:"response,omitempty"`
-	Error    *internalErrors.PaymentsError `json:"error,omitempty"`
+	Response interface{} `json:"response,omitempty"`
+	Error    *Error      `json:"error,omitempty"`
 }
 
 type GetItemResponse struct {
