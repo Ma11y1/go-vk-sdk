@@ -9,6 +9,9 @@ import (
 )
 
 // Doc: https://dev.vk.com/ru/method/market
+//
+// Doc2: https://dev.vk.com/ru/api/market/getting-started
+
 // MarketAddRequest defines the request for market.add
 //
 // Adds a new product.
