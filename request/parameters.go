@@ -1,7 +1,7 @@
 package request
 
 import (
-	"errors"
+	internalError "go-vk-sdk/errors"
 	"net/url"
 	"sync"
 )
@@ -53,7 +53,7 @@ func NewBaseRequestParametersArr(arr []string) *BaseParameters {
 
 func (p *BaseParameters) Set(key, value string) error {
 	if key == "" {
-		return errors.New("BaseParameters.Set(): empty key")
+		return internalError.Error("Request.BaseParameters.Set()", "empty key")
 	}
 
 	p.mtx.Lock()
@@ -74,7 +74,7 @@ func (p *BaseParameters) SetIfNotEmpty(key, value string) error {
 
 func (p *BaseParameters) SetMap(m map[string]string) error {
 	if m == nil {
-		return errors.New("BaseParameters.SetMap(): map is nil")
+		return internalError.Error("Request.BaseParameters.SetMap()", "empty map")
 	}
 
 	p.mtx.Lock()
@@ -92,7 +92,7 @@ func (p *BaseParameters) SetMap(m map[string]string) error {
 // SetArr [key, value, key, value...]
 func (p *BaseParameters) SetArr(pairs []string) error {
 	if len(pairs) == 0 || len(pairs)%2 != 0 {
-		return errors.New("BaseParameters.SetArr(): pairs length must be even")
+		return internalError.Error("Request.BaseParameters.SetArr()", "pairs length must be even")
 	}
 
 	p.mtx.Lock()

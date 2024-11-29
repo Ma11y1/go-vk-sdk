@@ -14,7 +14,7 @@ type ExtraFieldsMessages struct {
 	AdditionalData AdditionalData
 }
 
-func (e *ExtraFieldsMessages) init(i []interface{}) error {
+func (e *ExtraFieldsMessages) init(i []interface{}) {
 	length := len(i)
 
 	if length > 3 {
@@ -46,8 +46,6 @@ func (e *ExtraFieldsMessages) init(i []interface{}) error {
 			e.Attachments = v
 		}
 	}
-
-	return nil
 }
 
 type Attachments map[string]interface{}

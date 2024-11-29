@@ -28,8 +28,9 @@ type BaseCallbackServer struct {
 
 func NewBaseCallbackServer(url *url.URL) *BaseCallbackServer {
 	if url == nil || url.Host == "" {
-		panic(internalErrors.ErrorLog("BaseCallbackServer.NewBaseCallbackServer()", "Invalid URL"))
+		panic(internalErrors.ErrorLog("Transport.BaseCallbackServer.NewBaseCallbackServer()", "Invalid URL"))
 	}
+
 	return &BaseCallbackServer{
 		server: &http.Server{
 			Addr: url.Host,
@@ -42,18 +43,18 @@ func NewBaseCallbackServer(url *url.URL) *BaseCallbackServer {
 
 func (s *BaseCallbackServer) Run() error {
 	if s.isRunning {
-		return internalErrors.ErrorLog("BaseCallbackServer.Run()", "Server already running")
+		return internalErrors.ErrorLog("Transport.BaseCallbackServer.Run()", "Server already running")
 	}
 
 	s.isRunning = true
 	go func() {
 		if s.handler == nil {
-			logger.Log("BaseCallbackServer.Run()", "Handler is undefined at url: "+s.url.String())
+			logger.Log("Transport.BaseCallbackServer.Run()", "Handler is undefined at url: "+s.url.String())
 		}
 
 		err := s.server.ListenAndServe()
 		if err != nil && !errors.Is(err, http.ErrServerClosed) {
-			logger.Log("BaseCallbackServer.Run()", "Error listen and serve server: "+err.Error())
+			logger.Log("Transport.BaseCallbackServer.Run()", "Error listen and serve server: "+err.Error())
 			s.isRunning = false
 			return
 		}
@@ -64,14 +65,14 @@ func (s *BaseCallbackServer) Run() error {
 
 func (s *BaseCallbackServer) Stop(ctx context.Context) error {
 	if !s.isRunning {
-		return internalErrors.ErrorLog("BaseCallbackServer.Stop()", "Server is not running")
+		return internalErrors.ErrorLog("Transport.BaseCallbackServer.Stop()", "Server is not running")
 	}
 
 	s.isRunning = false
 
 	err := s.server.Shutdown(ctx)
 	if err != nil {
-		return internalErrors.ErrorLog("BaseCallbackServer.Stop()", "Server stop error: "+err.Error())
+		return internalErrors.ErrorLog("Transport.BaseCallbackServer.Stop()", "Server stop error: "+err.Error())
 	}
 
 	s.server = &http.Server{
@@ -88,7 +89,7 @@ func (s *BaseCallbackServer) GetURL() *url.URL {
 
 func (s *BaseCallbackServer) SetURL(url url.URL) error {
 	if s.isRunning {
-		return internalErrors.ErrorLog("BaseCallbackServer.SetURL()", "Cannot change url while server is running")
+		return internalErrors.ErrorLog("Transport.BaseCallbackServer.SetURL()", "Cannot change url while server is running")
 	}
 
 	s.url = &url
@@ -99,15 +100,15 @@ func (s *BaseCallbackServer) SetURL(url url.URL) error {
 
 func (s *BaseCallbackServer) SetHandler(path string, handler http.Handler) error {
 	if s.isRunning {
-		return internalErrors.ErrorLog("BaseCallbackServer.SetHandler()", "Cannot change handler while server is running")
+		return internalErrors.ErrorLog("Transport.BaseCallbackServer.SetHandler()", "Cannot change handler while server is running")
 	}
 
 	if path == "" {
-		return internalErrors.ErrorLog("BaseCallbackServer.SetHandler()", "invalid value path")
+		return internalErrors.ErrorLog("Transport.BaseCallbackServer.SetHandler()", "invalid value path")
 	}
 
 	if path[0] != '/' {
-		return internalErrors.ErrorLog("BaseCallbackServer.SetHandler()", "The first character of the path must be '/': "+path)
+		return internalErrors.ErrorLog("Transport.BaseCallbackServer.SetHandler()", "The first character of the path must be '/': "+path)
 	}
 
 	s.url.Path = path
@@ -122,15 +123,15 @@ func (s *BaseCallbackServer) SetHandler(path string, handler http.Handler) error
 
 func (s *BaseCallbackServer) SetHandleFunc(path string, fn func(http.ResponseWriter, *http.Request)) error {
 	if s.isRunning {
-		return internalErrors.ErrorLog("BaseCallbackServer.SetHandler()", "Cannot change handler while server is running")
+		return internalErrors.ErrorLog("Transport.BaseCallbackServer.SetHandler()", "Cannot change handler while server is running")
 	}
 
 	if path == "" {
-		return internalErrors.ErrorLog("BaseCallbackServer.SetHandleFunc()", "invalid value path")
+		return internalErrors.ErrorLog("Transport.BaseCallbackServer.SetHandleFunc()", "invalid value path")
 	}
 
 	if path[0] != '/' {
-		return internalErrors.ErrorLog("BaseCallbackServer.SetHandleFunc()", "The first character of the path must be '/': "+path)
+		return internalErrors.ErrorLog("Transport.BaseCallbackServer.SetHandleFunc()", "The first character of the path must be '/': "+path)
 	}
 
 	s.url.Path = path

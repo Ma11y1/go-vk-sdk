@@ -4,8 +4,8 @@ import (
 	"compress/gzip"
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
+	internalErrors "go-vk-sdk/errors"
 	"io"
 	"net"
 	"net/http"
@@ -89,7 +89,7 @@ func NewHTTPClientParameters(p *HTTPClientParameters) *HTTPClient {
 
 func (c *HTTPClient) request(ctx context.Context, req *http.Request) (*http.Response, error) {
 	if c.isClose {
-		return nil, errors.New("HttpClient.request(): client is already closed\n")
+		return nil, internalErrors.ErrorLog("Transport.HttpClient.request()", "client is already closed")
 	}
 
 	req.Header.Set("User-Agent", c.userAgent)
@@ -100,7 +100,7 @@ func (c *HTTPClient) request(ctx context.Context, req *http.Request) (*http.Resp
 
 	for i := 0; i < c.attemptsRequest; i++ {
 		if ctx.Err() != nil {
-			return nil, fmt.Errorf("HttpClient.request(): close context %s\n", ctx.Err())
+			return nil, internalErrors.ErrorLog("Transport.HttpClient.request()", "close context "+ctx.Err().Error())
 		}
 
 		resp, err = c.Do(req)
@@ -111,7 +111,7 @@ func (c *HTTPClient) request(ctx context.Context, req *http.Request) (*http.Resp
 
 		if resp.StatusCode >= 500 {
 			resp.Body.Close()
-			err = fmt.Errorf("HttpClient.request(): unexpected status code %d\n", resp.StatusCode)
+			err = internalErrors.ErrorLog("Transport.HttpClient.request()", fmt.Sprintf("unexpected status code %d\n", resp.StatusCode))
 			time.Sleep(c.attemptTimeout)
 			continue
 		}
@@ -120,7 +120,7 @@ func (c *HTTPClient) request(ctx context.Context, req *http.Request) (*http.Resp
 			gzipReader, err := gzip.NewReader(resp.Body)
 			if err != nil {
 				resp.Body.Close()
-				return nil, fmt.Errorf("HttpClient.request(): error decompressing data %s\n", err)
+				return nil, internalErrors.ErrorLog("Transport.HttpClient.request()", "error decompressing data "+err.Error())
 			}
 
 			// Original body objects is replaced with a custom ReadCloser,
@@ -138,7 +138,7 @@ func (c *HTTPClient) request(ctx context.Context, req *http.Request) (*http.Resp
 func (c *HTTPClient) Get(ctx context.Context, url string, header *http.Header) (*http.Response, error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
-		return nil, fmt.Errorf("HttpClient.Get(): error create HTTP request with context %s\n", err)
+		return nil, internalErrors.ErrorLog("Transport.HttpClient.Get()", "error create HTTP request with context "+err.Error())
 	}
 
 	if header != nil {
@@ -151,7 +151,7 @@ func (c *HTTPClient) Get(ctx context.Context, url string, header *http.Header) (
 func (c *HTTPClient) GetDecodeJSON(ctx context.Context, url string, target interface{}, header *http.Header) (*http.Response, error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
-		return nil, fmt.Errorf("HttpClient.GetDecodeJSON(): error create HTTP request with context %s\n", err)
+		return nil, internalErrors.ErrorLog("Transport.HttpClient.GetDecodeJSON()", "error create HTTP request with context "+err.Error())
 	}
 
 	if header != nil {
@@ -166,7 +166,7 @@ func (c *HTTPClient) GetDecodeJSON(ctx context.Context, url string, target inter
 
 	err = json.NewDecoder(res.Body).Decode(target)
 	if err != nil {
-		return res, fmt.Errorf("HttpClient.GetDecodeJSON(): error decoding JSON %s\n", err)
+		return res, internalErrors.ErrorLog("Transport.HttpClient.GetDecodeJSON()", "error decoding JSON "+err.Error())
 	}
 
 	return res, err
@@ -175,7 +175,7 @@ func (c *HTTPClient) GetDecodeJSON(ctx context.Context, url string, target inter
 func (c *HTTPClient) Post(ctx context.Context, url string, body io.Reader, header *http.Header) (*http.Response, error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, body)
 	if err != nil {
-		return nil, fmt.Errorf("HttpClient.Post(): error create HTTP request with context %s\n", err)
+		return nil, internalErrors.ErrorLog("Transport.HttpClient.Post()", "error create HTTP request with context "+err.Error())
 	}
 
 	if header != nil {
@@ -188,7 +188,7 @@ func (c *HTTPClient) Post(ctx context.Context, url string, body io.Reader, heade
 func (c *HTTPClient) PostDecodeJSON(ctx context.Context, url string, body io.Reader, target interface{}, header *http.Header) (*http.Response, error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, body)
 	if err != nil {
-		return nil, fmt.Errorf("HttpClient.PostDecodeJSON(): error create HTTP request with context %s\n", err)
+		return nil, internalErrors.ErrorLog("Transport.HttpClient.PostDecodeJSON()", "error create HTTP request with context "+err.Error())
 	}
 
 	if header != nil {
@@ -203,7 +203,7 @@ func (c *HTTPClient) PostDecodeJSON(ctx context.Context, url string, body io.Rea
 
 	err = json.NewDecoder(res.Body).Decode(target)
 	if err != nil {
-		return res, fmt.Errorf("HttpClient.PostDecodeJSON(): error decoding JSON %s\n", err)
+		return res, internalErrors.ErrorLog("Transport.HttpClient.PostDecodeJSON()", "error decoding JSON "+err.Error())
 	}
 
 	return res, err
@@ -227,7 +227,7 @@ func (c *HTTPClient) SetAttemptTimeout(t time.Duration) {
 
 func (c *HTTPClient) Close() error {
 	if c.isClose {
-		return errors.New("HttpClient.Close(): client is already closed\n")
+		return internalErrors.ErrorLog("Transport.HttpClient.PostDecodeJSON()", "client is already closed")
 	}
 	c.mtx.Lock()
 	defer c.mtx.Unlock()

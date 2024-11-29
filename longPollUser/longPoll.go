@@ -2,10 +2,11 @@ package longPollUser
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"go-vk-sdk/actor"
 	"go-vk-sdk/api"
+	internalErrors "go-vk-sdk/errors"
+	"go-vk-sdk/logger"
 	"go-vk-sdk/request"
 	"sync/atomic"
 )
@@ -66,7 +67,7 @@ func (l *LongPoll) UpdateServer(isUpdateTs bool) error {
 	}
 
 	if serverSettings.Response.Key == "" {
-		return errors.New("LongPoll.UpdateServer(): response server settings is empty")
+		return internalErrors.ErrorLog("LongPollUser.LongPoll.UpdateServer()", "Response server settings is empty")
 	}
 
 	l.key = serverSettings.Response.Key
@@ -86,14 +87,16 @@ func (l *LongPoll) UpdateServer(isUpdateTs bool) error {
 
 func (l *LongPoll) Run(ctx context.Context) error {
 	if l.url == "" || l.key == "" {
-		return errors.New("LongPoll.Run(): server is undefined")
+		return internalErrors.ErrorLog("LongPollUser.LongPoll.Run()", "Server is undefined")
 	}
 
 	if !atomic.CompareAndSwapInt32(&l.isRunning, 0, 1) {
-		return fmt.Errorf("LongPoll.Run(): long poll user is already running")
+		return internalErrors.ErrorLog("LongPollUser.LongPoll.Run()", "Long poll user is already running")
 	}
 
 	defer atomic.StoreInt32(&l.isRunning, 0)
+
+	logger.Log("LongPollGroup.LongPoll.Run()", "Long poll user server is running at url "+l.url)
 
 	for atomic.LoadInt32(&l.isRunning) == 1 {
 		select {
@@ -104,7 +107,8 @@ func (l *LongPoll) Run(ctx context.Context) error {
 		default:
 			resp, err := l.req.Exec(context.Background())
 			if err != nil {
-				return err // TODO complete error handling so as not to complete verification cycle
+				logger.Log("LongPollUser.LongPoll.Run()", err.Error())
+				continue
 			}
 
 			switch FailedType(resp.Failed) {
@@ -120,19 +124,23 @@ func (l *LongPoll) Run(ctx context.Context) error {
 				err = &FailedError{Code: resp.Failed}
 			}
 			if err != nil {
-				return err // TODO complete error handling so as not to complete verification cycle
+				logger.Log("LongPollUser.LongPoll.Run()", err.Error())
+				continue
 			}
 
 			for _, data := range resp.Updates {
 				event, err := newEventUpdate(data, l.mode)
 				if err != nil {
-					return err // TODO complete error handling so as not to complete verification cycle
+					logger.Log("LongPollUser.LongPoll.Run()", err.Error())
+					continue
 				}
 
 				l.chanUpdate <- event
 			}
 		}
 	}
+
+	logger.Log("LongPollGroup.LongPoll.Run()", "Long poll user server is stopped at url "+l.url)
 
 	return nil
 }
@@ -148,7 +156,7 @@ func (l *LongPoll) Updates() chan *EventUpdate {
 
 func (l *LongPoll) SetServer(server *Server) error {
 	if server == nil || server.URL == "" || server.Key == "" {
-		return fmt.Errorf("LongPoll.SetServer(): invalid server configuration %+v\n", server)
+		return internalErrors.ErrorLog("LongPollUser.LongPoll.SetServer()", fmt.Sprintf("Invalid server configuration %+v", server))
 	}
 
 	l.url = server.URL
@@ -170,7 +178,7 @@ func (l *LongPoll) SetMode(mode ExtraOptionsMode) {
 // SetWait wait > 0 and < 90
 func (l *LongPoll) SetWait(wait int) error {
 	if wait <= 0 || wait > 90 {
-		return fmt.Errorf("LongPoll.SetWait(): invalid wait time: %d, must be between 1 and 90", wait)
+		return internalErrors.ErrorLog("LongPollUser.LongPoll.SetWait()", fmt.Sprintf("Invalid wait time: %d, must be between 1 and 90", wait))
 	}
 
 	l.wait = wait

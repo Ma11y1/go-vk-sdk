@@ -1,7 +1,7 @@
 package api
 
 import (
-	"go-vk-sdk/logger"
+	internalError "go-vk-sdk/errors"
 	"go-vk-sdk/transport"
 )
 
@@ -25,10 +25,9 @@ func NewAPI() *API {
 	return api
 }
 
-func (a *API) SetHostMethodEndpoint(host string) {
+func (a *API) SetHostMethodEndpoint(host string) error {
 	if host == "" {
-		logger.Log("API.SetHostMethodEndpoint", "empty host value")
-		return
+		return internalError.Error("API.SetHostMethodEndpoint()", "empty host value "+host)
 	}
 
 	if host[len(host)-1] == '/' {
@@ -36,16 +35,19 @@ func (a *API) SetHostMethodEndpoint(host string) {
 	} else {
 		a.MethodEndpoint = "https://" + host + "/method"
 	}
+
+	return nil
 }
 
-func (a *API) SetHostAuthEndpoint(host string) {
+func (a *API) SetHostAuthEndpoint(host string) error {
 	if host == "" {
-		logger.Log("API.SetHostAuthEndpoint", "empty host value")
-		return
+		return internalError.Error("API.SetHostAuthEndpoint()", "empty host value "+host)
 	}
 
 	a.MethodEndpoint = "https://" + host
 	if a.MethodEndpoint[len(a.MethodEndpoint)-1] != '/' {
 		a.MethodEndpoint += "/"
 	}
+
+	return nil
 }

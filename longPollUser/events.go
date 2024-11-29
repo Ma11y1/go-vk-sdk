@@ -1,6 +1,7 @@
 package longPollUser
 
 import (
+	internalErrors "go-vk-sdk/errors"
 	"time"
 )
 
@@ -49,7 +50,7 @@ type EventUpdate struct {
 func newEventUpdate(data []interface{}, mode ExtraOptionsMode) (*EventUpdate, error) {
 	event, err := newEvent(data, mode)
 	if err != nil {
-		return nil, err
+		return nil, internalErrors.ErrorLog("LongPollUser.Events.NewEventUpdate()", err.Error())
 	}
 
 	return &EventUpdate{
@@ -117,9 +118,16 @@ func newEvent(data []interface{}, mode ExtraOptionsMode) (Event, error) {
 			e := &EventNotificationSettingsChange{}
 			if mode&ExtraOptionsModeExtendedEvents != 0 {
 				err := e.initMode8(data)
+				if err != nil {
+					err = internalErrors.ErrorLog("LongPollUser.Events.NewEvent()", err.Error())
+				}
 				return e, err
+
 			} else {
 				err := e.init(data)
+				if err != nil {
+					err = internalErrors.ErrorLog("LongPollUser.Events.NewEvent()", err.Error())
+				}
 				return e, err
 			}
 		}
@@ -143,7 +151,7 @@ func (e *EventMessageFlagsReplace) EventType() EventType {
 
 func (e *EventMessageFlagsReplace) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &TooShortEventArrayError{Action: "EventMessageFlagsReplace", Least: 3, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventMessageFlagsReplace.init()", (&TooShortEventArrayError{Action: "EventMessageFlagsReplace", Least: 3, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -154,7 +162,9 @@ func (e *EventMessageFlagsReplace) init(i []interface{}) error {
 		e.Flags = MessageFlag(int(v))
 	}
 
-	return e.ExtraFieldsMessages.init(i)
+	e.ExtraFieldsMessages.init(i)
+
+	return nil
 }
 
 // EventMessageFlagsSet Code = 2
@@ -170,7 +180,7 @@ func (e *EventMessageFlagsSet) EventType() EventType {
 
 func (e *EventMessageFlagsSet) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &TooShortEventArrayError{Action: "EventMessageFlagsSet", Least: 3, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventMessageFlagsSet.init()", (&TooShortEventArrayError{Action: "EventMessageFlagsSet", Least: 3, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -181,7 +191,9 @@ func (e *EventMessageFlagsSet) init(i []interface{}) error {
 		e.Mask = MessageFlag(int(v))
 	}
 
-	return e.ExtraFieldsMessages.init(i)
+	e.ExtraFieldsMessages.init(i)
+
+	return nil
 }
 
 // EventMessageFlagsReset Code = 3
@@ -197,7 +209,7 @@ func (e *EventMessageFlagsReset) EventType() EventType {
 
 func (e *EventMessageFlagsReset) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &TooShortEventArrayError{Action: "EventMessageFlagsReset", Least: 3, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventMessageFlagsReset.init()", (&TooShortEventArrayError{Action: "EventMessageFlagsReset", Least: 3, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -208,7 +220,9 @@ func (e *EventMessageFlagsReset) init(i []interface{}) error {
 		e.Mask = MessageFlag(int(v))
 	}
 
-	return e.ExtraFieldsMessages.init(i)
+	e.ExtraFieldsMessages.init(i)
+
+	return nil
 }
 
 // EventMessageNew Code = 4
@@ -224,7 +238,7 @@ func (e *EventMessageNew) EventType() EventType {
 
 func (e *EventMessageNew) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &TooShortEventArrayError{Action: "EventMessageNew", Least: 3, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventMessageNew.init()", (&TooShortEventArrayError{Action: "EventMessageNew", Least: 3, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -235,7 +249,9 @@ func (e *EventMessageNew) init(i []interface{}) error {
 		e.Flags = MessageFlag(int(v))
 	}
 
-	return e.ExtraFieldsMessages.init(i)
+	e.ExtraFieldsMessages.init(i)
+
+	return nil
 }
 
 // EventMessageEdit Code = 5
@@ -255,7 +271,7 @@ func (e *EventMessageEdit) EventType() EventType {
 
 func (e *EventMessageEdit) init(i []interface{}) error {
 	if len(i) < 6 {
-		return &TooShortEventArrayError{Action: "EventMessageEdit", Least: 6, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventMessageEdit.init()", (&TooShortEventArrayError{Action: "EventMessageEdit", Least: 6, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -305,7 +321,7 @@ func (e *EventMessagesIncomingRead) EventType() EventType {
 
 func (e *EventMessagesIncomingRead) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &TooShortEventArrayError{Action: "EventMessagesIncomingRead", Least: 3, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventMessagesIncomingRead.init()", (&TooShortEventArrayError{Action: "EventMessagesIncomingRead", Least: 3, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -331,7 +347,7 @@ func (e *EventMessagesOutgoingRead) EventType() EventType {
 
 func (e *EventMessagesOutgoingRead) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &TooShortEventArrayError{Action: "EventMessagesOutgoingRead", Least: 3, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventMessagesOutgoingRead.init()", (&TooShortEventArrayError{Action: "EventMessagesOutgoingRead", Least: 3, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -359,7 +375,7 @@ func (e *EventFriendOnline) EventType() EventType {
 
 func (e *EventFriendOnline) init(i []interface{}) error {
 	if len(i) < 4 {
-		return &TooShortEventArrayError{Action: "EventFriendOnline", Least: 4, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventFriendOnline.init()", (&TooShortEventArrayError{Action: "EventFriendOnline", Least: 4, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -394,7 +410,7 @@ func (e *EventFriendOffline) EventType() EventType {
 
 func (e *EventFriendOffline) init(i []interface{}) error {
 	if len(i) < 4 {
-		return &TooShortEventArrayError{Action: "EventFriendOffline", Least: 4, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventFriendOffline.init()", (&TooShortEventArrayError{Action: "EventFriendOffline", Least: 4, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -424,7 +440,7 @@ func (e *EventDialogFlagsReset) EventType() EventType {
 
 func (e *EventDialogFlagsReset) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &TooShortEventArrayError{Action: "EventDialogFlagsReset", Least: 3, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventDialogFlagsReset.init()", (&TooShortEventArrayError{Action: "EventDialogFlagsReset", Least: 3, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -450,7 +466,7 @@ func (e *EventDialogFlagsReplace) EventType() EventType {
 
 func (e *EventDialogFlagsReplace) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &TooShortEventArrayError{Action: "EventDialogFlagsReplace", Least: 3, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventDialogFlagsReplace.init()", (&TooShortEventArrayError{Action: "EventDialogFlagsReplace", Least: 3, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -476,7 +492,7 @@ func (e *EventDialogsFlagsSet) EventType() EventType {
 
 func (e *EventDialogsFlagsSet) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &TooShortEventArrayError{Action: "EventDialogsFlagsSet", Least: 3, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventDialogsFlagsSet.init()", (&TooShortEventArrayError{Action: "EventDialogsFlagsSet", Least: 3, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -502,7 +518,7 @@ func (e *EventMessagesDelete) EventType() EventType {
 
 func (e *EventMessagesDelete) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &TooShortEventArrayError{Action: "EventMessagesDelete", Least: 3, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventMessagesDelete.init()", (&TooShortEventArrayError{Action: "EventMessagesDelete", Least: 3, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -528,7 +544,7 @@ func (e *EventMessagesRestore) EventType() EventType {
 
 func (e *EventMessagesRestore) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &TooShortEventArrayError{Action: "EventMessagesRestore", Least: 3, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventMessagesRestore.init()", (&TooShortEventArrayError{Action: "EventMessagesRestore", Least: 3, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -554,7 +570,7 @@ func (e *EventMajorIDChange) EventType() EventType {
 
 func (e *EventMajorIDChange) init(i []interface{}) error {
 	if len(i) < 2 {
-		return &TooShortEventArrayError{Action: "EventMajorIDChange", Least: 2, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventMajorIDChange.init()", (&TooShortEventArrayError{Action: "EventMajorIDChange", Least: 2, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -580,7 +596,7 @@ func (e *EventMinorIDChange) EventType() EventType {
 
 func (e *EventMinorIDChange) init(i []interface{}) error {
 	if len(i) < 2 {
-		return &TooShortEventArrayError{Action: "EventMinorIDChange", Least: 2, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventMinorIDChange.init()", (&TooShortEventArrayError{Action: "EventMinorIDChange", Least: 2, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -609,7 +625,7 @@ func (e *EventChatParametersChange) EventType() EventType {
 
 func (e *EventChatParametersChange) init(i []interface{}) error {
 	if len(i) < 2 {
-		return &TooShortEventArrayError{Action: "EventChatParametersChange", Least: 2, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventChatParametersChange.init()", (&TooShortEventArrayError{Action: "EventChatParametersChange", Least: 2, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -638,7 +654,7 @@ func (e *EventChatInfoChange) EventType() EventType {
 
 func (e *EventChatInfoChange) init(i []interface{}) error {
 	if len(i) < 4 {
-		return &TooShortEventArrayError{Action: "EventChatInfoChange", Least: 4, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventChatInfoChange.init()", (&TooShortEventArrayError{Action: "EventChatInfoChange", Least: 2, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -668,7 +684,7 @@ func (e *EventUserTypingDialog) EventType() EventType {
 
 func (e *EventUserTypingDialog) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &TooShortEventArrayError{Action: "EventUserTypingDialog", Least: 3, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventUserTypingDialog.init()", (&TooShortEventArrayError{Action: "EventUserTypingDialog", Least: 3, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -694,7 +710,7 @@ func (e *EventUserTypingChat) EventType() EventType {
 
 func (e *EventUserTypingChat) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &TooShortEventArrayError{Action: "EventUserTypingChat", Least: 3, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventUserTypingChat.init()", (&TooShortEventArrayError{Action: "EventUserTypingChat", Least: 3, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -722,7 +738,7 @@ func (e *EventUsersTypingChat) EventType() EventType {
 
 func (e *EventUsersTypingChat) init(i []interface{}) error {
 	if len(i) < 5 {
-		return &TooShortEventArrayError{Action: "EventUsersTypingChat", Least: 5, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventUsersTypingChat.init()", (&TooShortEventArrayError{Action: "EventUsersTypingChat", Least: 3, Got: len(i)}).Error())
 	}
 
 	userIDs, err := interfaceToIDSlice(i[1])
@@ -761,7 +777,7 @@ func (e *EventUsersRecordingAudioMessage) EventType() EventType {
 
 func (e *EventUsersRecordingAudioMessage) init(i []interface{}) error {
 	if len(i) < 5 {
-		return &TooShortEventArrayError{Action: "EventUsersRecordingAudioMessage", Least: 5, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventUsersRecordingAudioMessage.init()", (&TooShortEventArrayError{Action: "EventUsersRecordingAudioMessage", Least: 5, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -798,7 +814,7 @@ func (e *EventUserCall) EventType() EventType {
 
 func (e *EventUserCall) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &TooShortEventArrayError{Action: "EventUserCall", Least: 3, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventUserCall.init()", (&TooShortEventArrayError{Action: "EventUserCall", Least: 3, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -823,7 +839,7 @@ func (e *EventMenuCounterChange) EventType() EventType {
 
 func (e *EventMenuCounterChange) init(i []interface{}) error {
 	if len(i) < 2 {
-		return &TooShortEventArrayError{Action: "EventMenuCounterChange", Least: 2, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventMenuCounterChange.init()", (&TooShortEventArrayError{Action: "EventMenuCounterChange", Least: 2, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {
@@ -847,7 +863,7 @@ func (e *EventNotificationSettingsChange) EventType() EventType {
 // initMode8 should be called if ExtendedEvents flag set.
 func (e *EventNotificationSettingsChange) initMode8(i []interface{}) error {
 	if len(i) < 2 {
-		return &TooShortEventArrayError{Action: "EventNotificationSettingsChange", Least: 2, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventNotificationSettingsChange.initMode8()", (&TooShortEventArrayError{Action: "EventNotificationSettingsChange", Least: 2, Got: len(i)}).Error())
 	}
 
 	v, err := interfaceToStringIntMap(i[1])
@@ -864,7 +880,7 @@ func (e *EventNotificationSettingsChange) initMode8(i []interface{}) error {
 
 func (e *EventNotificationSettingsChange) init(i []interface{}) error {
 	if len(i) < 3 {
-		return &TooShortEventArrayError{Action: "EventNotificationSettingsChange", Least: 3, Got: len(i)}
+		return internalErrors.ErrorLog("LongPollUser.EventNotificationSettingsChange.init()", (&TooShortEventArrayError{Action: "EventNotificationSettingsChange", Least: 3, Got: len(i)}).Error())
 	}
 
 	if v, ok := i[1].(float64); ok {

@@ -6,6 +6,7 @@ import (
 	"go-vk-sdk/actor"
 	"go-vk-sdk/api"
 	"go-vk-sdk/constants"
+	internalErrors "go-vk-sdk/errors"
 	"go-vk-sdk/transport"
 	"io"
 	"net/http"
@@ -101,7 +102,7 @@ func (r *BaseRequest) Get(ctx context.Context) (*http.Response, error) {
 
 	resp, err := r.transport.Get(ctx, u, r.header)
 	if err != nil {
-		return nil, err
+		return nil, internalErrors.ErrorLog("Request.Get()", "Error GET request "+u+": "+err.Error())
 	}
 
 	return resp, nil
@@ -120,22 +121,35 @@ func (r *BaseRequest) GetUnmarshal(ctx context.Context, target interface{}) erro
 
 	httpResponse, err := r.transport.GetDecodeJSON(ctx, u, target, r.header)
 	if err != nil {
-		return err
+		return internalErrors.ErrorLog("Request.GetUnmarshal()", "Error GET and unmarshal JSON request "+u+": "+err.Error())
 	}
 	defer httpResponse.Body.Close() // default http client api closes the response body itself
+
 	return nil
 }
 
 func (r *BaseRequest) Post(ctx context.Context) (*http.Response, error) {
 	r.mtx.RLock()
 	defer r.mtx.RUnlock()
-	return r.transport.Post(ctx, r.url, bytes.NewBufferString(r.parameters.BuildURLValuesEncode()), r.header)
+
+	resp, err := r.transport.Post(ctx, r.url, bytes.NewBufferString(r.parameters.BuildURLValuesEncode()), r.header)
+	if err != nil {
+		return nil, internalErrors.ErrorLog("Request.Post()", "Error POST request "+r.url+": "+err.Error())
+	}
+
+	return resp, nil
 }
 
 func (r *BaseRequest) PostData(ctx context.Context, data io.Reader) (*http.Response, error) {
 	r.mtx.RLock()
 	defer r.mtx.RUnlock()
-	return r.transport.Post(ctx, r.url, data, r.header)
+
+	resp, err := r.transport.Post(ctx, r.url, data, r.header)
+	if err != nil {
+		return nil, internalErrors.ErrorLog("Request.PostData()", "Error POST request "+r.url+": "+err.Error())
+	}
+
+	return resp, nil
 }
 
 func (r *BaseRequest) PostUnmarshal(ctx context.Context, target interface{}) error {
@@ -150,9 +164,10 @@ func (r *BaseRequest) PostUnmarshal(ctx context.Context, target interface{}) err
 		r.header,
 	)
 	if err != nil {
-		return err
+		return internalErrors.ErrorLog("Request.PostUnmarshal()", "Error POST and unmarshal JSON request "+r.url+": "+err.Error())
 	}
 	defer httpResponse.Body.Close() // default http client api closes the response body itself
+
 	return nil
 }
 
